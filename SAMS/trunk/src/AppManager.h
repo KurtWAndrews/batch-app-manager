@@ -1,6 +1,7 @@
 /**
  * @file AppManager.h
  * @brief AppManager declaration
+ * @author Kurt Andrews & Brian Royer
  */
 
 #ifndef APPMANAGER_H_
