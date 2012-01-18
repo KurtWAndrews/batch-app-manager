@@ -1,12 +1,9 @@
-#summary One-sentence summary of this page.
+#SAMS Model
 
 = Introduction =
 
+This page documents the SAMS Model each of the diagrams in the model can be viewed by clicking the links below.
+
+= Diagrams =
+
 [http://batch-app-manager.googlecode.com/svn/SAMS/wiki/SAMSModel.html SAMS Class Diagram]
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
