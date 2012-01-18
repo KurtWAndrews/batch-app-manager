@@ -2,8 +2,7 @@
 
 = Introduction =
 
-Add your content here.
-
+[http://batch-app-manager.googlecode.com/svn/SAMS/wiki/SAMSModel.html SAMS Class Diagram]
 
 = Details =
 
