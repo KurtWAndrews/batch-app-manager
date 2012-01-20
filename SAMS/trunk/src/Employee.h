@@ -1,31 +1,20 @@
-//
-//  File:         Employee.h
-//
-//  Author:       Brian Royer, Kurt Andrews
-//
-//  Description:  Employee class definition
-//
-//***************************************************************************
-//
-// Define statements
-//
-//***************************************************************************
+/**
+ * @file Employee.h
+ * @brief Employee class definition
+ * @author Brian Royer
+ * @author Kurt Andrews
+ */
+
 #ifndef EMPLOYEE_H
 #define	EMPLOYEE_H
-//***************************************************************************
-//
-// Include files
-//
-//***************************************************************************
+
 #include <string>
 #include <iostream>
 #include <fstream>
 
-//***************************************************************************
-//
-// Employee class definition
-//
-//***************************************************************************
+/**
+ * Employee Class Definition
+ */
 class Employee
 {
 private:
@@ -34,14 +23,17 @@ private:
   std::string lastName;
   std::string prefName;
   std::string emailAddress;
+  bool isFullTime;
 
 public:
 	Employee(const std::string & _id = "",
 	         const std::string & _firstName = "",
 	         const std::string & _lastName = "",
 	         const std::string & _preferredName = "",
-	         const std::string & _email = "");
+	         const std::string & _email = "",
+           const bool & _isFullTime = false);
 	~Employee();
+  void clearAttributes();
 	void setEmployeeId(const std::string & _id);
 	std::string getEmployeeId() const;
 	void setFirstName(const std::string & _firstName);
@@ -52,108 +44,111 @@ public:
 	std::string getPrefName() const;
 	void setEmailAddress(const std::string & _email);
 	std::string getEmailAddress() const;
+  void setIsFullTime(const bool _isFullTime);
+  bool getIsFullTime() const;
 	void populate();
 	void display() const;
 };
-//***************************************************************************
-//
-// Global function declaration to overload the << operator
-//
-//***************************************************************************
+
+/**
+ * Overload output operation for employee object
+ */
 std::ostream & operator << (std::ostream & os, const Employee & emp);
 
-//***************************************************************************
-//
-// Sets the value of Employee id
-//
-//***************************************************************************
-
+/**
+ * Inline set method for employee id
+ */
 inline void Employee::setEmployeeId(const std::string & _id)
 {
 	employeeId = _id;
 }
 
-//***************************************************************************
-//
-// Gets the value of Employee id
-//
-//***************************************************************************
+/**
+ * Inline get method for employee id
+ */
 inline std::string Employee::getEmployeeId()const
 {
 	return employeeId;
 }
-//***************************************************************************
-//
-// Sets the value of Employee first name
-//
-//***************************************************************************
+
+/**
+ * Inline set method for employee first name
+ */
 inline void Employee::setFirstName(const std::string & _firstName)
 {
 	firstName = _firstName;
 }
-//***************************************************************************
-//
-// Gets the value of Employee first name
-//
-//***************************************************************************
+
+/**
+ * Inline get method for employee first name
+ */
 inline std::string Employee::getFirstName()const
 {
 	return firstName;
 }
-//***************************************************************************
-//
-// Sets the value of Employee last name
-//
-//***************************************************************************
+
+/**
+ * Inline set method for employee last name
+ */
 inline void Employee::setLastName(const std::string & _lastName)
 {
 	lastName = _lastName;
 }
-//***************************************************************************
-//
-// Gets the value of Employee preferred name
-//
-//***************************************************************************
-inline std::string Employee::getPrefName()const
-{
-	return prefName;
-}
-//***************************************************************************
-//
-// Sets the value of Employee preferred name
-//
-//***************************************************************************
-inline void Employee::setPrefName(const std::string & _preferredName)
-{
-	prefName = _preferredName;
-}
-//***************************************************************************
-//
-// Gets the value of Employee last name
-//
-//***************************************************************************
+
+/**
+ * Inline get method for employee last name
+ */
 inline std::string Employee::getLastName()const
 {
 	return lastName;
 }
-//***************************************************************************
-//
-// Sets the value of Employee's email address
-//
-//***************************************************************************
+
+/**
+ * Inline get method for employee preferred name
+ */
+inline std::string Employee::getPrefName()const
+{
+	return prefName;
+}
+
+/**
+ * Inline set method for employee preferred name
+ */
+inline void Employee::setPrefName(const std::string & _preferredName)
+{
+	prefName = _preferredName;
+}
+
+/**
+ * Inline set method for employee email
+ */
 inline void Employee::setEmailAddress(const std::string & _email)
 {
 	emailAddress = _email;
 }
-//***************************************************************************
-//
-// Gets the value of Employee's email address
-//
-//***************************************************************************
+
+/**
+ * Inline get method for employee email
+ */
 inline std::string Employee::getEmailAddress()const
 {
 	return emailAddress;
 }
-//***************************************************************************
+
+/**
+ * Inline set method for employee employment status
+ */
+inline void Employee::setIsFullTime(const bool _isFullTime)
+{
+	isFullTime = _isFullTime;
+}
+
+/**
+ * Inline get method for employee employement
+ */
+inline bool Employee::getIsFullTime()const
+{
+	return isFullTime;
+}
+
 #endif
-//***************************************************************************

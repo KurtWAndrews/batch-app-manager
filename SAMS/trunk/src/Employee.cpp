@@ -17,13 +17,15 @@ Employee::Employee(const string & _id,
                    const string & _firstName,
                    const string & _lastName,
                    const string & _preferredName,
-                   const string & _email)
+                   const string & _email,
+                   const bool & _isFullTime)
 {
 	setEmployeeId(_id);
 	setFirstName(_firstName);
 	setLastName(_lastName);
 	setPrefName(_preferredName);
 	setEmailAddress(_email);
+  setIsFullTime(_isFullTime);
 }
 
 /**
@@ -32,6 +34,16 @@ Employee::Employee(const string & _id,
 Employee::~Employee()
 {
   cout << "Executing Employee's Destructor" << endl;
+}
+
+void Employee::clearAttributes()
+{
+	setEmployeeId("");
+	setFirstName("");
+	setLastName("");
+	setPrefName("");
+	setEmailAddress("");
+  setIsFullTime(false);
 }
 
 /**
@@ -45,6 +57,8 @@ void Employee::populate()
          preferredName,
          id,
          email;
+  
+  char isFullTime;
 
   if (getEmployeeId() == "") {
     cout << "What is the employee's id? ";
@@ -61,11 +75,22 @@ void Employee::populate()
   getline(cin, preferredName);
 	cout << "What is the employee's email address? ";
 	getline(cin, email);
+  cout << "Is the employee have full-time employment or part-time? (f/p): ";
+  cin.get(isFullTime);
+  cin.ignore();
 
 	setFirstName(firstName);
 	setLastName(lastName);
 	setPrefName(preferredName);
 	setEmailAddress(email);
+  if(tolower(isFullTime) == 'f')
+  {
+    setIsFullTime(true);
+  }
+  else
+  {
+    setIsFullTime(false);
+  }
 }
 
 /**
@@ -78,4 +103,5 @@ void Employee::display()const
 	cout << "First Name:\t" << getFirstName() << endl;
 	cout << "Preferred Name:\t" << getPrefName() << endl;
 	cout << "Email Address:\t" << getEmailAddress() << endl;
+  cout << "Employment Status:\t" << (getIsFullTime() ? "Full-Time" : "Part-Time") << endl;
 }

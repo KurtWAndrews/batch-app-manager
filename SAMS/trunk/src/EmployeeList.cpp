@@ -34,21 +34,17 @@ void EmployeeList::addEmployee() {
     if (employee->getEmployeeId() != "") {
       cout << "The " << employee->getEmployeeId()
            << " is already in the Employee List" << endl << endl;
-      employee->setEmployeeId("");
-      employee->setFirstName("");
-      employee->setLastName("");
-      employee->setPrefName("");
-      employee->setEmailAddress("");
+      employee->clearAttributes();
     }
 
-    employee->display();
+    /*employee->display();*/
     employee->populate();
 
     iter = employees.find(employee->getEmployeeId());
   } while (iter != employees.end());
 
   system("cls");
-  cout << "Adding Employee" << endl;
+  cout << "Employee Added" << endl;
   employee->display();
 
   employees.insert(pair<string, Employee*>(employee->getEmployeeId(), employee));
