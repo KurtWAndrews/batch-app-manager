@@ -1,4 +1,4 @@
-#SAMS Model
+#sidebar TableOfContents
 
 = Introduction =
 
