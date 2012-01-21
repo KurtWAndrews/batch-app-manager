@@ -23,7 +23,8 @@ private:
   std::string lastName;
   std::string prefName;
   std::string emailAddress;
-  bool isFullTime;
+  bool fullTime;
+  Team* team;
 
 public:
 	Employee(const std::string & _id = "",
@@ -31,7 +32,8 @@ public:
 	         const std::string & _lastName = "",
 	         const std::string & _preferredName = "",
 	         const std::string & _email = "",
-           const bool & _isFullTime = false);
+           const bool & _isFullTime = false,
+           const Team* team = NULL);
 	~Employee();
   void clearAttributes();
 	void setEmployeeId(const std::string & _id);
@@ -44,8 +46,10 @@ public:
 	std::string getPrefName() const;
 	void setEmailAddress(const std::string & _email);
 	std::string getEmailAddress() const;
-  void setIsFullTime(const bool _isFullTime);
-  bool getIsFullTime() const;
+  void setFullTime(const bool _isFullTime);
+  bool isFullTime() const;
+  void setTeam(const Team* team);
+  Team* getTeam() const;
 	void populate();
 	void display() const;
 };
@@ -138,17 +142,33 @@ inline std::string Employee::getEmailAddress()const
 /**
  * Inline set method for employee employment status
  */
-inline void Employee::setIsFullTime(const bool _isFullTime)
+inline void Employee::setFullTime(const bool _isFullTime)
 {
-	isFullTime = _isFullTime;
+	fullTime = _isFullTime;
 }
 
 /**
  * Inline get method for employee employement
  */
-inline bool Employee::getIsFullTime()const
+inline bool Employee::isFullTime()const
 {
-	return isFullTime;
+	return fullTime;
+}
+
+/**
+ * Inline set method for employee's team
+ */
+inline void Employee::setTeam(const Team* _team)
+{
+	team = _team;
+}
+
+/**
+ * Inline get method for employee's team
+ */
+inline Team* Employee::getTeam()const
+{
+	return team;
 }
 
 #endif

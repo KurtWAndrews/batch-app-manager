@@ -25,7 +25,7 @@ Employee::Employee(const string & _id,
 	setLastName(_lastName);
 	setPrefName(_preferredName);
 	setEmailAddress(_email);
-  setIsFullTime(_isFullTime);
+  setFullTime(_isFullTime);
 }
 
 /**
@@ -85,11 +85,11 @@ void Employee::populate()
 	setEmailAddress(email);
   if(tolower(isFullTime) == 'f')
   {
-    setIsFullTime(true);
+    setFullTime(true);
   }
   else
   {
-    setIsFullTime(false);
+    setFullTime(false);
   }
 }
 
@@ -103,5 +103,5 @@ void Employee::display()const
 	cout << "First Name:\t" << getFirstName() << endl;
 	cout << "Preferred Name:\t" << getPrefName() << endl;
 	cout << "Email Address:\t" << getEmailAddress() << endl;
-  cout << "Employment Status:\t" << (getIsFullTime() ? "Full-Time" : "Part-Time") << endl;
+  cout << "Employment Status:\t" << (isFullTime() ? "Full-Time" : "Part-Time") << endl;
 }
