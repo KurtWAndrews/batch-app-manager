@@ -1,8 +1,6 @@
-#This page provides links to all of the subject areas in the class diagram.
 = Introduction =
 
-Add your content here.
-
+This page provides links to each of the subject areas in the class diagram.
 
 = Subject Areas =
 
