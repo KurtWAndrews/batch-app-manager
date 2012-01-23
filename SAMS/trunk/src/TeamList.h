@@ -1,8 +1,7 @@
 /**
- * @file EmployeeList.h
- * @brief EmployeeList declaration
- * @author Brian Royer
- * @author Kurt Andrews
+ * @file TeamList.h
+ * @brief TeamList declaration
+ * @author Brian Royer & Kurt Andrews
  */
 
 #ifndef TEAMLIST_H_
@@ -33,12 +32,12 @@ public:
   /**
    * add a team to a collection for the team
    */
-  void addTeam();
+  void addTeam(EmployeeList* employees);
 
   /**
    * change a team in the collection
    */
-  void changeTeam();
+  void changeTeam(EmployeeList* employees);
 
   /**
    * remove a team from the collection
@@ -50,7 +49,7 @@ public:
    */
   void display() const;
 
-private
+private:
   std::map<std::string, Team*> teams;
 };
 

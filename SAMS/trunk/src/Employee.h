@@ -8,6 +8,8 @@
 #ifndef EMPLOYEE_H
 #define	EMPLOYEE_H
 
+#include "Team.h"
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -32,9 +34,9 @@ public:
 	         const std::string & _lastName = "",
 	         const std::string & _preferredName = "",
 	         const std::string & _email = "",
-           const bool & _isFullTime = false,
-           const Team* team = NULL);
-	~Employee();
+           bool _isFullTime = false,
+           Team* _team = NULL);
+	virtual ~Employee();
   void clearAttributes();
 	void setEmployeeId(const std::string & _id);
 	std::string getEmployeeId() const;
@@ -48,7 +50,7 @@ public:
 	std::string getEmailAddress() const;
   void setFullTime(const bool _isFullTime);
   bool isFullTime() const;
-  void setTeam(const Team* team);
+  void setTeam(Team* team);
   Team* getTeam() const;
 	void populate();
 	void display() const;
@@ -70,7 +72,7 @@ inline void Employee::setEmployeeId(const std::string & _id)
 /**
  * Inline get method for employee id
  */
-inline std::string Employee::getEmployeeId()const
+inline std::string Employee::getEmployeeId() const
 {
 	return employeeId;
 }
@@ -86,7 +88,7 @@ inline void Employee::setFirstName(const std::string & _firstName)
 /**
  * Inline get method for employee first name
  */
-inline std::string Employee::getFirstName()const
+inline std::string Employee::getFirstName() const
 {
 	return firstName;
 }
@@ -102,7 +104,7 @@ inline void Employee::setLastName(const std::string & _lastName)
 /**
  * Inline get method for employee last name
  */
-inline std::string Employee::getLastName()const
+inline std::string Employee::getLastName() const
 {
 	return lastName;
 }
@@ -110,7 +112,7 @@ inline std::string Employee::getLastName()const
 /**
  * Inline get method for employee preferred name
  */
-inline std::string Employee::getPrefName()const
+inline std::string Employee::getPrefName() const
 {
 	return prefName;
 }
@@ -134,7 +136,7 @@ inline void Employee::setEmailAddress(const std::string & _email)
 /**
  * Inline get method for employee email
  */
-inline std::string Employee::getEmailAddress()const
+inline std::string Employee::getEmailAddress() const
 {
 	return emailAddress;
 }
@@ -150,7 +152,7 @@ inline void Employee::setFullTime(const bool _isFullTime)
 /**
  * Inline get method for employee employement
  */
-inline bool Employee::isFullTime()const
+inline bool Employee::isFullTime( )const
 {
 	return fullTime;
 }
@@ -158,7 +160,7 @@ inline bool Employee::isFullTime()const
 /**
  * Inline set method for employee's team
  */
-inline void Employee::setTeam(const Team* _team)
+inline void Employee::setTeam(Team* _team)
 {
 	team = _team;
 }
@@ -166,7 +168,7 @@ inline void Employee::setTeam(const Team* _team)
 /**
  * Inline get method for employee's team
  */
-inline Team* Employee::getTeam()const
+inline Team* Employee::getTeam() const
 {
 	return team;
 }

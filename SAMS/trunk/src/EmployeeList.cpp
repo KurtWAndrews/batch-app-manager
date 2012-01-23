@@ -1,6 +1,7 @@
 /**
  * @file EmployeeList.cpp
  * @brief EmployeeList definition
+ * @author Kurt Andrews & Bryan Royer
  */
 
 #include "EmployeeList.h"
@@ -134,6 +135,7 @@ void EmployeeList::removeEmployee() {
       cin >> option;
       cin.ignore();
     }
+    
     switch(toupper(option)) {
       case 'R':
         delete iter->second;
@@ -215,3 +217,77 @@ void EmployeeList::display() const {
     }
   }
 }
+
+Employee* EmployeeList::selectEmployee() {
+  system("cls");
+  cout << "Select Employee" << endl << endl;
+  
+  if (employees.empty()) {
+    cout << "There are no employees in the system." << endl;
+    return 0;
+  }
+  
+  map<string, Employee*>::iterator iter = employees.begin();
+  char option = 'N';
+  
+  Employee* ePtr = NULL;
+  while (option != 'Q') {
+    system("cls");
+    cout << "Select Employee" << endl << endl;
+    
+    iter->second->display();
+    
+    cout << endl
+    << endl
+    << "** (F)irst * (L)ast * (P)revious * (N)ext * (S)elect * (Q)uit ** ";
+    
+    cin >> option;
+    cin.ignore();
+    
+    switch(toupper(option)) {
+      case 'S':
+        system("cls");
+        cout << "Select Employee\n\n"
+        << "You have selected the following employee from the employee list:"
+        << endl << endl;
+        
+        iter->second->display();
+        
+        cout << "If this is correct please type (Y)es or any other key to continue."
+        << endl << endl;
+        
+        cin >> option;
+        cin.ignore();
+        
+        if (toupper(option) == 'Y') {
+          ePtr = iter->second;
+          option = 'Q';
+        }
+        break;
+      case 'F': iter = employees.begin();
+        break;
+      case 'L':
+        iter = employees.end();
+        -- iter;
+        break;
+      case 'P':
+        if (iter == employees.begin()) {
+          iter = employees.end();
+        }
+        
+        -- iter;
+        break;
+      case 'N':
+        ++ iter;
+        
+        if (iter == employees.end()) {
+          iter = employees.begin();
+        }
+        break;
+      case 'Q': option = 'Q';
+    }
+  }
+  
+  return ePtr;
+}
+

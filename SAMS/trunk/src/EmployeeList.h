@@ -1,6 +1,7 @@
 /**
  * @file EmployeeList.h
  * @brief EmployeeList declaration
+ * @author Kurt Andrews & Brian Royer
  */
 
 #ifndef EMPLOYEELIST_H_
@@ -47,6 +48,12 @@ public:
    * display the collection of system employees
    */
   void display() const;
+  
+  /**
+   * Select an employee from the employee list
+   * @return a pointer to the selected employee
+   */
+  Employee* selectEmployee();
 
 private:
   std::map<std::string, Employee*> employees;

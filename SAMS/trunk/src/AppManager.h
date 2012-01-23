@@ -8,6 +8,7 @@
 #define APPMANAGER_H_
 
 #include "EmployeeList.h"
+#include "TeamList.h"
 
 #include <string>
 #include <iostream>
@@ -39,6 +40,11 @@ public:
    */
   EmployeeList* getEmployees() const;
 
+  /**
+   * @return the system team list
+   */
+  TeamList* getTeams() const;
+  
   // modifier methods
 
   /**
@@ -47,6 +53,12 @@ public:
    */
   void setEmployees(EmployeeList* ePtr);
 
+  /**
+   * replace the team list with the specified value
+   * @param tPtr - the pointer to the new system team list
+   */
+  void setTeams(TeamList* tPtr);
+  
   // system functions
 
   /**
@@ -55,7 +67,7 @@ public:
   void addEmployees();
 
   /**
-   * change employee informations
+   * change employee information
    */
   void changeEmployees();
 
@@ -69,17 +81,43 @@ public:
    */
   void displayEmployees();
 
+  /**
+   * add teams to the system
+   */
+  void addTeams();
+  
+  /**
+   * change team information
+   */
+  void changeTeams();
+  
+  /**
+   * remove teams from the system
+   */
+  void removeTeams();
+  
+  /**
+   * display all teams in the employee list
+   */
+  void displayTeams();
+  
 private:
   EmployeeList* employees;
+  TeamList* teams;
 };
 
 // accessor method definitions
 inline EmployeeList* AppManager::getEmployees() const {return employees;}
+inline TeamList* AppManager::getTeams() const {return teams;}
 
 // delligated system operations
 inline void AppManager::addEmployees() {employees->addEmployee();}
 inline void AppManager::changeEmployees() {employees->changeEmployee();}
 inline void AppManager::removeEmployees() {employees->removeEmployee();}
 inline void AppManager::displayEmployees() {employees->display();}
+inline void AppManager::addTeams() {teams->addTeam(getEmployees());}
+inline void AppManager::changeTeams() {teams->changeTeam(getEmployees());}
+inline void AppManager::removeTeams() {teams->removeTeam();}
+inline void AppManager::displayTeams() {teams->display();}
 
 #endif /* APPMANAGER_H_ */

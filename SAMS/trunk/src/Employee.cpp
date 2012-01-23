@@ -18,7 +18,8 @@ Employee::Employee(const string & _id,
                    const string & _lastName,
                    const string & _preferredName,
                    const string & _email,
-                   const bool & _isFullTime)
+                   bool _isFullTime,
+                  Team* _team)
 {
 	setEmployeeId(_id);
 	setFirstName(_firstName);
@@ -26,6 +27,7 @@ Employee::Employee(const string & _id,
 	setPrefName(_preferredName);
 	setEmailAddress(_email);
   setFullTime(_isFullTime);
+  setTeam(_team);
 }
 
 /**
@@ -43,7 +45,7 @@ void Employee::clearAttributes()
 	setLastName("");
 	setPrefName("");
 	setEmailAddress("");
-  setIsFullTime(false);
+  setFullTime(false);
 }
 
 /**
@@ -96,7 +98,7 @@ void Employee::populate()
 /**
  * Displays a Employee object
  */
-void Employee::display()const
+void Employee::display() const
 {
   cout << "Employee Id:\t" << getEmployeeId() << endl;
 	cout << "Last Name:\t" << getLastName() << endl;
@@ -104,4 +106,13 @@ void Employee::display()const
 	cout << "Preferred Name:\t" << getPrefName() << endl;
 	cout << "Email Address:\t" << getEmailAddress() << endl;
   cout << "Employment Status:\t" << (isFullTime() ? "Full-Time" : "Part-Time") << endl;
+  
+  string teamInfo = "";
+  if (getTeam() == NULL) {
+    teamInfo = "No team assigned";
+  } else {
+    teamInfo = getTeam()->getTeamId() << " - " << getTeam()->getDesc();
+  }
+  
+  cout << "Team:\t" << teamInfo << endl;
 }

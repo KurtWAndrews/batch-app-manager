@@ -1,8 +1,7 @@
 /**
  * @file TeamList.cpp
  * @brief TeamList definition
- * @author Brian Royer
- * @author Kurt Andrews
+ * @author Brian Royer & Kurt Andrews
  */
 
 #include "TeamList.h"
@@ -25,7 +24,7 @@ TeamList::~TeamList() {
   teams.clear();
 }
 
-void TeamList::addTeam() {
+void TeamList::addTeam(EmployeeList* employees) {
   Team* team = new Team;
   map<string, Team*>::const_iterator iter;
 
@@ -45,14 +44,15 @@ void TeamList::addTeam() {
     iter = teams.find(team->getTeamId());
   } while (iter != teams.end());
 
+  teams.insert(pair<string, Team*>(team->getTeamId(), team));
+  
   system("cls");
   cout << "Team Added" << endl;
   team->display();
-
-  teams.insert(pair<string, Team*>(team->getTeamId(), team));
+  team->addMember(employees);
 }
 
-void TeamList::changeTeam() {
+void TeamList::changeTeam(EmployeeList* employees) {
   system("cls");
   cout << "Change Team" << endl << endl;
 
@@ -72,12 +72,15 @@ void TeamList::changeTeam() {
 
     cout << endl
          << endl
-         << "** (F)irst * (L)ast * (P)revious * (N)ext * (C)hange * (Q)uit ** ";
+         << "** (F)irst * (L)ast * (P)revious * (N)ext * (A)dd members * (C)hange * (R)emove members * (Q)uit ** ";
 
     cin >> option;
     cin.ignore();
 
     switch(toupper(option)) {
+      case 'A':
+        iter->second->addMember(employees);
+        break;
       case 'C':
         system("cls");
         cout << "Change  Team" << endl << endl;
@@ -85,6 +88,9 @@ void TeamList::changeTeam() {
         iter->second->display();
         iter->second->populate();
         iter->second->display();
+        break;
+      case 'R':
+        iter->second->removeMember();
         break;
       case 'F': iter = teams.begin();
         break;
