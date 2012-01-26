@@ -1,7 +1,6 @@
 /**
  * @file EmployeeList.h
  * @brief EmployeeList declaration
- * @author Kurt Andrews & Brian Royer
  */
 
 #ifndef EMPLOYEELIST_H_
@@ -19,44 +18,48 @@
  */
 class EmployeeList {
 public:
-  /**
-   * default constructor for EmployeeList
-   */
-  EmployeeList();
+	/**
+	 * default constructor for EmployeeList
+	 */
+	EmployeeList();
 
-  /**
-   * EmployeeList destructor
-   */
-  virtual ~EmployeeList();
+	/**
+	 * EmployeeList destructor
+	 */
+	virtual ~EmployeeList();
 
-  /**
-   * add an employee to the collection
-   */
-  void addEmployee();
+	/**
+	 * Start up method to call all necessary methods to read in data
+	 */
+	void startup();
+	
+	/**
+	 * Shut down method to call all necessary methods to persist data and delete all variables from memory
+	 */
+	void shutdown();
 
-  /**
-   * change an employee in the collection
-   */
-  void changeEmployee();
+	/**
+	 * add an employee to the collection
+	 */
+	void addEmployee();
 
-  /**
-   * remove an employee from the collection
-   */
-  void removeEmployee();
+	/**
+	 * change an employee in the collection
+	 */
+	void changeEmployee();
 
-  /**
-   * display the collection of system employees
-   */
-  void display() const;
-  
-  /**
-   * Select an employee from the employee list
-   * @return a pointer to the selected employee
-   */
-  Employee* selectEmployee();
+	/**
+	 * remove an employee from the collection
+	 */
+	void removeEmployee();
+
+	/**
+	 * display the collection of system employees
+	 */
+	void display() const;
 
 private:
-  std::map<std::string, Employee*> employees;
+	std::map<std::string, Employee*> employees;
 };
 
 #endif /* EMPLOYEELIST_H_ */

@@ -8,11 +8,9 @@
 #ifndef EMPLOYEE_H
 #define	EMPLOYEE_H
 
-#include "Team.h"
-
-#include <string>
 #include <iostream>
 #include <fstream>
+#include <string>
 
 /**
  * Employee Class Definition
@@ -20,24 +18,33 @@
 class Employee
 {
 private:
-  std::string employeeId;
-  std::string firstName;
-  std::string lastName;
-  std::string prefName;
-  std::string emailAddress;
-  bool fullTime;
-  Team* team;
+	std::string employeeId;
+	std::string firstName;
+	std::string lastName;
+	std::string prefName;
+	std::string emailAddress;
+	bool fullTime;
 
 public:
 	Employee(const std::string & _id = "",
-	         const std::string & _firstName = "",
-	         const std::string & _lastName = "",
-	         const std::string & _preferredName = "",
-	         const std::string & _email = "",
-           bool _isFullTime = false,
-           Team* _team = NULL);
+					 const std::string & _firstName = "",
+					 const std::string & _lastName = "",
+					 const std::string & _preferredName = "",
+					 const std::string & _email = "",
+					 const bool _isFullTime = false);
 	virtual ~Employee();
-  void clearAttributes();
+	
+	/**
+	 * Start up method to call all necessary methods to read in data
+	 */
+	void startup(std::ifstream& inFile);
+	
+	/**
+	 * Shut down method to call all necessary methods to persist data and delete all variables from memory
+	 */
+	void shutdown(std::ofstream& outFile);
+
+	void clearAttributes();
 	void setEmployeeId(const std::string & _id);
 	std::string getEmployeeId() const;
 	void setFirstName(const std::string & _firstName);
@@ -48,10 +55,8 @@ public:
 	std::string getPrefName() const;
 	void setEmailAddress(const std::string & _email);
 	std::string getEmailAddress() const;
-  void setFullTime(const bool _isFullTime);
-  bool isFullTime() const;
-  void setTeam(Team* team);
-  Team* getTeam() const;
+	void setFullTime(const bool _isFullTime);
+	bool isFullTime() const;
 	void populate();
 	void display() const;
 };
@@ -155,22 +160,6 @@ inline void Employee::setFullTime(const bool _isFullTime)
 inline bool Employee::isFullTime( )const
 {
 	return fullTime;
-}
-
-/**
- * Inline set method for employee's team
- */
-inline void Employee::setTeam(Team* _team)
-{
-	team = _team;
-}
-
-/**
- * Inline get method for employee's team
- */
-inline Team* Employee::getTeam() const
-{
-	return team;
 }
 
 #endif

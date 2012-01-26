@@ -1,7 +1,6 @@
 /**
  * @file main.cpp
  * @brief initialization and menu support for SAMS
- * @author Kurt Andrews & Bryan Royer
  */
 #include "AppManager.h"
 #include "menu.h"
@@ -40,13 +39,6 @@ int main() {
   menus[EMPLOYEE_MENU] += "D) Display Employee\n";
   menus[EMPLOYEE_MENU] += "\nQ) Quit\n\n";
 
-  menus.push_back("\n\n T E A M  M E N U\n\n");
-  menus[TEAM_MENU] += "A) Add Team\n";
-  menus[TEAM_MENU] += "C) Change Team\n";
-  menus[TEAM_MENU] += "R) Remove Team\n";
-  menus[TEAM_MENU] += "D) Display Team\n";
-  menus[TEAM_MENU] += "\nQ) Quit\n\n";
-  
   AppManager am;
   char option = 0;
 
@@ -61,9 +53,6 @@ int main() {
         break;
       case EMPLOYEE_MENU:
         menu = selectEmployeeOption(am, option);
-        break;
-      case TEAM_MENU:
-        menu = selectTeamOption(am, option);
         break;
     }
   } while (menu != QUIT_MENU);
@@ -99,8 +88,6 @@ int selectMainOption(char option) {
   switch (option) {
     case 'E': menu = EMPLOYEE_MENU;
       break;
-    case 'T': menu = TEAM_MENU;
-      break;
     case 'Q': menu = QUIT_MENU;
       cout << "Quitting Application" << endl;
       waitForKeyPress();
@@ -132,30 +119,6 @@ int selectEmployeeOption(AppManager& am, char option) {
       break;
   }
 
-  waitForKeyPress();
-  return(menu);
-}
-
-int selectTeamOption(AppManager& am, char option) {
-  int menu = EMPLOYEE_MENU;
-  switch (option) {
-    case 'A': am.addTeam();
-      break;
-    case 'C': am.changeTeam();
-      break;
-    case 'R': am.removeTeam();
-      break;
-    case 'D': am.displayTeam();
-      break;
-    case 'Q':
-      menu = MAIN_MENU;
-      cout << "Quitting Employee Menu" << endl;
-      break;
-    default:
-      cout << "Unknown option" << endl;
-      break;
-  }
-  
   waitForKeyPress();
   return(menu);
 }

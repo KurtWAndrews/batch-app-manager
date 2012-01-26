@@ -1,7 +1,6 @@
 /**
  * @file EmployeeList.cpp
  * @brief EmployeeList definition
- * @author Kurt Andrews & Bryan Royer
  */
 
 #include "EmployeeList.h"
@@ -14,7 +13,6 @@ EmployeeList::EmployeeList() {
 
 EmployeeList::~EmployeeList() {
   cout << "Executing EmployeeList Destructor" << endl;
-
   map<string, Employee*>::iterator iter;
 
   for(iter = employees.begin(); iter != employees.end(); ++ iter) {
@@ -22,6 +20,46 @@ EmployeeList::~EmployeeList() {
   }
 
   employees.clear();
+}
+
+/**
+  * Start up method to call all necessary methods to read in data
+  */
+void EmployeeList::startup()
+{
+  ifstream isEmployees("employees.txt");
+  if(isEmployees)
+  {
+    Employee* emp;
+    int employeeRecs;
+
+    isEmployees >> employeeRecs;
+    isEmployees.ignore();
+
+    for (int rec = 0; rec < employeeRecs; ++rec) {
+      emp = new Employee;
+      emp->startup(isEmployees);
+
+      employees.insert(pair<string, Employee*>(emp->getEmployeeId(), emp));
+    }
+  }
+}
+  
+/**
+  * Shut down method to call all necessary methods to persist data and delete all variables from memory
+  */
+void EmployeeList::shutdown()
+{
+  ofstream osEmployees("employees.txt");
+
+  osEmployees << employees.size() << endl;
+
+  map<string, Employee*>::const_iterator iter;
+  for(iter = employees.begin(); iter != employees.end(); ++ iter) {
+    iter->second->shutdown(osEmployees);
+  }
+
+  osEmployees.close();
 }
 
 void EmployeeList::addEmployee() {
@@ -35,7 +73,12 @@ void EmployeeList::addEmployee() {
     if (employee->getEmployeeId() != "") {
       cout << "The " << employee->getEmployeeId()
            << " is already in the Employee List" << endl << endl;
-      employee->clearAttributes();
+      employee->setEmployeeId("");
+      employee->setFirstName("");
+      employee->setLastName("");
+      employee->setPrefName("");
+      employee->setEmailAddress("");
+      employee->setFullTime(false);
     }
 
     /*employee->display();*/
@@ -45,7 +88,7 @@ void EmployeeList::addEmployee() {
   } while (iter != employees.end());
 
   system("cls");
-  cout << "Employee Added" << endl;
+  cout << "Adding Employee" << endl;
   employee->display();
 
   employees.insert(pair<string, Employee*>(employee->getEmployeeId(), employee));
@@ -135,7 +178,6 @@ void EmployeeList::removeEmployee() {
       cin >> option;
       cin.ignore();
     }
-    
     switch(toupper(option)) {
       case 'R':
         delete iter->second;
@@ -217,77 +259,3 @@ void EmployeeList::display() const {
     }
   }
 }
-
-Employee* EmployeeList::selectEmployee() {
-  system("cls");
-  cout << "Select Employee" << endl << endl;
-  
-  if (employees.empty()) {
-    cout << "There are no employees in the system." << endl;
-    return 0;
-  }
-  
-  map<string, Employee*>::iterator iter = employees.begin();
-  char option = 'N';
-  
-  Employee* ePtr = NULL;
-  while (option != 'Q') {
-    system("cls");
-    cout << "Select Employee" << endl << endl;
-    
-    iter->second->display();
-    
-    cout << endl
-    << endl
-    << "** (F)irst * (L)ast * (P)revious * (N)ext * (S)elect * (Q)uit ** ";
-    
-    cin >> option;
-    cin.ignore();
-    
-    switch(toupper(option)) {
-      case 'S':
-        system("cls");
-        cout << "Select Employee\n\n"
-        << "You have selected the following employee from the employee list:"
-        << endl << endl;
-        
-        iter->second->display();
-        
-        cout << "If this is correct please type (Y)es or any other key to continue."
-        << endl << endl;
-        
-        cin >> option;
-        cin.ignore();
-        
-        if (toupper(option) == 'Y') {
-          ePtr = iter->second;
-          option = 'Q';
-        }
-        break;
-      case 'F': iter = employees.begin();
-        break;
-      case 'L':
-        iter = employees.end();
-        -- iter;
-        break;
-      case 'P':
-        if (iter == employees.begin()) {
-          iter = employees.end();
-        }
-        
-        -- iter;
-        break;
-      case 'N':
-        ++ iter;
-        
-        if (iter == employees.end()) {
-          iter = employees.begin();
-        }
-        break;
-      case 'Q': option = 'Q';
-    }
-  }
-  
-  return ePtr;
-}
-

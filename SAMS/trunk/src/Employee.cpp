@@ -5,7 +5,6 @@
  * @author Kurt Andrews
  */
 
-#include <iostream>
 #include "Employee.h"
 
 using namespace std;
@@ -13,13 +12,12 @@ using namespace std;
 /**
  * Default Employee constructor
  */
-Employee::Employee(const string & _id,
-                   const string & _firstName,
-                   const string & _lastName,
-                   const string & _preferredName,
-                   const string & _email,
-                   bool _isFullTime,
-                  Team* _team)
+Employee::Employee(const std::string & _id,
+                   const std::string & _firstName,
+                   const std::string & _lastName,
+                   const std::string & _preferredName,
+                   const std::string & _email,
+                   const bool _isFullTime)
 {
 	setEmployeeId(_id);
 	setFirstName(_firstName);
@@ -27,7 +25,6 @@ Employee::Employee(const string & _id,
 	setPrefName(_preferredName);
 	setEmailAddress(_email);
   setFullTime(_isFullTime);
-  setTeam(_team);
 }
 
 /**
@@ -36,6 +33,56 @@ Employee::Employee(const string & _id,
 Employee::~Employee()
 {
   cout << "Executing Employee's Destructor" << endl;
+}
+
+/**
+  * Start up method to call all necessary methods to read in data
+  */
+void Employee::startup(ifstream& inFile)
+{
+  string _id;
+  getline(inFile, _id, '\t');
+  setEmployeeId(_id);
+
+  string _firstName;
+  getline(inFile, _firstName, '\t');
+  setFirstName(_firstName);
+
+  string _lastName;
+  getline(inFile, _lastName, '\t');
+  setLastName(_lastName);
+
+  string _prefName;
+  getline(inFile, _prefName, '\t');
+  setPrefName(_prefName);
+
+  string _email;
+  getline(inFile, _email, '\t');
+  setEmailAddress(_email);
+
+  string _fullTime;
+  getline(inFile, _fullTime);
+  if(_fullTime == "1")
+  {
+    setFullTime(true);
+  }
+  else
+  {
+    setFullTime(false);
+  }
+}
+  
+/**
+  * Shut down method to call all necessary methods to persist data and delete all variables from memory
+  */
+void Employee::shutdown(ofstream& outFile)
+{
+  outFile << getEmployeeId() << '\t'
+          << getFirstName() << '\t'
+          << getLastName() << '\t'
+          << getPrefName() << '\t'
+          << getEmailAddress() << '\t'
+          << isFullTime() << endl;
 }
 
 void Employee::clearAttributes()
@@ -54,7 +101,7 @@ void Employee::clearAttributes()
  */
 void Employee::populate()
 {
-  string firstName,
+  std::string firstName,
          lastName,
          preferredName,
          id,
@@ -106,13 +153,4 @@ void Employee::display() const
 	cout << "Preferred Name:\t" << getPrefName() << endl;
 	cout << "Email Address:\t" << getEmailAddress() << endl;
   cout << "Employment Status:\t" << (isFullTime() ? "Full-Time" : "Part-Time") << endl;
-  
-  string teamInfo = "";
-  if (getTeam() == NULL) {
-    teamInfo = "No team assigned";
-  } else {
-    teamInfo = getTeam()->getTeamId() << " - " << getTeam()->getDesc();
-  }
-  
-  cout << "Team:\t" << teamInfo << endl;
 }
