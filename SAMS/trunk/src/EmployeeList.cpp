@@ -73,12 +73,7 @@ void EmployeeList::addEmployee() {
     if (employee->getEmployeeId() != "") {
       cout << "The " << employee->getEmployeeId()
            << " is already in the Employee List" << endl << endl;
-      employee->setEmployeeId("");
-      employee->setFirstName("");
-      employee->setLastName("");
-      employee->setPrefName("");
-      employee->setEmailAddress("");
-      employee->setFullTime(false);
+      employee->clearAttributes();
     }
 
     /*employee->display();*/
@@ -88,7 +83,7 @@ void EmployeeList::addEmployee() {
   } while (iter != employees.end());
 
   system("cls");
-  cout << "Adding Employee" << endl;
+  cout << "Added Employee" << endl;
   employee->display();
 
   employees.insert(pair<string, Employee*>(employee->getEmployeeId(), employee));

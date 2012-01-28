@@ -14,7 +14,7 @@
 #include <fstream>
 
 /**
- * @brief A collection of the of employees in the system
+ * @brief A collection of the employees in the system
  */
 class EmployeeList {
 public:
