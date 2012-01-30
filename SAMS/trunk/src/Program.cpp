@@ -1,6 +1,6 @@
 /**
- * @file Employee.cpp
- * @brief Employee class member function definitions
+ * @file Program.cpp
+ * @brief Program class member function definitions
  * @author Brian Royer
  * @author Kurt Andrews
  */

@@ -26,10 +26,16 @@ int selectMainOption(char option);
  */
 int selectEmployeeOption(AppManager& am, char option);
 
+/**
+ * User entry point to the system operations related to programs
+ */
+int selectProgramOption(AppManager& am, char option);
+
 int main() {
   vector<string> menus;
   menus.push_back("\n\n M A I N  M E N U\n\n");
   menus[MAIN_MENU] += "E) Manage Employees\n";
+  menus[MAIN_MENU] += "P) Manage Programs\n";
   menus[MAIN_MENU] += "\nQ) Quit\n\n";
 
   menus.push_back("\n\n E M P L O Y E E  M E N U\n\n");
@@ -38,6 +44,13 @@ int main() {
   menus[EMPLOYEE_MENU] += "R) Remove Employee\n";
   menus[EMPLOYEE_MENU] += "D) Display Employee\n";
   menus[EMPLOYEE_MENU] += "\nQ) Quit\n\n";
+
+  menus.push_back("\n\n P R O G R A M  M E N U\n\n");
+  menus[PROGRAM_MENU] += "A) Add Program\n";
+  menus[PROGRAM_MENU] += "C) Change Program\n";
+  menus[PROGRAM_MENU] += "R) Remove Program\n";
+  menus[PROGRAM_MENU] += "D) Display Program\n";
+  menus[PROGRAM_MENU] += "\nQ) Quit\n\n";
 
   AppManager am;
   char option = 0;
@@ -53,6 +66,9 @@ int main() {
         break;
       case EMPLOYEE_MENU:
         menu = selectEmployeeOption(am, option);
+        break;
+      case PROGRAM_MENU:
+        menu = selectProgramOption(am, option);
         break;
     }
   } while (menu != QUIT_MENU);
@@ -87,6 +103,8 @@ int selectMainOption(char option) {
 
   switch (option) {
     case 'E': menu = EMPLOYEE_MENU;
+      break;
+    case 'P': menu = PROGRAM_MENU;
       break;
     case 'Q': menu = QUIT_MENU;
       cout << "Quitting Application" << endl;
@@ -123,3 +141,26 @@ int selectEmployeeOption(AppManager& am, char option) {
   return(menu);
 }
 
+int selectProgramOption(AppManager& am, char option) {
+  int menu = PROGRAM_MENU;
+  switch (option) {
+    case 'A': am.addPrograms();
+      break;
+    case 'C': am.changePrograms();
+      break;
+    case 'R': am.removePrograms();
+      break;
+    case 'D': am.displayPrograms();
+      break;
+    case 'Q':
+      menu = MAIN_MENU;
+      cout << "Quitting Program Menu" << endl;
+      break;
+    default:
+      cout << "Unknown option" << endl;
+      break;
+  }
+
+  waitForKeyPress();
+  return(menu);
+}

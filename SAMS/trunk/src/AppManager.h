@@ -7,6 +7,7 @@
 #define APPMANAGER_H_
 
 #include "EmployeeList.h"
+#include "ProgramList.h"
 
 #include <string>
 #include <iostream>
@@ -46,6 +47,11 @@ public:
    * @return the system employee list
    */
   EmployeeList* getEmployees() const;
+  
+    /**
+   * @return the system program list
+   */
+  ProgramList* getPrograms() const;
 
   // modifier methods
 
@@ -77,17 +83,49 @@ public:
    */
   void displayEmployees();
 
+  /**
+   * replace the program list with the specified value
+   * @param pPtr - the pointer to the new system program list
+   */
+  void setPrograms(ProgramList* pPtr);
+
+  /**
+   * add programs to the system
+   */
+  void addPrograms();
+
+  /**
+   * change program informations
+   */
+  void changePrograms();
+
+  /**
+   * remove programs from the system
+   */
+  void removePrograms();
+
+  /**
+   * display all programs in the program list
+   */
+  void displayPrograms();
+
 private:
   EmployeeList* employees;
+  ProgramList* programs;
 };
 
 // accessor method definitions
 inline EmployeeList* AppManager::getEmployees() const {return employees;}
+inline ProgramList* AppManager::getPrograms() const {return programs;}
 
 // delligated system operations
 inline void AppManager::addEmployees() {employees->addEmployee();}
 inline void AppManager::changeEmployees() {employees->changeEmployee();}
 inline void AppManager::removeEmployees() {employees->removeEmployee();}
 inline void AppManager::displayEmployees() {employees->display();}
+inline void AppManager::addPrograms() {programs->addProgram();}
+inline void AppManager::changePrograms() {programs->changeProgram();}
+inline void AppManager::removePrograms() {programs->removeProgram();}
+inline void AppManager::displayPrograms() {programs->display();}
 
 #endif /* APPMANAGER_H_ */
