@@ -6,12 +6,12 @@
 #ifndef PROGRAMLIST_H_
 #define PROGRAMLIST_H_
 
-#include "Program.h"
-
-#include <map>
-#include <string>
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <map>
+
+#include "Program.h"
 
 /**
  * @brief A collection of the employees in the system

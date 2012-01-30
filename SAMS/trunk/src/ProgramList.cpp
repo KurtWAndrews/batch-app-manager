@@ -42,12 +42,11 @@ void ProgramList::startup()
 
       programs.insert(pair<string, Program*>(_program->getName(), _program));
     }
+    
+    isPrograms.close();
   }
 }
   
-/**
-  * Shut down method to call all necessary methods to persist data and delete all variables from memory
-  */
 void ProgramList::shutdown()
 {
   ofstream osPrograms("programs.txt");
@@ -62,9 +61,6 @@ void ProgramList::shutdown()
   osPrograms.close();
 }
 
-/**
-  * add a program to the collection
-  */
 void ProgramList::addProgram() {
   Program* program = new Program;
   map<string, Program*>::const_iterator iter;

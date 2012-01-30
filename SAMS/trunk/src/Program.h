@@ -34,7 +34,8 @@ public:
 	void startup(std::ifstream& inFile);
 	
 	/**
-	 * Shut down method to call all necessary methods to persist data and delete all variables from memory
+	 * Shut down method to call all necessary methods to persist data and delete 
+   * all variables from memory
 	 */
 	void shutdown(std::ofstream& outFile);
 

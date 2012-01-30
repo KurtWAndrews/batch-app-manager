@@ -1,6 +1,7 @@
 /**
  * @file AppManager.cpp
  * @brief AppManager definition
+ * @author Kurt Andrews & Brian Royer
  */
 
 #include "AppManager.h"
@@ -11,48 +12,49 @@ using namespace std;
  * constructor for AppManager
  */
 AppManager::AppManager() : employees(0),
-													 programs(0)
-{
+                           teams(0),
+                           programs(0) {
 	setEmployees(new EmployeeList);
-	setPrograms(new ProgramList);
-	startup();
+  setTeams(new TeamList);
+  setPrograms(new ProgramList);
+                             
+  startup();
 }
 
 /**
  * destructor for AppManager
  */
-AppManager::~AppManager()
-{
-	cout << "Executing AppManager Destructor" << endl;
-	shutdown();
-	delete employees;
-	delete programs;
-}
-
-/**
- * Start up method to call all necessary methods to read in data
- */
-void AppManager::startup()
-{
-	employees->startup();
-	programs->startup();
-}
-
-/**
- * Shut down method to call all necessary methods to persist data and delete all variables from memory
- */
-void AppManager::shutdown()
-{
-	employees->shutdown();
-	programs->shutdown();
+AppManager::~AppManager() {
+  cout << "Executing AppManager Destructor" << endl;
+  shutdown();
+  
+  delete teams;
+  delete employees;
+  delete programs;
 }
 
 void AppManager::setEmployees(EmployeeList* ePtr) {
-	delete employees;
-	employees = ePtr;
+  delete employees;
+  employees = ePtr;
+}
+
+void AppManager::setTeams(TeamList *tPtr) {
+  delete teams;
+  teams = tPtr;
 }
 
 void AppManager::setPrograms(ProgramList* pPtr) {
-	delete programs;
-	programs = pPtr;
+  delete programs;
+  programs = pPtr;
+}
+void AppManager::startup() {
+	employees->startup();
+  teams->startup(employees);
+	programs->startup();
+}
+
+void AppManager::shutdown() {
+  teams->shutdown();
+	employees->shutdown();
+	programs->shutdown();
 }

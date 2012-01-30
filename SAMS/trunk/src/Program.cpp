@@ -48,8 +48,9 @@ void Program::startup(ifstream& inFile)
 }
 	
 /**
-	* Shut down method to call all necessary methods to persist data and delete all variables from memory
-	*/
+ * Shut down method to call all necessary methods to persist data and delete all 
+ * variables from memory
+ */
 void Program::shutdown(ofstream& outFile)
 {
 	outFile << getName() << '\t'

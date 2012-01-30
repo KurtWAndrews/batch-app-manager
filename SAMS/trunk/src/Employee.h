@@ -1,8 +1,7 @@
 /**
  * @file Employee.h
  * @brief Employee class definition
- * @author Brian Royer
- * @author Kurt Andrews
+ * @author Brian Royer & Kurt Andrews
  */
 
 #ifndef EMPLOYEE_H
@@ -11,6 +10,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+
+class Team;
 
 /**
  * Employee Class Definition
@@ -24,26 +25,17 @@ private:
 	std::string prefName;
 	std::string emailAddress;
 	bool fullTime;
+  Team* team;
 
 public:
-	Employee(const std::string & _id = "",
-					 const std::string & _firstName = "",
-					 const std::string & _lastName = "",
-					 const std::string & _preferredName = "",
-					 const std::string & _email = "",
-					 const bool _isFullTime = false);
+	Employee(const std::string& _id = "",
+					 const std::string& _firstName = "",
+					 const std::string& _lastName = "",
+					 const std::string& _preferredName = "",
+					 const std::string& _email = "",
+					 const bool _fullTime = false,
+           Team* _team = NULL);
 	virtual ~Employee();
-	
-	/**
-	 * Start up method to call all necessary methods to read in data
-	 */
-	void startup(std::ifstream& inFile);
-	
-	/**
-	 * Shut down method to call all necessary methods to persist data and delete all variables from memory
-	 */
-	void shutdown(std::ofstream& outFile);
-
 	void clearAttributes();
 	void setEmployeeId(const std::string & _id);
 	std::string getEmployeeId() const;
@@ -57,25 +49,38 @@ public:
 	std::string getEmailAddress() const;
 	void setFullTime(const bool _isFullTime);
 	bool isFullTime() const;
+  Team* getTeam() const;
+  void setTeam(Team* _team);
 	void populate();
 	void display() const;
+  /**
+   * Start up method to call all necessary methods to read in data
+   */
+  void startup(std::ifstream& inFile);
+  
+  /**
+   * Shut down method to call all necessary methods to persist data and delete all 
+   * variables from memory
+   */
+  void shutdown(std::ofstream& outFile);
 };
 
 /**
  * Overload output operation for employee object
  */
-std::ostream & operator << (std::ostream & os, const Employee & emp);
+std::ostream & operator << (std::ostream& os, const Employee& emp);
 
 /**
- * Inline set method for employee id
+ * Update the employee id attribute
+ * @param _id the new value of employee id
  */
-inline void Employee::setEmployeeId(const std::string & _id)
+inline void Employee::setEmployeeId(const std::string& _id)
 {
 	employeeId = _id;
 }
 
 /**
- * Inline get method for employee id
+ * @return the employee id
  */
 inline std::string Employee::getEmployeeId() const
 {
@@ -83,15 +88,16 @@ inline std::string Employee::getEmployeeId() const
 }
 
 /**
- * Inline set method for employee first name
+ * Update the employee first name
+ * @param _firstName the new value of the employee's first name
  */
-inline void Employee::setFirstName(const std::string & _firstName)
+inline void Employee::setFirstName(const std::string& _firstName)
 {
 	firstName = _firstName;
 }
 
 /**
- * Inline get method for employee first name
+ * @return The employee's first name
  */
 inline std::string Employee::getFirstName() const
 {
@@ -99,15 +105,16 @@ inline std::string Employee::getFirstName() const
 }
 
 /**
- * Inline set method for employee last name
+ * Update the employee's last name
+ * @param _lastName the new value of the employee's last name
  */
-inline void Employee::setLastName(const std::string & _lastName)
+inline void Employee::setLastName(const std::string& _lastName)
 {
 	lastName = _lastName;
 }
 
 /**
- * Inline get method for employee last name
+ * @return the employee's last name
  */
 inline std::string Employee::getLastName() const
 {
@@ -115,7 +122,7 @@ inline std::string Employee::getLastName() const
 }
 
 /**
- * Inline get method for employee preferred name
+ * @return the employee's preferred name
  */
 inline std::string Employee::getPrefName() const
 {
@@ -123,23 +130,25 @@ inline std::string Employee::getPrefName() const
 }
 
 /**
- * Inline set method for employee preferred name
+ * Update the employee's prefered name
+ * @param _preferredName the new value for the employee's first name
  */
-inline void Employee::setPrefName(const std::string & _preferredName)
+inline void Employee::setPrefName(const std::string& _preferredName)
 {
 	prefName = _preferredName;
 }
 
 /**
- * Inline set method for employee email
+ * Update the employee's email address
+ * @param the employee's new email address
  */
-inline void Employee::setEmailAddress(const std::string & _email)
+inline void Employee::setEmailAddress(const std::string& _email)
 {
 	emailAddress = _email;
 }
 
 /**
- * Inline get method for employee email
+ * @return the employee's email address
  */
 inline std::string Employee::getEmailAddress() const
 {
@@ -147,19 +156,31 @@ inline std::string Employee::getEmailAddress() const
 }
 
 /**
- * Inline set method for employee employment status
+ * Update the employee's full-time/part-time status
+ * @param _fullTime the employee's new full/part-time status
  */
-inline void Employee::setFullTime(const bool _isFullTime)
+inline void Employee::setFullTime(const bool _fullTime)
 {
-	fullTime = _isFullTime;
+	fullTime = _fullTime;
 }
 
 /**
- * Inline get method for employee employement
+ * @return True if the employee is full-time, otherwise retrun False
  */
-inline bool Employee::isFullTime( )const
+inline bool Employee::isFullTime() const
 {
 	return fullTime;
 }
+
+/**
+ * @return the pointer to the employee's team
+ */
+inline Team* Employee::getTeam() const {return team;}
+
+/**
+ * Update the pointer to the employe's team
+ * @param _team the pointer to the employee's new team
+ */
+inline void Employee::setTeam(Team* _team) {team = _team;}
 
 #endif

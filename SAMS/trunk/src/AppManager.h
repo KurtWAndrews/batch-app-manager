@@ -1,17 +1,19 @@
 /**
  * @file AppManager.h
  * @brief AppManager declaration
+ * @author Kurt Andrews & Brian Royer
  */
 
 #ifndef APPMANAGER_H_
 #define APPMANAGER_H_
 
-#include "EmployeeList.h"
-#include "ProgramList.h"
-
-#include <string>
 #include <iostream>
 #include <fstream>
+#include <string>
+
+#include "EmployeeList.h"
+#include "TeamList.h"
+#include "ProgramList.h"
 
 /**
  * @brief The AppManager class functions as the facade for the entire SAMS system.
@@ -24,6 +26,7 @@ public:
 	/**
 	 * Default AppManager constructor
 	 */
+
   AppManager();
 
   /**
@@ -31,28 +34,23 @@ public:
    */
   virtual ~AppManager();
 
-  /**
-   * Start up method to call all necessary methods to read in data
-   */
-	void startup();
-  
-  /**
-   * Shut down method to call all necessary methods to persist data and delete all variables from memory
-   */
-	void shutdown();
-
   // accessor methods
 
   /**
    * @return the system employee list
    */
   EmployeeList* getEmployees() const;
+
+  /**
+   * @return the system team list
+   */
+  TeamList* getTeams() const;
   
-    /**
+  /**
    * @return the system program list
    */
   ProgramList* getPrograms() const;
-
+  
   // modifier methods
 
   /**
@@ -61,6 +59,18 @@ public:
    */
   void setEmployees(EmployeeList* ePtr);
 
+  /**
+   * Update the team list pointer with the specified value
+   * @param tPtr - the pointer to the new team list
+   */
+  void setTeams(TeamList* tPtr);
+  
+  /**
+   * Update the program list pointer with the specified value
+   * @param pPtr - the pointer to the new program list
+   */
+  void setPrograms(ProgramList* pPtr);
+  
   // system functions
 
   /**
@@ -69,7 +79,7 @@ public:
   void addEmployees();
 
   /**
-   * change employee informations
+   * change employee information
    */
   void changeEmployees();
 
@@ -84,38 +94,64 @@ public:
   void displayEmployees();
 
   /**
-   * replace the program list with the specified value
-   * @param pPtr - the pointer to the new system program list
+   * add teams to the system
    */
-  void setPrograms(ProgramList* pPtr);
-
+  void addTeams();
+  
   /**
-   * add programs to the system
+   * change team information
+   */
+  void changeTeams();
+  
+  /**
+   * remove teams from the system
+   */
+  void removeTeams();
+  
+  /**
+   * display all teams in the Team list
+   */
+  void displayTeams();
+  
+  /**
+   * add teams to the system
    */
   void addPrograms();
-
+  
   /**
-   * change program informations
+   * change team information
    */
   void changePrograms();
-
+  
   /**
-   * remove programs from the system
+   * remove teams from the system
    */
   void removePrograms();
-
+  
   /**
-   * display all programs in the program list
+   * display all teams in the Team list
    */
   void displayPrograms();
-
+  
+  /**
+   * Start up method to call all necessary methods to read in data
+   */
+	void startup();
+  
+  /**
+   * Shut down method to call all necessary methods to persist data 
+   */
+	void shutdown();
+    
 private:
   EmployeeList* employees;
+  TeamList* teams;
   ProgramList* programs;
 };
 
 // accessor method definitions
 inline EmployeeList* AppManager::getEmployees() const {return employees;}
+inline TeamList* AppManager::getTeams() const {return teams;}
 inline ProgramList* AppManager::getPrograms() const {return programs;}
 
 // delligated system operations
@@ -123,9 +159,14 @@ inline void AppManager::addEmployees() {employees->addEmployee();}
 inline void AppManager::changeEmployees() {employees->changeEmployee();}
 inline void AppManager::removeEmployees() {employees->removeEmployee();}
 inline void AppManager::displayEmployees() {employees->display();}
+inline void AppManager::addTeams() {teams->addTeam(getEmployees());}
+inline void AppManager::changeTeams() {teams->changeTeam(getEmployees());}
+inline void AppManager::removeTeams() {teams->removeTeam();}
+inline void AppManager::displayTeams() {teams->display();}
 inline void AppManager::addPrograms() {programs->addProgram();}
 inline void AppManager::changePrograms() {programs->changeProgram();}
 inline void AppManager::removePrograms() {programs->removeProgram();}
 inline void AppManager::displayPrograms() {programs->display();}
+
 
 #endif /* APPMANAGER_H_ */
