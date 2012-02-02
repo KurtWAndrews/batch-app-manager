@@ -86,7 +86,7 @@ public:
   
   /**
    * Update the team id with the specified value
-   * @param _teamId - the new neam id
+   * @param _teamId - the new team id
    */
   void setTeamId(const std::string& _teamId);
   
@@ -116,7 +116,6 @@ private:
   std::string desc;
   std::string defaultApp;
   std::vector <Employee*> members;
-
   
   /**
    * Display Non member attributes

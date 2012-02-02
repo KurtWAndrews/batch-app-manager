@@ -4,3 +4,18 @@
  * @author Kurt Andrews & Brian Royer
  */
 
+#include "Account.h"
+
+using namespace std;
+
+Account::Account(const string& _accountId,
+           const string& _desc,
+           const float _balance) {
+  setAccountId(_accountId);
+  setDesc(_desc);
+  setBalance(_balance);
+}
+
+Account::~Account() {
+  cout << "Calling Account destructor" << endl;
+}
