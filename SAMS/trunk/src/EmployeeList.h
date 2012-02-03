@@ -13,6 +13,8 @@
 #include <string>
 
 #include "Employee.h"
+#include "FullTime.h"
+#include "PartTime.h"
 
 /**
  * @brief A collection of the of employees in the system

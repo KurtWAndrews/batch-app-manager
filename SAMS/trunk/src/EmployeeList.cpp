@@ -25,21 +25,45 @@ EmployeeList::~EmployeeList() {
 }
 
 void EmployeeList::addEmployee() {
-  Employee* employee = new Employee;
+  Employee* employee = 0;
   map<string, Employee*>::const_iterator iter;
-
+  char _fullTime;
+  
   do {
+    if(employee) {
+      if (employee->getEmployeeId() != "") {
+        cout << "\nThe " << employee->getEmployeeId()
+             << " is already in the Employee List" << endl << endl;
+        cout << "---Press <enter> to continue and choose a different id";
+        cin.ignore();
+        employee->clearAttributes();
+      }
+    }
+
     system("cls");
     cout << "Adding Employee" << endl;
 
-    if (employee->getEmployeeId() != "") {
-      cout << "The " << employee->getEmployeeId()
-           << " is already in the Employee List" << endl << endl;
-      employee->clearAttributes();
+    cout << "Is the employee have full-time employment or part-time? (f/p): ";
+    cin.get(_fullTime);
+    cin.ignore();
+    if(tolower(_fullTime) == 'f')
+    {
+      employee = new FullTime();
+      FullTime* fullTime = dynamic_cast<FullTime*>(employee);
+      if(fullTime)
+      {
+        fullTime->populate();
+      }
     }
-
-    employee->display();
-    employee->populate();
+    else
+    {
+      employee = new PartTime();
+      PartTime* partTime = dynamic_cast<PartTime*>(employee);
+      if(partTime)
+      {
+        partTime->populate();
+      }
+    }
 
     iter = employees.find(employee->getEmployeeId());
   } while (iter != employees.end());
@@ -83,7 +107,6 @@ void EmployeeList::changeEmployee() {
 
         iter->second->display();
         iter->second->populate();
-        iter->second->display();
         break;
       case 'F': iter = employees.begin();
         break;
@@ -320,13 +343,31 @@ void EmployeeList::startup()
   {
     Employee* emp;
     int employeeRecs;
+    std::string _fullTime;
     
     isEmployees >> employeeRecs;
     isEmployees.ignore();
     
     for (int rec = 0; rec < employeeRecs; ++rec) {
-      emp = new Employee;
-      emp->startup(isEmployees);
+      getline(isEmployees, _fullTime, '|');
+      if(_fullTime == "1")
+      {
+        emp = new FullTime;
+        FullTime* fullTime = dynamic_cast<FullTime*>(emp);
+        if(fullTime)
+        {
+          fullTime->startup(isEmployees);
+        }
+      }
+      else
+      {
+        emp = new PartTime;
+        PartTime* partTime = dynamic_cast<PartTime*>(emp);
+        if(partTime)
+        {
+          partTime->startup(isEmployees);
+        }
+      }
       
       employees.insert(pair<string, Employee*>(emp->getEmployeeId(), emp));
     }

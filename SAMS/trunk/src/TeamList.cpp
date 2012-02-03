@@ -190,7 +190,7 @@ void TeamList::removeTeam() {
     system("cls");
     cout << "Remove Team" << endl << endl;
     if (teams.empty()) {
-      cout << "There are no teams in the system." << endl << endl;
+      cout << "There are no teams in the system." << endl;
       
       option = 'Q';
     } else {

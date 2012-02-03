@@ -45,7 +45,7 @@ public:
   /**
    * @return the default application for the account
    */
-  std::string getBalance() const;
+  double getBalance() const;
   
   /**
    * Update the account id with the specified value
@@ -63,7 +63,7 @@ public:
    * Update the accounts default application
    * @param - _balance - the new default app for the account
    */
-  void setBalance(const float _balance);
+  void setBalance(const double _balance);
   /**
    * Start up method to call all necessary methods to load account data
    */
@@ -77,7 +77,7 @@ public:
 private:
   std::string accountId;
   std::string desc;
-  std::string balance;
+  double balance;
   
   
   /**
@@ -90,7 +90,7 @@ inline std::string Account::getAccountId() const {return accountId;}
 inline void Account::setAccountId(const std::string& _accountId) {accountId = _accountId;}
 inline std::string Account::getDesc() const {return desc;}
 inline void Account::setDesc(const std::string& _desc) {desc = _desc;}
-inline std::string Account::getBalance() const {return balance;}
-inline void Account::setBalance(const float _balance) {balance = _balance;}
+inline double Account::getBalance() const {return balance;}
+inline void Account::setBalance(const double _balance) {balance = _balance;}
 
 #endif /* ACCOUNT_H_ */

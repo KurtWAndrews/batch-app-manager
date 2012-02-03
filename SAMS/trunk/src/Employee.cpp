@@ -59,8 +59,6 @@ void Employee::populate()
          preferredName,
          id,
          email;
-  
-  char _fullTime;
 
   if (getEmployeeId() == "") {
     cout << "What is the employee's id? ";
@@ -77,33 +75,11 @@ void Employee::populate()
   getline(cin, preferredName);
 	cout << "What is the employee's email address? ";
 	getline(cin, email);
-  cout << "Is the employee have full-time employment or part-time? (f/p): ";
-  cin.get(_fullTime);
-  cin.ignore();
 
 	setFirstName(firstName);
 	setLastName(lastName);
 	setPrefName(preferredName);
 	setEmailAddress(email);
-  if(tolower(_fullTime) == 'f')
-  {
-    setFullTime(true);
-  }
-  else
-  {
-    bool wasFullTime = isFullTime();
-    setFullTime(false);
-    if (getTeam() != NULL && wasFullTime) {
-      if (! getTeam()->hasFullTimeMember()) {
-        setFullTime(true);
-        cout << "Changing this employee to part-time would violate the full-time rule for " + getTeam()->getDesc() << endl
-             << "Please make sure that the team has another full time employee, or remove the team altogether," << endl
-             << "before changing this employees status" << endl << endl;
-        cout << "---Any character to continue";
-        cin.get();
-      }
-    }
-  }
 }
 
 /**
@@ -123,44 +99,33 @@ void Employee::display() const
 void Employee::startup(ifstream& inFile)
 {
   string _id;
-  getline(inFile, _id, '\t');
+  getline(inFile, _id, '|');
   setEmployeeId(_id);
   
   string _firstName;
-  getline(inFile, _firstName, '\t');
+  getline(inFile, _firstName, '|');
   setFirstName(_firstName);
   
   string _lastName;
-  getline(inFile, _lastName, '\t');
+  getline(inFile, _lastName, '|');
   setLastName(_lastName);
   
   string _prefName;
-  getline(inFile, _prefName, '\t');
+  getline(inFile, _prefName, '|');
   setPrefName(_prefName);
   
   string _email;
-  getline(inFile, _email, '\t');
+  getline(inFile, _email);
   setEmailAddress(_email);
-  
-  string _fullTime;
-  getline(inFile, _fullTime);
-  if(_fullTime == "1")
-  {
-    setFullTime(true);
-  }
-  else
-  {
-    setFullTime(false);
-  }
 }
 
 void Employee::shutdown(ofstream& outFile)
 {
-  outFile << getEmployeeId() << '\t'
-  << getFirstName() << '\t'
-  << getLastName() << '\t'
-  << getPrefName() << '\t'
-  << getEmailAddress() << '\t'
-  << isFullTime() << endl;
+  outFile << isFullTime() << '|'
+          << getEmployeeId() << '|'
+          << getFirstName() << '|'
+          << getLastName() << '|'
+          << getPrefName() << '|'
+          << getEmailAddress() << endl;
 }
 

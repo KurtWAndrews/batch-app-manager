@@ -111,7 +111,7 @@ int displayMenu(const string& options)
 }
 
 void waitForKeyPress() {
-  cout << "---Any character to continue";
+  cout << endl << "---Press <enter> to continue";
   cin.get();
 }
 
@@ -154,9 +154,10 @@ int selectEmployeeOption(AppManager& am, char option) {
       break;
     default:
       cout << "Unknown option" << endl;
-      waitForKeyPress();
       break;
   }
+
+  waitForKeyPress();
 
   return(menu);
 }
@@ -174,13 +175,14 @@ int selectTeamOption(AppManager& am, char option) {
       break;
     case 'Q':
       menu = MAIN_MENU;
-      cout << "Quitting Employee Menu" << endl;
+      cout << "Quitting Team Menu" << endl;
       break;
     default:
       cout << "Unknown option" << endl;
-      waitForKeyPress();
       break;
   }
+  
+  waitForKeyPress();
   
   return (menu);
 }
@@ -198,14 +200,15 @@ int selectProgramOption(AppManager& am, char option) {
       break;
     case 'Q':
       menu = MAIN_MENU;
-      cout << "Quitting Employee Menu" << endl;
+      cout << "Quitting Program Menu" << endl;
       break;
     default:
       cout << "Unknown option" << endl;
-      waitForKeyPress();
       break;
   }
     
+  waitForKeyPress();
+  
   return (menu);
 }
 

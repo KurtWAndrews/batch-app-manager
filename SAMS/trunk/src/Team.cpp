@@ -32,7 +32,6 @@ void Team::addMember(EmployeeList* employees) {
     Employee* ePtr = employees->selectEmployee();
     
     if (ePtr != NULL) {
-      ePtr->display();
       
       if (ePtr->getTeam() == NULL) {
         ePtr->setTeam((Team*) this);
@@ -45,7 +44,7 @@ void Team::addMember(EmployeeList* employees) {
     }
     
     isValidTeam = (members.size() > 0 && hasFullTimeMember());
-    if (! isValidTeam) {
+    if (!isValidTeam) {
       cout << "A team must have at least one full time employee." << endl;
     }
   } while (! isValidTeam);
@@ -60,7 +59,7 @@ void Team::clearAttributes() {
 }
 
 void Team::clearAllMembers() {
-  for (int i =0; i < members.size(); i++) {
+  for (int i = 0; i < members.size(); i++) {
     members[i]->setTeam(NULL);
   }
   
@@ -85,9 +84,12 @@ void Team::display() const {
 
 bool Team::hasFullTimeMember() {
   bool hasFullTimeMember = false;
+  int i = 0;
   
-  for (int i = 0; i < members.size(); i++) {
+  while(!hasFullTimeMember || i < members.size())
+  {
     hasFullTimeMember = (hasFullTimeMember || members[i]->isFullTime());
+    ++i;
   }
   
   return hasFullTimeMember;
@@ -140,15 +142,17 @@ void Team::removeMember() {
           
           if (hasFullTimeMember()) {   // team still has a full time employee...
             member->setTeam(NULL);     //   so finish the removal.
+            i = 0;
           } else {                     // otherwise the team would be invalid
                                        // without this member so...
             members.push_back(member); //...put him pack on the team
             cout << "The team must have at least one full time employee." << endl;
+            cin.ignore();
           }
         } else {
           cout << "The team must have at least one full time employee." << endl;
+          cin.ignore();
         }
-        
         break;
       case 'F': i = 0;
         break;
@@ -216,5 +220,3 @@ void Team::shutdown(ofstream& outFile)
     outFile << members[rec]->getEmployeeId() << endl;
   }
 }
-
-  
