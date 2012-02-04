@@ -38,14 +38,17 @@ void Team::addMember(EmployeeList* employees) {
         members.push_back(ePtr);
       } else {
         cout << "This employee is already on a team" << endl;
+        cin.ignore();
       }
     } else {
       cout << "No employee was selected" << endl;
+      cin.ignore();
     }
     
     isValidTeam = (members.size() > 0 && hasFullTimeMember());
     if (!isValidTeam) {
       cout << "A team must have at least one full time employee." << endl;
+      cin.ignore();
     }
   } while (! isValidTeam);
 }
@@ -86,9 +89,9 @@ bool Team::hasFullTimeMember() {
   bool hasFullTimeMember = false;
   int i = 0;
   
-  while(!hasFullTimeMember || i < members.size())
+  while(!hasFullTimeMember && i < members.size())
   {
-    hasFullTimeMember = (hasFullTimeMember || members[i]->isFullTime());
+    hasFullTimeMember = (members[i]->isFullTime());
     ++i;
   }
   
