@@ -75,6 +75,105 @@ void EmployeeList::addEmployee() {
   employees.insert(pair<string, Employee*>(employee->getEmployeeId(), employee));
 }
 
+void EmployeeList::manageBenefits()
+{
+  system("cls");
+  map<string, Employee*>::iterator iter = employees.begin();
+  FullTime* fullTime = 0;
+  bool hasFullTime = false;
+  cout << "Manage Benefits" << endl << endl;
+
+  if (employees.empty()) {
+    cout << "There are no employees in the system." << endl;
+    return;
+  }
+
+  while(!hasFullTime && iter != employees.end())
+  {
+    hasFullTime = iter->second->isFullTime();
+    ++iter;
+  }
+
+  if (!hasFullTime) {
+    cout << "There are no full time employees in the system." << endl;
+    return;
+  }
+  
+  iter = employees.begin();
+  char option = 'N';
+
+  while (option != 'Q') {
+    system("cls");
+    cout << "Manage Benefits" << endl << endl;
+
+    while(!iter->second->isFullTime())
+    {
+      ++iter;
+    }
+
+    fullTime = dynamic_cast<FullTime*>(iter->second);
+
+    if(fullTime)
+    {
+      fullTime->display();
+
+      cout << endl
+           << endl
+           << "** (F)irst * (L)ast * (P)revious * (N)ext * (D)eposit * (W)ithdraw * (Q)uit ** ";
+
+      cin >> option;
+      cin.ignore();
+
+      switch(toupper(option)) {
+        case 'D':
+            fullTime->deposit();
+          break;
+        case 'W':
+            fullTime->withdraw();
+          break;
+        case 'F':
+          iter = employees.begin();
+          while(!iter->second->isFullTime())
+          {
+            ++iter;
+          }
+          break;
+        case 'L':
+          iter = employees.end();
+          do
+          {
+            --iter;
+          } while(!iter->second->isFullTime());
+          break;
+        case 'P':
+          do
+          {
+            if (iter == employees.begin()) {
+              iter = employees.end();
+            }
+            -- iter;
+          } while(!iter->second->isFullTime());
+          break;
+        case 'N':
+          do
+          {
+            ++iter;
+            if (iter == employees.end()) {
+              iter = employees.begin();
+            }
+          } while(!iter->second->isFullTime());
+          break;
+        case 'Q': option = 'Q'; break;
+      }
+    }
+    else
+    {
+      cout << "The employee cannot be classified as a full-time employee." << endl;
+      cin.ignore();
+    }
+  }
+}
+
 void EmployeeList::changeEmployee() {
   system("cls");
   cout << "Change Employee" << endl << endl;
@@ -135,6 +234,7 @@ void EmployeeList::changeEmployee() {
 
 void EmployeeList::display() const {
   system("cls");
+  FullTime* fullTime = 0;
   cout << "Display Employees" << endl << endl;
   
   if (employees.empty()) {
@@ -149,7 +249,15 @@ void EmployeeList::display() const {
     system("cls");
     cout << "Display Employees" << endl << endl;
     
-    iter->second->display();
+    fullTime = dynamic_cast<FullTime*>(iter->second);
+    if(fullTime)
+    {
+      fullTime->display();
+    }
+    else
+    {
+      iter->second->display();
+    }
     
     cout << endl
     << endl
@@ -378,16 +486,29 @@ void EmployeeList::startup()
 
 void EmployeeList::shutdown()
 {
+  FullTime* fullTime = 0;
+  PartTime* partTime = 0;
+
   ofstream osEmployees("employees.txt");
   
   osEmployees << employees.size() << endl;
   
   map<string, Employee*>::const_iterator iter;
   for(iter = employees.begin(); iter != employees.end(); ++ iter) {
-    iter->second->shutdown(osEmployees);
+    fullTime = dynamic_cast<FullTime*>(iter->second);
+    if(fullTime)
+    {
+      fullTime->shutdown(osEmployees);
+    }
+    else
+    {
+      partTime = dynamic_cast<PartTime*>(iter->second);
+      if(partTime)
+      {
+        partTime->shutdown(osEmployees);
+      }
+    }
   }
   
   osEmployees.close();
 }
-
-

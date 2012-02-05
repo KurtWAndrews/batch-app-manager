@@ -27,126 +27,131 @@ public:
 	 * Default AppManager constructor
 	 */
 
-  AppManager();
+	AppManager();
 
-  /**
-   * AppManager Destructor
-   */
-  virtual ~AppManager();
+	/**
+	 * AppManager Destructor
+	 */
+	virtual ~AppManager();
 
-  // accessor methods
+	// accessor methods
 
-  /**
-   * @return the system employee list
-   */
-  EmployeeList* getEmployees() const;
+	/**
+	 * @return the system employee list
+	 */
+	EmployeeList* getEmployees() const;
 
-  /**
-   * @return the system team list
-   */
-  TeamList* getTeams() const;
-  
-  /**
-   * @return the system program list
-   */
-  ProgramList* getPrograms() const;
-  
-  // modifier methods
+	/**
+	 * @return the system team list
+	 */
+	TeamList* getTeams() const;
+	
+	/**
+	 * @return the system program list
+	 */
+	ProgramList* getPrograms() const;
+	
+	// modifier methods
 
-  /**
-   * replace the employee list with the specified value
-   * @param ePtr - the pointer to the new system employee list
-   */
-  void setEmployees(EmployeeList* ePtr);
+	/**
+	 * replace the employee list with the specified value
+	 * @param ePtr - the pointer to the new system employee list
+	 */
+	void setEmployees(EmployeeList* ePtr);
 
-  /**
-   * Update the team list pointer with the specified value
-   * @param tPtr - the pointer to the new team list
-   */
-  void setTeams(TeamList* tPtr);
-  
-  /**
-   * Update the program list pointer with the specified value
-   * @param pPtr - the pointer to the new program list
-   */
-  void setPrograms(ProgramList* pPtr);
-  
-  // system functions
+	/**
+	 * Update the team list pointer with the specified value
+	 * @param tPtr - the pointer to the new team list
+	 */
+	void setTeams(TeamList* tPtr);
+	
+	/**
+	 * Update the program list pointer with the specified value
+	 * @param pPtr - the pointer to the new program list
+	 */
+	void setPrograms(ProgramList* pPtr);
+	
+	// system functions
 
-  /**
-   * add employees to the system
-   */
-  void addEmployees();
+	/**
+	 * add employees to the system
+	 */
+	void addEmployees();
 
-  /**
-   * change employee information
-   */
-  void changeEmployees();
+	/**
+	 * manage an Employee's benefits account
+	 */
+	void manageEmployeeBenefits();
 
-  /**
-   * remove employees from the system
-   */
-  void removeEmployees();
+	/**
+	 * change employee information
+	 */
+	void changeEmployees();
 
-  /**
-   * display all employees in the employee list
-   */
-  void displayEmployees();
+	/**
+	 * remove employees from the system
+	 */
+	void removeEmployees();
 
-  /**
-   * add teams to the system
-   */
-  void addTeams();
-  
-  /**
-   * change team information
-   */
-  void changeTeams();
-  
-  /**
-   * remove teams from the system
-   */
-  void removeTeams();
-  
-  /**
-   * display all teams in the Team list
-   */
-  void displayTeams();
-  
-  /**
-   * add teams to the system
-   */
-  void addPrograms();
-  
-  /**
-   * change team information
-   */
-  void changePrograms();
-  
-  /**
-   * remove teams from the system
-   */
-  void removePrograms();
-  
-  /**
-   * display all teams in the Team list
-   */
-  void displayPrograms();
-  
-  /**
-   * Start up method to call all necessary methods to read in data
-   */
+	/**
+	 * display all employees in the employee list
+	 */
+	void displayEmployees();
+
+	/**
+	 * add teams to the system
+	 */
+	void addTeams();
+	
+	/**
+	 * change team information
+	 */
+	void changeTeams();
+	
+	/**
+	 * remove teams from the system
+	 */
+	void removeTeams();
+	
+	/**
+	 * display all teams in the Team list
+	 */
+	void displayTeams();
+	
+	/**
+	 * add teams to the system
+	 */
+	void addPrograms();
+	
+	/**
+	 * change team information
+	 */
+	void changePrograms();
+	
+	/**
+	 * remove teams from the system
+	 */
+	void removePrograms();
+	
+	/**
+	 * display all teams in the Team list
+	 */
+	void displayPrograms();
+	
+	/**
+	 * Start up method to call all necessary methods to read in data
+	 */
 	void startup();
-  
-  /**
-   * Shut down method to call all necessary methods to persist data 
-   */
+	
+	/**
+	 * Shut down method to call all necessary methods to persist data 
+	 */
 	void shutdown();
-    
+		
 private:
-  EmployeeList* employees;
-  TeamList* teams;
-  ProgramList* programs;
+	EmployeeList* employees;
+	TeamList* teams;
+	ProgramList* programs;
 };
 
 // accessor method definitions
@@ -156,6 +161,7 @@ inline ProgramList* AppManager::getPrograms() const {return programs;}
 
 // delligated system operations
 inline void AppManager::addEmployees() {employees->addEmployee();}
+inline void AppManager::manageEmployeeBenefits() {employees->manageBenefits();}
 inline void AppManager::changeEmployees() {employees->changeEmployee();}
 inline void AppManager::removeEmployees() {employees->removeEmployee();}
 inline void AppManager::displayEmployees() {employees->display();}

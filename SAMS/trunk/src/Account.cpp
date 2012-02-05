@@ -10,7 +10,7 @@ using namespace std;
 
 Account::Account(const string& _accountId,
            const string& _desc,
-           const float _balance) {
+           const double _balance) {
   setAccountId(_accountId);
   setDesc(_desc);
   setBalance(_balance);

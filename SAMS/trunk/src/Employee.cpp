@@ -121,11 +121,9 @@ void Employee::startup(ifstream& inFile)
 
 void Employee::shutdown(ofstream& outFile)
 {
-  outFile << isFullTime() << '|'
-          << getEmployeeId() << '|'
+  outFile << getEmployeeId() << '|'
           << getFirstName() << '|'
           << getLastName() << '|'
           << getPrefName() << '|'
           << getEmailAddress() << endl;
 }
-

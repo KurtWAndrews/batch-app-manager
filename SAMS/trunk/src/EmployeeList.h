@@ -37,6 +37,11 @@ public:
   void addEmployee();
 
   /**
+   * manage the employee's benefits account
+   */
+  void manageBenefits();
+
+  /**
    * change an employee in the collection
    */
   void changeEmployee();

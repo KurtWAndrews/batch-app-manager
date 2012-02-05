@@ -48,6 +48,7 @@ int main() {
 
   menus.push_back("\n\n E M P L O Y E E  M E N U\n\n");
   menus[EMPLOYEE_MENU] += "A) Add Employee\n";
+  menus[EMPLOYEE_MENU] += "B) Manage Employee Benefits\n";
   menus[EMPLOYEE_MENU] += "C) Change Employee\n";
   menus[EMPLOYEE_MENU] += "R) Remove Employee\n";
   menus[EMPLOYEE_MENU] += "D) Display Employee\n";
@@ -141,6 +142,8 @@ int selectEmployeeOption(AppManager& am, char option) {
   int menu = EMPLOYEE_MENU;
   switch (option) {
     case 'A': am.addEmployees();
+      break;
+    case 'B': am.manageEmployeeBenefits();
       break;
     case 'C': am.changeEmployees();
       break;
