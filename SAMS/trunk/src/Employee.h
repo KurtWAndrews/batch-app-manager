@@ -52,7 +52,8 @@ public:
   Team* getTeam() const;
   void setTeam(Team* _team);
 	void populate();
-	void display() const;
+	virtual void display() const = 0;
+
   /**
    * Start up method to call all necessary methods to read in data
    */
