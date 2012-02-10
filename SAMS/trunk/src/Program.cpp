@@ -6,19 +6,22 @@
  */
 
 #include "Program.h"
+#include "Project.h"
 
 using namespace std;
 
 /**
  * Default Program constructor
  */
-Program::Program(const std::string & _name,
+Program::Program(const std::string & _id,
+									 const std::string & _name,
 									 const std::string & _description,
-									 const std::string & _projectId)
+									 Project* _project)
 {
+	setId(_id);
 	setName(_name);
 	setDescription(_description);
-	setProjectId(_projectId);
+	setProject(_project);
 }
 
 /**
@@ -34,17 +37,17 @@ Program::~Program()
 	*/
 void Program::startup(ifstream& inFile)
 {
+	string _id;
+	getline(inFile, _id, '|');
+	setId(_id);
+
 	string _name;
-	getline(inFile, _name, '\t');
+	getline(inFile, _name, '|');
 	setName(_name);
 
 	string _description;
-	getline(inFile, _description, '\t');
+	getline(inFile, _description);
 	setDescription(_description);
-
-	string _projectId;
-	getline(inFile, _projectId, '\t');
-	setProjectId(_projectId);
 }
 	
 /**
@@ -53,9 +56,9 @@ void Program::startup(ifstream& inFile)
  */
 void Program::shutdown(ofstream& outFile)
 {
-	outFile << getName() << '\t'
-					<< getDescription() << '\t'
-					<< getProjectId() << endl;
+	outFile << getId() << '|'
+          << getName() << '|'
+					<< getDescription() << endl;
 }
 
 /**
@@ -63,9 +66,10 @@ void Program::shutdown(ofstream& outFile)
  */
 void Program::clearAttributes()
 {
+  setId("");
 	setName("");
 	setDescription("");
-	setProjectId("");
+	setProject(NULL);
 }
 
 /**
@@ -74,20 +78,21 @@ void Program::clearAttributes()
  */
 void Program::populate()
 {
-	std::string _name,
+	std::string _id,
+              _name,
 							_description,
 							_projectId;
 
+  cout << "What is the program's id? ";
+  getline(cin, _id);
 	cout << "What is the program's name? ";
 	getline(cin, _name);
 	cout << "Write a very brief description of the program: ";
 	getline(cin, _description);
-	cout << "What is the project id that the program is associated to? ";
-	getline(cin, _projectId);
 	
+  setId(_id);
 	setName(_name);
 	setDescription(_description);
-	setProjectId(_projectId);
 }
 
 /**
@@ -95,7 +100,8 @@ void Program::populate()
  */
 void Program::display() const
 {
+	cout << "Program ID:\t" << getId() << endl;
 	cout << "Program Name:\t" << getName() << endl;
 	cout << "Program Description:\t" << getDescription() << endl;
-	cout << "Associated Project ID:\t" << getProjectId() << endl;
+  cout << "Associated Project:\t" << (project == NULL ? "Not Assigned to a project" : project->getProjectId() + " - " + project->getDesc()) << endl;
 }

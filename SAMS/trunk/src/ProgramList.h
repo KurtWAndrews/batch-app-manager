@@ -54,12 +54,31 @@ public:
 	void removeProgram();
 
 	/**
+	 * Select an program from the program list
+	 * @return a pointer to the selected program
+	 */
+	Program* selectProgram();
+
+	/**
 	 * display the collection of system program
 	 */
 	void display() const;
+	
+	/**
+	 * @return true if the program list is empty; false otherwise
+	 */
+	bool empty() const;
+	
+	/**
+	 * @return the pointer to the program object that has programId == _programId
+	 * or null if no match is found
+	 */
+	Program* find(const std::string& _programId);
 
 private:
 	std::map<std::string, Program*> programs;
 };
+
+inline bool ProgramList::empty() const {return(programs.empty());}
 
 #endif /* PROGRAMLIST_H_ */

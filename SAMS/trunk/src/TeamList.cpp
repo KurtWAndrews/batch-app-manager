@@ -270,6 +270,3 @@ void TeamList::shutdown()
   
   osTeams.close();
 }
-
-
-

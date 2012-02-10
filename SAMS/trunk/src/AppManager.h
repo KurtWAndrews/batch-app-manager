@@ -13,6 +13,7 @@
 
 #include "EmployeeList.h"
 #include "TeamList.h"
+#include "ProjectList.h"
 #include "ProgramList.h"
 
 /**
@@ -45,6 +46,11 @@ public:
 	 * @return the system team list
 	 */
 	TeamList* getTeams() const;
+
+	/**
+	 * @return the system project list
+	 */
+	ProjectList* getProjects() const;
 	
 	/**
 	 * @return the system program list
@@ -64,6 +70,12 @@ public:
 	 * @param tPtr - the pointer to the new team list
 	 */
 	void setTeams(TeamList* tPtr);
+
+	/**
+	 * Update the team list pointer with the specified value
+	 * @param tPtr - the pointer to the new project list
+	 */
+	void setProjects(ProjectList* pPtr);
 	
 	/**
 	 * Update the program list pointer with the specified value
@@ -117,6 +129,26 @@ public:
 	 * display all teams in the Team list
 	 */
 	void displayTeams();
+
+	/**
+	 * add projects to the system
+	 */
+	void addProjects();
+	
+	/**
+	 * change projects information
+	 */
+	void changeProjects();
+	
+	/**
+	 * remove projects from the system
+	 */
+	void removeProjects();
+	
+	/**
+	 * display all projects in the Team list
+	 */
+	void displayProjects();
 	
 	/**
 	 * add teams to the system
@@ -151,12 +183,14 @@ public:
 private:
 	EmployeeList* employees;
 	TeamList* teams;
+	ProjectList* projects;
 	ProgramList* programs;
 };
 
 // accessor method definitions
 inline EmployeeList* AppManager::getEmployees() const {return employees;}
 inline TeamList* AppManager::getTeams() const {return teams;}
+inline ProjectList* AppManager::getProjects() const {return projects;}
 inline ProgramList* AppManager::getPrograms() const {return programs;}
 
 // delligated system operations
@@ -169,6 +203,10 @@ inline void AppManager::addTeams() {teams->addTeam(getEmployees());}
 inline void AppManager::changeTeams() {teams->changeTeam(getEmployees());}
 inline void AppManager::removeTeams() {teams->removeTeam();}
 inline void AppManager::displayTeams() {teams->display();}
+inline void AppManager::addProjects() {projects->addProject(getPrograms());}
+inline void AppManager::changeProjects() {projects->changeProject(getPrograms());}
+inline void AppManager::removeProjects() {projects->removeProject();}
+inline void AppManager::displayProjects() {projects->display();}
 inline void AppManager::addPrograms() {programs->addProgram();}
 inline void AppManager::changePrograms() {programs->changeProgram();}
 inline void AppManager::removePrograms() {programs->removeProgram();}

@@ -12,20 +12,24 @@
 #include <fstream>
 #include <string>
 
+class Project;
+
 /**
  * Program Class Definition
  */
 class Program
 {
 private:
+	std::string id;
 	std::string name;
 	std::string description;
-	std::string projectId;
+	Project* project;
 
 public:
-	Program(const std::string & _name = "",
+	Program(const std::string & _id = "",
+					 const std::string & _name = "",
 					 const std::string & _description = "",
-					 const std::string & _projectId = "");
+					 Project* _project = NULL);
 	virtual ~Program();
 	
 	/**
@@ -35,17 +39,19 @@ public:
 	
 	/**
 	 * Shut down method to call all necessary methods to persist data and delete 
-   * all variables from memory
+	 * all variables from memory
 	 */
 	void shutdown(std::ofstream& outFile);
 
 	void clearAttributes();
+	void setId(const std::string & _id);
+	std::string getId() const;
 	void setName(const std::string & _name);
 	std::string getName() const;
 	void setDescription(const std::string & _description);
 	std::string getDescription() const;
-	void setProjectId(const std::string & _projectId);
-	std::string getProjectId() const;
+	void setProject(Project* _project);
+	Project* getProject() const;
 	void populate();
 	void display() const;
 };
@@ -54,6 +60,22 @@ public:
  * Overload output operation for employee object
  */
 std::ostream & operator << (std::ostream & os, const Program & _program);
+
+/**
+ * Inline set method for program id
+ */
+inline void Program::setId(const std::string & _id)
+{
+	id = _id;
+}
+
+/**
+ * Inline get method for program id
+ */
+inline std::string Program::getId() const
+{
+	return id;
+}
 
 /**
  * Inline set method for program name
@@ -90,17 +112,17 @@ inline std::string Program::getDescription() const
 /**
  * Inline set method for project id the program belongs to
  */
-inline void Program::setProjectId(const std::string & _projectId)
+inline void Program::setProject(Project* _project)
 {
-	projectId = _projectId;
+	project = _project;
 }
 
 /**
  * Inline get method for project id the program belongs to
  */
-inline std::string Program::getProjectId() const
+inline Project* Program::getProject() const
 {
-	return projectId;
+	return project;
 }
 
 #endif

@@ -34,6 +34,11 @@ int selectEmployeeOption(AppManager& am, char option);
 int selectTeamOption(AppManager& am, char option);
 
 /**
+ * User entry point to the system operations related to projects
+ */
+int selectProjectOption(AppManager& am, char option);
+
+/**
  * User entry point to the system operations related to teams
  */
 int selectProgramOption(AppManager& am, char option);
@@ -41,9 +46,10 @@ int selectProgramOption(AppManager& am, char option);
 int main() {
   vector<string> menus;
   menus.push_back("\n\n M A I N  M E N U\n\n");
-  menus[MAIN_MENU] += "E) Manage Employees\n";
-  menus[MAIN_MENU] += "T) Manage Teams\n";
-  menus[MAIN_MENU] += "P) Manage Programs\n";
+  menus[MAIN_MENU] += "A) Manage Employees\n";
+  menus[MAIN_MENU] += "B) Manage Teams\n";
+  menus[MAIN_MENU] += "C) Manage Projects\n";
+  menus[MAIN_MENU] += "D) Manage Programs\n";
   menus[MAIN_MENU] += "\nQ) Quit\n\n";
 
   menus.push_back("\n\n E M P L O Y E E  M E N U\n\n");
@@ -60,6 +66,13 @@ int main() {
   menus[TEAM_MENU] += "R) Remove Team\n";
   menus[TEAM_MENU] += "D) Display Team\n";
   menus[TEAM_MENU] += "\nQ) Quit\n\n";
+
+  menus.push_back("\n\n P R O J E C T  M E N U\n\n");
+  menus[PROJECT_MENU] += "A) Add Project\n";
+  menus[PROJECT_MENU] += "C) Change Project\n";
+  menus[PROJECT_MENU] += "R) Remove Project\n";
+  menus[PROJECT_MENU] += "D) Display Project\n";
+  menus[PROJECT_MENU] += "\nQ) Quit\n\n";
   
   menus.push_back("\n\n P R O G R A M  M E N U\n\n");
   menus[PROGRAM_MENU] += "A) Add Program\n";
@@ -85,6 +98,9 @@ int main() {
         break;
       case TEAM_MENU:
         menu = selectTeamOption(am, option);
+        break;
+      case PROJECT_MENU:
+        menu = selectProjectOption(am, option);
         break;
       case PROGRAM_MENU:
         menu = selectProgramOption(am, option);
@@ -121,11 +137,13 @@ int selectMainOption(char option) {
   int menu = MAIN_MENU;
 
   switch (option) {
-    case 'E': menu = EMPLOYEE_MENU;
+    case 'A': menu = EMPLOYEE_MENU;
       break;
-    case 'T': menu = TEAM_MENU;
+    case 'B': menu = TEAM_MENU;
       break;
-    case 'P': menu = PROGRAM_MENU;
+    case 'C': menu = PROJECT_MENU;
+      break;
+    case 'D': menu = PROGRAM_MENU;
       break;
     case 'Q': menu = QUIT_MENU;
       cout << "Quitting Application" << endl;
@@ -189,6 +207,31 @@ int selectTeamOption(AppManager& am, char option) {
   
   return (menu);
 }
+
+int selectProjectOption(AppManager& am, char option) {
+  int menu = PROJECT_MENU;
+  switch (option) {
+    case 'A': am.addProjects();
+      break;
+    case 'C': am.changeProjects();
+      break;
+    case 'R': am.removeProjects();
+      break;
+    case 'D': am.displayProjects();
+      break;
+    case 'Q':
+      menu = MAIN_MENU;
+      cout << "Quitting Project Menu" << endl;
+      break;
+    default:
+      cout << "Unknown option" << endl;
+      break;
+  }
+  
+  waitForKeyPress();
+  
+  return (menu);
+}
   
 int selectProgramOption(AppManager& am, char option) {
   int menu = PROGRAM_MENU;
@@ -214,4 +257,3 @@ int selectProgramOption(AppManager& am, char option) {
   
   return (menu);
 }
-

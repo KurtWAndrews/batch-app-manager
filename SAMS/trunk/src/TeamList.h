@@ -21,49 +21,49 @@
  */
 class TeamList {
 public:
-  /**
-   * default constructor for TeamList
-   */
-  TeamList();
+	/**
+	 * default constructor for TeamList
+	 */
+	TeamList();
 
-  /**
-   * TeamList destructor
-   */
-  virtual ~TeamList();
+	/**
+	 * TeamList destructor
+	 */
+	virtual ~TeamList();
 
-  /**
-   * add a team to a collection for the team
-   */
-  void addTeam(EmployeeList* employees);
+	/**
+	 * add a team to a collection for the team
+	 */
+	void addTeam(EmployeeList* employees);
 
-  /**
-   * change a team in the collection
-   */
-  void changeTeam(EmployeeList* employees);
+	/**
+	 * change a team in the collection
+	 */
+	void changeTeam(EmployeeList* employees);
 
-  /**
-   * displays the teams from the collection
-   */
-  void display() const;
-  
-  /**
-   * remove a team from the collection
-   */
-  void removeTeam();
+	/**
+	 * displays the teams from the collection
+	 */
+	void display() const;
+	
+	/**
+	 * remove a team from the collection
+	 */
+	void removeTeam();
 
-  /**
+	/**
 	 * Start up method to call all necessary methods to load data for teams
 	 */
 	void startup(EmployeeList* employees);
 	
 	/**
 	 * Shut down method to call all necessary methods to persist data and delete 
-   * all teams from memory
+	 * all teams from memory
 	 */
 	void shutdown();
 
 private:
-  std::map<std::string, Team*> teams;
+	std::map<std::string, Team*> teams;
 };
 
 #endif /* TEAMLIST_H_ */

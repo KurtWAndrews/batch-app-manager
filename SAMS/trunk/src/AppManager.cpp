@@ -13,9 +13,11 @@ using namespace std;
  */
 AppManager::AppManager() : employees(0),
                            teams(0),
+                           projects(0),
                            programs(0) {
 	setEmployees(new EmployeeList);
   setTeams(new TeamList);
+  setProjects(new ProjectList);
   setPrograms(new ProgramList);
                              
   startup();
@@ -30,6 +32,7 @@ AppManager::~AppManager() {
   
   delete teams;
   delete employees;
+  delete projects;
   delete programs;
 }
 
@@ -43,18 +46,26 @@ void AppManager::setTeams(TeamList *tPtr) {
   teams = tPtr;
 }
 
+void AppManager::setProjects(ProjectList *pPtr) {
+  delete projects;
+  projects = pPtr;
+}
+
 void AppManager::setPrograms(ProgramList* pPtr) {
   delete programs;
   programs = pPtr;
 }
+
 void AppManager::startup() {
 	employees->startup();
   teams->startup(employees);
 	programs->startup();
+  projects->startup(programs);
 }
 
 void AppManager::shutdown() {
   teams->shutdown();
 	employees->shutdown();
+  projects->shutdown();
 	programs->shutdown();
 }
