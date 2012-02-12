@@ -27,11 +27,6 @@ ProjectList::~ProjectList() {
 void ProjectList::addProject(ProgramList* programs) {
   system("cls");
   cout << "Adding Project" << endl;
-  
-  if (programs->empty()) {
-    cout << "There are no programs in the system.  Please add programs before adding a project." << endl;
-    return;
-  }
     
   Project* project = new Project;
   map<string, Project*>::const_iterator iter;

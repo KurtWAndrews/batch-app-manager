@@ -180,6 +180,11 @@ void Team::removeMember() {
 	}
 }
 
+void Team::removeEmployee(Employee* emp)
+{	
+	members.erase(std::remove(members.begin(), members.end(), emp), members.end());
+}
+
 void Team::startup(ifstream& inFile, EmployeeList* employees) {
 	string _teamId;
 	getline(inFile, _teamId, '\t');

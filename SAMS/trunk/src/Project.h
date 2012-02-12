@@ -10,6 +10,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 // using class declarations here to avoid recursive includes caused by the 
 // bi-directional relationship between Project and Team
@@ -76,6 +77,12 @@ public:
 	 * Remove programs from the team
 	 */
 	void removeProgram();
+  
+	/**
+	 * Remove program from the team
+   * Called from program's destructor
+	 */
+  void removeDeletedProgram(Program* program);
 	
 	/**
 	 * Update the project id with the specified value

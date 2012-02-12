@@ -320,7 +320,7 @@ void EmployeeList::removeEmployee() {
   cout << "Remove Employee" << endl << endl;
 
   map<string, Employee*>::iterator iter = employees.begin();
-  string name = "";
+  string id = "";
   char option = 'N';
 
   while (option != 'Q') {
@@ -332,7 +332,7 @@ void EmployeeList::removeEmployee() {
       option = 'Q';
     } else {
       iter->second->display();
-      name = iter->second->getEmployeeId();
+      id = iter->second->getEmployeeId();
       cout << endl
            << endl
            << "** (F)irst * (L)ast * (P)revious * (N)ext * (R)emove * (Q)uit ** ";
@@ -343,7 +343,7 @@ void EmployeeList::removeEmployee() {
     switch(toupper(option)) {
       case 'R':
         delete iter->second;
-        employees.erase(name);
+        employees.erase(id);
         iter = employees.begin();
         break;
       case 'F': iter = employees.begin();

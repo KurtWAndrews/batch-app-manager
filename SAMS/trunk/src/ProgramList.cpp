@@ -152,7 +152,7 @@ void ProgramList::removeProgram() {
   cout << "Remove Employee" << endl << endl;
 
   map<string, Program*>::iterator iter = programs.begin();
-  string name = "";
+  string id = "";
   char option = 'N';
 
   while (option != 'Q') {
@@ -164,6 +164,7 @@ void ProgramList::removeProgram() {
       option = 'Q';
     } else {
       iter->second->display();
+      id = iter->second->getId();
       cout << endl
            << endl
            << "** (F)irst * (L)ast * (P)revious * (N)ext * (R)emove * (Q)uit ** ";
@@ -174,7 +175,7 @@ void ProgramList::removeProgram() {
     switch(toupper(option)) {
       case 'R':
         delete iter->second;
-        programs.erase(name);
+        programs.erase(id);
         iter = programs.begin();
         break;
       case 'F': iter = programs.begin();

@@ -38,7 +38,7 @@ void Project::addProgram(ProgramList* programs) {
 			cin.ignore();
 		}
 	} else {
-		cout << "No program was selected" << endl;
+		cout << "\n\nNo programs were selected" << endl;
 		cin.ignore();
 	}
 }
@@ -129,6 +129,11 @@ void Project::removeProgram() {
 			case 'Q': option = 'Q'; break;
 		}
 	}
+}
+
+void Project::removeDeletedProgram(Program* program)
+{	
+	supportingPrograms.erase(std::remove(supportingPrograms.begin(), supportingPrograms.end(), program), supportingPrograms.end());
 }
 
 void Project::startup(ifstream& inFile, ProgramList* programs) {

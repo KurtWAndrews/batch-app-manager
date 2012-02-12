@@ -29,6 +29,10 @@ Program::Program(const std::string & _id,
  */
 Program::~Program()
 {
+	if(project != NULL)
+	{
+		project->removeDeletedProgram(this);
+	}
 	cout << "Executing Program's Destructor" << endl;
 }
 
@@ -57,7 +61,7 @@ void Program::startup(ifstream& inFile)
 void Program::shutdown(ofstream& outFile)
 {
 	outFile << getId() << '|'
-          << getName() << '|'
+					<< getName() << '|'
 					<< getDescription() << endl;
 }
 
@@ -66,7 +70,7 @@ void Program::shutdown(ofstream& outFile)
  */
 void Program::clearAttributes()
 {
-  setId("");
+	setId("");
 	setName("");
 	setDescription("");
 	setProject(NULL);
@@ -79,18 +83,18 @@ void Program::clearAttributes()
 void Program::populate()
 {
 	std::string _id,
-              _name,
+							_name,
 							_description,
 							_projectId;
 
-  cout << "What is the program's id? ";
-  getline(cin, _id);
+	cout << "What is the program's id? ";
+	getline(cin, _id);
 	cout << "What is the program's name? ";
 	getline(cin, _name);
 	cout << "Write a very brief description of the program: ";
 	getline(cin, _description);
 	
-  setId(_id);
+	setId(_id);
 	setName(_name);
 	setDescription(_description);
 }
@@ -103,5 +107,5 @@ void Program::display() const
 	cout << "Program ID:\t" << getId() << endl;
 	cout << "Program Name:\t" << getName() << endl;
 	cout << "Program Description:\t" << getDescription() << endl;
-  cout << "Associated Project:\t" << (project == NULL ? "Not Assigned to a project" : project->getProjectId() + " - " + project->getDesc()) << endl;
+	cout << "Associated Project:\t" << (project == NULL ? "Not Assigned to a project" : project->getProjectId() + " - " + project->getDesc()) << endl;
 }
