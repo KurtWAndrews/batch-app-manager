@@ -91,43 +91,53 @@ void Project::populate() {
 }
 
 void Project::removeProgram() {
-	unsigned long i = 0;
+	if(supportingPrograms.size() > 0)
+	{
+		unsigned long i = 0;
 	
-	char option = 'N';
-	while (option != 'Q') {
-		system("cls");
-		cout << "Remove Member" << endl << endl;
-		_display();
-		cout << supportingPrograms[i]->getName() << endl;
-		cout << "** (F)irst * (L)ast * (P)revious * (N)ext * (R)emove * (Q)uit ** ";
+		char option = 'N';
+		while (option != 'Q') {
+			system("cls");
+			cout << "Remove Member" << endl << endl;
+			_display();
+			cout << supportingPrograms[i]->getName() << endl << endl;
+			cout << "** (F)irst * (L)ast * (P)revious * (N)ext * (R)emove * (Q)uit ** ";
 		
-		cin >> option;
-		cin.ignore();
+			cin >> option;
+			cin.ignore();
 		
-		switch(toupper(option)) {
-			case 'R':
+			switch(toupper(option)) {
+				case 'R':
+					supportingPrograms[i]->setProject(NULL);
 					supportingPrograms.erase(supportingPrograms.begin() + i); // remove the program from the project
-				break;
-			case 'F': i = 0;
-				break;
-			case 'L':i = supportingPrograms.size() - 1;
-				break;
-			case 'P':
-				if (i == 0) {
-					i = supportingPrograms.size() - 1;
-				} else {
-					-- i;
-				}
-				break;
-			case 'N':
-				++ i;
+					option = 'Q';
+					break;
+				case 'F': i = 0;
+					break;
+				case 'L':i = supportingPrograms.size() - 1;
+					break;
+				case 'P':
+					if (i == 0) {
+						i = supportingPrograms.size() - 1;
+					} else {
+						-- i;
+					}
+					break;
+				case 'N':
+					++ i;
 				
-				if (i == supportingPrograms.size()) {
-					i = 0;
-				}
-				break;
-			case 'Q': option = 'Q'; break;
+					if (i == supportingPrograms.size()) {
+						i = 0;
+					}
+					break;
+				case 'Q': option = 'Q'; break;
+			}
 		}
+	}
+	else
+	{
+		cout << "This project is not supporting any programs." << endl << endl;
+		cin.ignore();
 	}
 }
 
@@ -166,7 +176,7 @@ void Project::startup(ifstream& inFile, ProgramList* programs) {
 void Project::shutdown(ofstream& outFile)
 {
 	outFile << getProjectId() << '|'
-	        << getDesc() << endl;
+					<< getDesc() << endl;
 	
 	outFile << supportingPrograms.size() << endl;
 	

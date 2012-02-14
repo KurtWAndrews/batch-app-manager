@@ -128,7 +128,7 @@ void Team::removeMember() {
 		cout << "Remove Member" << endl << endl;
 		_display();
 		cout << members[i]->getEmployeeId() << " - " << members[i]->getLastName() 
-				 << "' " << members[i]->getFirstName() << endl;
+				 << "' " << members[i]->getFirstName() << endl << endl;
 		cout << "** (F)irst * (L)ast * (P)revious * (N)ext * (R)emove * (Q)uit ** ";
 		
 		cin >> option;
@@ -156,6 +156,7 @@ void Team::removeMember() {
 					cout << "The team must have at least one full time employee." << endl;
 					cin.ignore();
 				}
+				option = 'Q';
 				break;
 			case 'F': i = 0;
 				break;
