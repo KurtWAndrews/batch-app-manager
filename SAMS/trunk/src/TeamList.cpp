@@ -5,6 +5,8 @@
  */
 
 #include "TeamList.h"
+#include "InternationalTeam.h"
+#include "DomesticTeam.h"
 
 using namespace std;
 
@@ -35,14 +37,25 @@ void TeamList::addTeam(EmployeeList* employees) {
     cout << "There are no full-time employees.  Please add full-time employees before adding a team." << endl;
     return;
   }
-    
-  Team* team = new Team;
+
+  Team* team;
+  char _type;
+  cout << "Is this a domestic or international team? (d/i): ";
+  cin >> _type;
+  cin.ignore();
+  
+  if(toupper(_type) == 'I')
+  {
+    team = new InternationalTeam;
+  }
+  else
+  {
+    team = new DomesticTeam;
+  }
+
   map<string, Team*>::const_iterator iter;
 
   do {
-    system("cls");
-    cout << "Adding Team" << endl;
-
     if (team->getTeamId() != "") {
       cout << "The " << team->getTeamId()
            << " is already in the Team List" << endl << endl;
@@ -58,7 +71,7 @@ void TeamList::addTeam(EmployeeList* employees) {
   teams.insert(pair<string, Team*>(team->getTeamId(), team));
     
   system("cls");
-  cout << "Team Added" << endl;
+  cout << "Team Added" << endl << endl;
   team->display();
 }
 
@@ -247,9 +260,19 @@ void TeamList::startup(EmployeeList* employees)
     isTeams.ignore();
     
     for (int rec = 0; rec < recs; ++rec) {
-      _team = new Team;
-      _team->startup(isTeams, employees);
+      string _type;
+      getline(isTeams, _type, '|');
+      if(_type == "1")
+      {
+        _team = new InternationalTeam;
+      }
+      else
+      {
+        _team = new DomesticTeam;
+      }
       
+      _team->startup(isTeams, employees);
+
       teams.insert(pair<string, Team*>(_team->getTeamId(), _team));
     }
   }

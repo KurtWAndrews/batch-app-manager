@@ -38,7 +38,7 @@ public:
 	 * Add employees to a team
 	 * @param employees - pointer to the employee list
 	 */
-	void addMember(EmployeeList* employees);
+	virtual void addMember(EmployeeList* employees);
 	
 	/**
 	 * Set all team attributes to empty strings, and null pointers etc
@@ -53,7 +53,7 @@ public:
 	/**
 	 * Display the team
 	 */
-	void display() const;
+	virtual void display() const = 0;
 	
 	/**
 	 * @return the teams team id
@@ -78,18 +78,18 @@ public:
 	/**
 	 * Populate the team's attributes
 	 */
-	void populate();
+	virtual void populate();
 	
 	/**
 	 * Remove employees from the team
 	 */
-	void removeMember();
+	virtual void removeMember();
 
 	/**
 	 * Remove employee from the team
 	 * Used when employee is removed from system and needs to be removed from team
 	 */
-	void Team::removeEmployee(Employee* emp);
+	void removeEmployee(Employee* emp);
 	
 	/**
 	 * Update the team id with the specified value
@@ -108,15 +108,26 @@ public:
 	 * @param - _defaultApp - the new default app for the team
 	 */
 	void setDefaultApp(const std::string& _defaultApp);
+	
+	/**
+	 * @return the members vector
+	 */
+	std::vector<Employee*>const* getMembers() const;
+	
+	/**
+	 * @return the members vector in order to add/delete/edit the values
+	 */
+	std::vector<Employee*>* getMembersToChange();
+
 	/**
 	 * Start up method to call all necessary methods to load team data
 	 */
-	void startup(std::ifstream& inFile, EmployeeList* employees);
+	virtual void startup(std::ifstream& inFile, EmployeeList* employees);
 	
 	/**
 	 * Shut down method to call all necessary methods to persist team data 
 	 */
-	void shutdown(std::ofstream& outFile);
+	virtual void shutdown(std::ofstream& outFile);
 		
 private:
 	std::string teamId;
@@ -130,11 +141,18 @@ private:
 	void _display() const;  
 };
 
+/**
+ * Overload output operation for team object
+ */
+std::ostream & operator << (std::ostream& os, const Team& team);
+
 inline std::string Team::getTeamId() const {return teamId;}
 inline void Team::setTeamId(const std::string& _teamId) {teamId = _teamId;}
 inline std::string Team::getDesc() const {return desc;}
 inline void Team::setDesc(const std::string& _desc) {desc = _desc;}
 inline std::string Team::getDefaultApp() const {return defaultApp;}
 inline void Team::setDefaultApp(const std::string& _defaultApp) {defaultApp = _defaultApp;}
+inline std::vector<Employee*>const* Team::getMembers() const {return &members;}
+inline std::vector<Employee*>* Team::getMembersToChange() {return &members;}
 
 #endif /* TEAM_H_ */

@@ -188,44 +188,29 @@ void Team::removeEmployee(Employee* emp)
 
 void Team::startup(ifstream& inFile, EmployeeList* employees) {
 	string _teamId;
-	getline(inFile, _teamId, '\t');
+	getline(inFile, _teamId, '|');
 	setTeamId(_teamId);
 	
 	string _desc;
-	getline(inFile, _desc, '\t');
+	getline(inFile, _desc, '|');
 	setDesc(_desc);
 	
 	string _defaultApp;
 	getline(inFile, _defaultApp);
 	setDefaultApp(_defaultApp);
-	
-	int recs;
-	string _employeeId;
-	Employee* member = NULL;
-	
-	inFile >> recs;
-	inFile.ignore();
-	
-	for (int rec = 0; rec < recs; ++rec) {
-		inFile >> _employeeId;
-		member = employees->find(_employeeId);
-		
-		if (member != NULL) {
-			member->setTeam((Team*) this);
-			members.push_back(member);
-		}
-	}
 }
 
 void Team::shutdown(ofstream& outFile)
 {
-	outFile << getTeamId() << '\t'
-	<< getDesc() << '\t'
+	outFile << getTeamId() << '|'
+	<< getDesc() << '|'
 	<< getDefaultApp() << endl;
 	
 	outFile << members.size() << endl;
-	
-	for (long int rec = 0; rec < members.size(); rec++) {
-		outFile << members[rec]->getEmployeeId() << endl;
-	}
+}
+
+std::ostream & operator << (std::ostream& os, const Team& team)
+{
+	team.display();
+	return os;
 }
