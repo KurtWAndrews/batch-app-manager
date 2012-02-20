@@ -27,7 +27,10 @@ public:
 	 * @param _continent - continent the team is from
 	 */
 	InternationalTeam(const std::string& _country = "",
-			 const std::string& _continent = "");
+			 const std::string& _continent = "",
+			 const std::string& _teamId = "",
+			 const std::string& _desc = "",
+			 const std::string& _defaultApp = "");
 	
 	/**
 	 * International Team destructor

@@ -11,7 +11,10 @@
 using namespace std;
 
 InternationalTeam::InternationalTeam(const string& _country,
-					 const string& _continent) : Team() {
+					 const string& _continent,
+					 const std::string& _teamId,
+					 const std::string& _desc,
+					 const std::string& _defaultApp) : Team(_teamId, _desc, _defaultApp) {
 	setCountry(_country);
 	setContinent(_continent);
 }
