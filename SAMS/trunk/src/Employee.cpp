@@ -131,3 +131,9 @@ void Employee::shutdown(ofstream& outFile)
 					<< getPrefName() << '|'
 					<< getEmailAddress() << endl;
 }
+
+std::ostream & operator << (std::ostream& os, const Employee& emp)
+{
+	emp.display();
+	return os;
+}

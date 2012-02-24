@@ -50,7 +50,7 @@ public:
 	 * @param inFile - input file stream
 	 * @param employees - pointer to the employee list
 	 */
-	void startup(std::ifstream& inFile, EmployeeList* employees);
+	void startup(std::ifstream& inFile, EmployeeList* employees, ApplicationList* applications);
 	
 	/**
 	 * Shut down method to call all necessary methods to persist domestic team data 

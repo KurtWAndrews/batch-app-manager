@@ -39,7 +39,7 @@ public:
 	/**
 	 * change a team in the collection
 	 */
-	void changeTeam(EmployeeList* employees);
+	void changeTeam(EmployeeList* employees, ApplicationList* applications);
 
 	/**
 	 * displays the teams from the collection
@@ -54,7 +54,7 @@ public:
 	/**
 	 * Start up method to call all necessary methods to load data for teams
 	 */
-	void startup(EmployeeList* employees);
+	void startup(EmployeeList* employees, ApplicationList* applications);
 	
 	/**
 	 * Shut down method to call all necessary methods to persist data and delete 

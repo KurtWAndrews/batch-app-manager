@@ -11,7 +11,8 @@
 #define MAIN_MENU      0
 #define EMPLOYEE_MENU  1
 #define TEAM_MENU      2
-#define PROJECT_MENU   3
-#define PROGRAM_MENU   4
+#define APPLICATION_MENU   3
+#define PROJECT_MENU   4
+#define PROGRAM_MENU   5
 
 #endif /*MENU_H_*/

@@ -13,7 +13,7 @@
 #include <algorithm>
 
 // using class declarations here to avoid recursive includes caused by the 
-// bi-directional relationship between Project and Team
+// bi-directional relationship between Project and Program
 class Program;
 class ProgramList; // ProgramList.h includes Program.h
 
@@ -24,7 +24,7 @@ public:
 	 * @param _projectId - new project id
 	 * @param _desc - description of the new project
 	 */
-	Project(const std::string& _teamId = "",
+	Project(const std::string& _projectId = "",
 			 const std::string& _desc = "");
 	
 	/**
@@ -62,11 +62,6 @@ public:
 	 * @return the project description
 	 */
 	std::string getDesc() const;
-
-	/**
-	 * @return if the project is supported by a pager or not
-	 */
-	bool isPagerSupport() const;
 	
 	/**
 	 * Populate the project's attributes
@@ -97,25 +92,18 @@ public:
 	void setDesc(const std::string& _desc);
 	
 	/**
-	 * Sets true or false if the project is supported by a pager
-	 * @param -_supportedByPager - true or false
-	 */
-	void setPagerSupport(bool _supportedByPager);
-	
-	/**
 	 * Start up method to call all necessary methods to load project data
 	 */
 	void startup(std::ifstream& inFile, ProgramList* programs);
 	
 	/**
-	 * Shut down method to call all necessary methods to persist team data 
+	 * Shut down method to call all necessary methods to persist project data 
 	 */
 	void shutdown(std::ofstream& outFile);
 		
 private:
 	std::string projectId;
 	std::string desc;
-  bool supportedByPager;
 	std::vector <Program*> supportingPrograms;
 	
 	/**
@@ -128,7 +116,5 @@ inline std::string Project::getProjectId() const {return projectId;}
 inline void Project::setProjectId(const std::string& _projectId) {projectId = _projectId;}
 inline std::string Project::getDesc() const {return desc;}
 inline void Project::setDesc(const std::string& _desc) {desc = _desc;}
-inline bool Project::isPagerSupport() const {return supportedByPager;}
-inline void Project::setPagerSupport(bool _supportedByPager) {supportedByPager = _supportedByPager;}
 
 #endif /* PROJECT_H_ */

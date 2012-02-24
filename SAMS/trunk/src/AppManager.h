@@ -13,6 +13,7 @@
 
 #include "EmployeeList.h"
 #include "TeamList.h"
+#include "ApplicationList.h"
 #include "ProjectList.h"
 #include "ProgramList.h"
 
@@ -48,6 +49,11 @@ public:
 	TeamList* getTeams() const;
 
 	/**
+	 * @return the system application list
+	 */
+	ApplicationList* getApplications() const;
+
+	/**
 	 * @return the system project list
 	 */
 	ProjectList* getProjects() const;
@@ -70,6 +76,12 @@ public:
 	 * @param tPtr - the pointer to the new team list
 	 */
 	void setTeams(TeamList* tPtr);
+
+	/**
+	 * Update the applicaiton list pointer with the specified value
+	 * @param tPtr - the pointer to the new application list
+	 */
+	void setApplications(ApplicationList* aPtr);
 
 	/**
 	 * Update the team list pointer with the specified value
@@ -131,6 +143,26 @@ public:
 	void displayTeams();
 
 	/**
+	 * add applications to the system
+	 */
+	void addApplications();
+	
+	/**
+	 * change application information
+	 */
+	void changeApplications();
+	
+	/**
+	 * remove applications from the system
+	 */
+	void removeApplications();
+	
+	/**
+	 * display all applications in the Application list
+	 */
+	void displayApplications();
+
+	/**
 	 * add projects to the system
 	 */
 	void addProjects();
@@ -183,6 +215,7 @@ public:
 private:
 	EmployeeList* employees;
 	TeamList* teams;
+	ApplicationList* applications;
 	ProjectList* projects;
 	ProgramList* programs;
 };
@@ -190,6 +223,7 @@ private:
 // accessor method definitions
 inline EmployeeList* AppManager::getEmployees() const {return employees;}
 inline TeamList* AppManager::getTeams() const {return teams;}
+inline ApplicationList* AppManager::getApplications() const {return applications;}
 inline ProjectList* AppManager::getProjects() const {return projects;}
 inline ProgramList* AppManager::getPrograms() const {return programs;}
 
@@ -199,14 +233,22 @@ inline void AppManager::manageEmployeeBenefits() {employees->manageBenefits();}
 inline void AppManager::changeEmployees() {employees->changeEmployee();}
 inline void AppManager::removeEmployees() {employees->removeEmployee();}
 inline void AppManager::displayEmployees() {employees->display();}
+
 inline void AppManager::addTeams() {teams->addTeam(getEmployees());}
-inline void AppManager::changeTeams() {teams->changeTeam(getEmployees());}
+inline void AppManager::changeTeams() {teams->changeTeam(getEmployees(), getApplications());}
 inline void AppManager::removeTeams() {teams->removeTeam();}
 inline void AppManager::displayTeams() {teams->display();}
+
+inline void AppManager::addApplications() {applications->addApplication(getProjects());}
+inline void AppManager::changeApplications() {applications->changeApplication(getProjects());}
+inline void AppManager::removeApplications() {applications->removeApplication();}
+inline void AppManager::displayApplications() {applications->display();}
+
 inline void AppManager::addProjects() {projects->addProject(getPrograms());}
 inline void AppManager::changeProjects() {projects->changeProject(getPrograms());}
 inline void AppManager::removeProjects() {projects->removeProject();}
 inline void AppManager::displayProjects() {projects->display();}
+
 inline void AppManager::addPrograms() {programs->addProgram();}
 inline void AppManager::changePrograms() {programs->changeProgram();}
 inline void AppManager::removePrograms() {programs->removeProgram();}

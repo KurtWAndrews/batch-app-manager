@@ -75,6 +75,8 @@ void InternationalTeam::display() const{
 		iter->second->display();
 		cout << endl;
 	}
+	
+	displaySupportList();
 }
 
 void InternationalTeam::populate() {
@@ -104,7 +106,7 @@ void InternationalTeam::removeEmployee(Employee* emp)
 	empJoinDates.erase(id);
 }
 
-void InternationalTeam::startup(ifstream& inFile, EmployeeList* employees) {
+void InternationalTeam::startup(ifstream& inFile, EmployeeList* employees, ApplicationList* applications) {
 	std::vector<Employee*>* members = getMembersToChange();
 
 	string _country;
@@ -115,7 +117,7 @@ void InternationalTeam::startup(ifstream& inFile, EmployeeList* employees) {
 	getline(inFile, _continent, '|');
 	setContinent(_continent);
 	
-	Team::startup(inFile, employees);
+	Team::startup(inFile, employees, applications);
 	
 	int recs;
 	string _employeeId;

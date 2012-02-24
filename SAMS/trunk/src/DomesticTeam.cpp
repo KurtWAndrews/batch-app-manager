@@ -30,8 +30,8 @@ void DomesticTeam::removeMember() {
 	Team::removeMember();
 }
 
-void DomesticTeam::startup(ifstream& inFile, EmployeeList* employees) {
-	Team::startup(inFile, employees);
+void DomesticTeam::startup(ifstream& inFile, EmployeeList* employees, ApplicationList* applications) {
+	Team::startup(inFile, employees, applications);
 	
 	std::vector<Employee*>* members = getMembersToChange();
 	int recs;

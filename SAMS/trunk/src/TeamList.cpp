@@ -75,7 +75,7 @@ void TeamList::addTeam(EmployeeList* employees) {
   team->display();
 }
 
-void TeamList::changeTeam(EmployeeList* employees) {
+void TeamList::changeTeam(EmployeeList* employees, ApplicationList* applications) {
   system("cls");
   cout << "Change Team" << endl << endl;
 
@@ -95,7 +95,7 @@ void TeamList::changeTeam(EmployeeList* employees) {
 
     cout << endl
          << endl
-         << "** (F)irst * (L)ast * (P)revious * (N)ext * (C)hange * (A)dd member * (R)emove member * (Q)uit ** ";
+         << "** (F)irst * (L)ast * (P)revious * (N)ext * (C)hange * (A)dd member * (R)emove member * (+)Add application * (-)Remove application * (Q)uit ** ";
 
     cin >> option;
     cin.ignore();
@@ -106,6 +106,12 @@ void TeamList::changeTeam(EmployeeList* employees) {
         break;
       case 'R':
         iter->second->removeMember();
+        break;
+      case '+':
+        iter->second->addApplication(applications);
+        break;
+      case '-':
+        iter->second->removeApplication();
         break;
       case 'C':
         system("cls");
@@ -248,7 +254,7 @@ void TeamList::removeTeam() {
   }
 }
 
-void TeamList::startup(EmployeeList* employees)
+void TeamList::startup(EmployeeList* employees, ApplicationList* applications)
 {
   ifstream isTeams("teams.txt");
   if(isTeams)
@@ -271,7 +277,7 @@ void TeamList::startup(EmployeeList* employees)
         _team = new DomesticTeam;
       }
       
-      _team->startup(isTeams, employees);
+      _team->startup(isTeams, employees, applications);
 
       teams.insert(pair<string, Team*>(_team->getTeamId(), _team));
     }

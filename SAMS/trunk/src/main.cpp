@@ -34,6 +34,11 @@ int selectEmployeeOption(AppManager& am, char option);
 int selectTeamOption(AppManager& am, char option);
 
 /**
+ * User entry point to the system operations related to applications
+ */
+int selectApplicationOption(AppManager& am, char option);
+
+/**
  * User entry point to the system operations related to projects
  */
 int selectProjectOption(AppManager& am, char option);
@@ -48,8 +53,9 @@ int main() {
   menus.push_back("\n\n M A I N  M E N U\n\n");
   menus[MAIN_MENU] += "A) Manage Employees\n";
   menus[MAIN_MENU] += "B) Manage Teams\n";
-  menus[MAIN_MENU] += "C) Manage Projects\n";
-  menus[MAIN_MENU] += "D) Manage Programs\n";
+  menus[MAIN_MENU] += "C) Manage Applications\n";
+  menus[MAIN_MENU] += "D) Manage Projects\n";
+  menus[MAIN_MENU] += "E) Manage Programs\n";
   menus[MAIN_MENU] += "\nQ) Quit\n\n";
 
   menus.push_back("\n\n E M P L O Y E E  M E N U\n\n");
@@ -66,6 +72,13 @@ int main() {
   menus[TEAM_MENU] += "R) Remove Team\n";
   menus[TEAM_MENU] += "D) Display Team\n";
   menus[TEAM_MENU] += "\nQ) Quit\n\n";
+
+  menus.push_back("\n\n A P P L I C A T I O N  M E N U\n\n");
+  menus[APPLICATION_MENU] += "A) Add Application\n";
+  menus[APPLICATION_MENU] += "C) Change Application\n";
+  menus[APPLICATION_MENU] += "R) Remove Application\n";
+  menus[APPLICATION_MENU] += "D) Display Application\n";
+  menus[APPLICATION_MENU] += "\nQ) Quit\n\n";
 
   menus.push_back("\n\n P R O J E C T  M E N U\n\n");
   menus[PROJECT_MENU] += "A) Add Project\n";
@@ -98,6 +111,9 @@ int main() {
         break;
       case TEAM_MENU:
         menu = selectTeamOption(am, option);
+        break;
+      case APPLICATION_MENU:
+        menu = selectApplicationOption(am, option);
         break;
       case PROJECT_MENU:
         menu = selectProjectOption(am, option);
@@ -141,9 +157,11 @@ int selectMainOption(char option) {
       break;
     case 'B': menu = TEAM_MENU;
       break;
-    case 'C': menu = PROJECT_MENU;
+    case 'C': menu = APPLICATION_MENU;
       break;
-    case 'D': menu = PROGRAM_MENU;
+    case 'D': menu = PROJECT_MENU;
+      break;
+    case 'E': menu = PROGRAM_MENU;
       break;
     case 'Q': menu = QUIT_MENU;
       cout << "Quitting Application" << endl;
@@ -197,6 +215,31 @@ int selectTeamOption(AppManager& am, char option) {
     case 'Q':
       menu = MAIN_MENU;
       cout << "Quitting Team Menu" << endl;
+      break;
+    default:
+      cout << "Unknown option" << endl;
+      break;
+  }
+  
+  waitForKeyPress();
+  
+  return (menu);
+}
+
+int selectApplicationOption(AppManager& am, char option) {
+  int menu = APPLICATION_MENU;
+  switch (option) {
+    case 'A': am.addApplications();
+      break;
+    case 'C': am.changeApplications();
+      break;
+    case 'R': am.removeApplications();
+      break;
+    case 'D': am.displayApplications();
+      break;
+    case 'Q':
+      menu = MAIN_MENU;
+      cout << "Quitting Applicaiton Menu" << endl;
       break;
     default:
       cout << "Unknown option" << endl;

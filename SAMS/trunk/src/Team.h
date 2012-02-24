@@ -11,6 +11,8 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include "Application.h"
+#include "ApplicationList.h"
 
 // using class declarations here to avoid recursive includes caused by the 
 // bi-directional relationship between Team and Employee
@@ -54,6 +56,8 @@ public:
 	 * Display the team
 	 */
 	virtual void display() const = 0;
+
+	void displaySupportList() const;
 	
 	/**
 	 * @return the teams team id
@@ -92,6 +96,28 @@ public:
 	void removeEmployee(Employee* emp);
 	
 	/**
+	 * Add applications to a team
+	 * @param applications - pointer to the application list
+	 */
+	void addApplication(ApplicationList* applicaitons);
+	
+	/**
+	 * Set the application pointer for each program to NULL before clearing the applications vector
+	 */
+	void clearAllApplications();
+	
+	/**
+	 * Remove applications from the team
+	 */
+	void removeApplication();
+
+	/**
+	 * Erases the application from the team support list
+	 * @param - i - the index location to remove
+	 */
+	void eraseApplication(int i);
+	
+	/**
 	 * Update the team id with the specified value
 	 * @param _teamId - the new team id
 	 */
@@ -122,7 +148,7 @@ public:
 	/**
 	 * Start up method to call all necessary methods to load team data
 	 */
-	virtual void startup(std::ifstream& inFile, EmployeeList* employees);
+	virtual void startup(std::ifstream& inFile, EmployeeList* employees, ApplicationList* applications);
 	
 	/**
 	 * Shut down method to call all necessary methods to persist team data 
@@ -134,6 +160,7 @@ private:
 	std::string desc;
 	std::string defaultApp;
 	std::vector <Employee*> members;
+	std::vector <Application*> supportingApplications;
 	
 	/**
 	 * Display Non member attributes

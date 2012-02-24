@@ -1,6 +1,7 @@
 /**
  * @file ProgrmaList.h
- * @brief ProgramList declaration
+ * @brief Program List declaration
+ * @author Brian Royer & Kurt Andrews
  */
 
 #ifndef PROGRAMLIST_H_

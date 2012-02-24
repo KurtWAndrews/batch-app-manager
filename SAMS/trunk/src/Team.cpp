@@ -59,6 +59,7 @@ void Team::clearAttributes() {
 	setDefaultApp("");
 	
 	clearAllMembers();
+	clearAllApplications();
 }
 
 void Team::clearAllMembers() {
@@ -82,6 +83,24 @@ void Team::display() const {
 	
 	for (int i = 0; i < members.size(); i++) {
 		cout << members[i]->getEmployeeId() << " - " << members[i]->getLastName() << ", " << members[i]->getFirstName() << endl;
+	}
+
+	displaySupportList();
+}
+
+void Team::displaySupportList() const {
+	cout << endl << endl << "*** A P P L I C A T I O N  S U P P O R T  L I S T***" << endl << endl;
+	
+	for (int i = 0; i < supportingApplications.size(); i++) {
+		/*if(supportingApplications[i])
+		{
+			eraseApplication(i);
+			if(supportingApplications.size() < 1)
+			{
+				return;
+			}
+		}*/
+		cout << supportingApplications[i]->getAppId()  << " - " << supportingApplications[i]->getDesc() << endl;
 	}
 }
 
@@ -186,7 +205,91 @@ void Team::removeEmployee(Employee* emp)
 	members.erase(std::remove(members.begin(), members.end(), emp), members.end());
 }
 
-void Team::startup(ifstream& inFile, EmployeeList* employees) {
+void Team::addApplication(ApplicationList* applications) {
+	system("cls");
+	cout << "Adding Application" << endl;
+		
+	Application* aPtr = applications->selectApplication();
+		
+	if (aPtr != NULL) {
+		supportingApplications.push_back(aPtr);
+		cout << "\n\nApplication " << aPtr->getAppId() << " added to the support list." << endl;
+		cin.ignore();
+	}
+	else {
+		cout << "\n\nNo applications were selected" << endl;
+		cin.ignore();
+	}
+}
+
+void Team::clearAllApplications() {
+	supportingApplications.clear();
+}
+
+void Team::removeApplication() {
+	if(supportingApplications.size() > 0)
+	{
+		unsigned long i = 0;
+		/*if(!supportingApplications[i])
+		{
+			eraseApplication(i);
+			if(supportingApplications.size() < 1)
+			{
+				return;
+			}
+		}*/
+		
+		char option = 'N';
+		while (option != 'Q') {
+			system("cls");
+			cout << "Remove Application" << endl << endl;
+			_display();
+			cout << supportingApplications[i]->getAppId() << " - " << supportingApplications[i]->getDesc() << endl << endl;
+			cout << "** (F)irst * (L)ast * (P)revious * (N)ext * (R)emove * (Q)uit ** ";
+		
+			cin >> option;
+			cin.ignore();
+		
+			switch(toupper(option)) {
+				case 'R':
+					eraseApplication(i); // remove the application from the team support list
+					option = 'Q';
+					break;
+				case 'F': i = 0;
+					break;
+				case 'L':i = supportingApplications.size() - 1;
+					break;
+				case 'P':
+					if (i == 0) {
+						i = supportingApplications.size() - 1;
+					} else {
+						-- i;
+					}
+					break;
+				case 'N':
+					++ i;
+				
+					if (i == supportingApplications.size()) {
+						i = 0;
+					}
+					break;
+				case 'Q': option = 'Q'; break;
+			}
+		}
+	}
+	else
+	{
+		cout << "This team is not supporting any applications." << endl << endl;
+		cin.ignore();
+	}
+}
+
+void Team::eraseApplication(int i)
+{
+	supportingApplications.erase(supportingApplications.begin() + i);
+}
+
+void Team::startup(ifstream& inFile, EmployeeList* employees, ApplicationList* applications) {
 	string _teamId;
 	getline(inFile, _teamId, '|');
 	setTeamId(_teamId);
@@ -198,6 +301,22 @@ void Team::startup(ifstream& inFile, EmployeeList* employees) {
 	string _defaultApp;
 	getline(inFile, _defaultApp);
 	setDefaultApp(_defaultApp);
+
+	int recs;
+	string _appId;
+	Application* app = NULL;
+	
+	inFile >> recs;
+	inFile.ignore();
+	
+	for (int rec = 0; rec < recs; ++rec) {
+		inFile >> _appId;
+		app = applications->find(_appId);
+		
+		if (app != NULL) {
+			supportingApplications.push_back(app);
+		}
+	}
 }
 
 void Team::shutdown(ofstream& outFile)
@@ -205,6 +324,12 @@ void Team::shutdown(ofstream& outFile)
 	outFile << getTeamId() << '|'
 	<< getDesc() << '|'
 	<< getDefaultApp() << endl;
+
+	outFile << supportingApplications.size() << endl;
+	
+	for (long int rec = 0; rec < supportingApplications.size(); rec++) {
+		outFile << supportingApplications[rec]->getAppId() << endl;
+	}
 	
 	outFile << members.size() << endl;
 }

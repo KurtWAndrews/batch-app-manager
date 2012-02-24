@@ -52,6 +52,23 @@ public:
 	void removeProject();
 
 	/**
+	 * Select an project from the project list
+	 * @return a pointer to the selected project
+	 */
+	Project* selectProject();
+	
+	/**
+	 * @return true if the project list is empty; false otherwise
+	 */
+	bool empty() const;
+	
+	/**
+	 * @return the pointer to the project object that has projectId == _projectId
+	 * or null if no match is found
+	 */
+	Project* ProjectList::find(const std::string& _projectId);
+
+	/**
 	 * Start up method to call all necessary methods to load data for projects
 	 */
 	void startup(ProgramList* programs);
@@ -65,5 +82,7 @@ public:
 private:
 	std::map<std::string, Project*> projects;
 };
+
+inline bool ProjectList::empty() const {return(projects.empty());}
 
 #endif /* PROJECTLIST_H_ */

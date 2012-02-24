@@ -13,7 +13,6 @@ Project::Project(const string& _projectId,
 					 const string& _desc) {
 	setProjectId(_projectId);
 	setDesc(_desc);
-	setPagerSupport(false);
 	
 	clearAllPrograms();
 }
@@ -98,7 +97,7 @@ void Project::removeProgram() {
 		char option = 'N';
 		while (option != 'Q') {
 			system("cls");
-			cout << "Remove Member" << endl << endl;
+			cout << "Remove Program" << endl << endl;
 			_display();
 			cout << supportingPrograms[i]->getName() << endl << endl;
 			cout << "** (F)irst * (L)ast * (P)revious * (N)ext * (R)emove * (Q)uit ** ";

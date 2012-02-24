@@ -8,7 +8,6 @@
 #define	PARTTIME_H
 
 #include "Employee.h"
-#include "Account.h"
 
 /**
  * Part time employee Class Definition
