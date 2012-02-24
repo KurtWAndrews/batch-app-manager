@@ -20,7 +20,6 @@ PartTime::PartTime() : Employee()
  */
 PartTime::~PartTime()
 {
-	cout << "Executing Full Time Employee's Destructor" << endl;
 }
 
 void PartTime::clearAttributes()

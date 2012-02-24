@@ -33,7 +33,6 @@ Program::~Program()
 	{
 		project->removeDeletedProgram(this);
 	}
-	cout << "Executing Program's Destructor" << endl;
 }
 
 /**

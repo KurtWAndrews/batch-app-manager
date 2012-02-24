@@ -22,7 +22,6 @@ FullTime::FullTime() : Employee()
  */
 FullTime::~FullTime()
 {
-	cout << "Executing Full Time Employee's Destructor" << endl;
 }
 
 void FullTime::clearAttributes()

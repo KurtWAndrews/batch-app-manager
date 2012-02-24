@@ -55,7 +55,7 @@ void DomesticTeam::shutdown(ofstream& outFile) {
 	outFile << "0|";
 	
 	Team::shutdown(outFile);
-  
+	
 	std::vector<Employee*> const* members = getMembers();
 	std::string empId;
 

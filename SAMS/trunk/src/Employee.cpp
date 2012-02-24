@@ -38,7 +38,6 @@ Employee::~Employee()
 	{
 		team->removeEmployee(this);
 	}
-	cout << "Executing Employee's Destructor" << endl;
 }
 
 void Employee::clearAttributes()

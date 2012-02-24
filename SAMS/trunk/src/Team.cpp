@@ -17,10 +17,12 @@ Team::Team(const string& _teamId,
 	setDefaultApp(_defaultApp);
 	
 	clearAllMembers();
+	clearAllApplications();
 }
 
 Team::~Team() {
 	clearAllMembers();
+	clearAllApplications();
 }
 
 void Team::addMember(EmployeeList* employees) {
@@ -73,7 +75,7 @@ void Team::clearAllMembers() {
 void Team::_display() const {
 	cout << "Team ID:\t" << getTeamId() << endl;
 	cout << "Description:\t" << getDesc() << endl;
-	cout << "defaultApplication:\t" << getDefaultApp() << endl << endl;
+	cout << "Default Application:\t" << getDefaultApp() << endl << endl;
 }
 
 void Team::display() const {

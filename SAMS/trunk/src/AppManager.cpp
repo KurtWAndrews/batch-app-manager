@@ -29,7 +29,6 @@ AppManager::AppManager() : employees(0),
  * destructor for AppManager
  */
 AppManager::~AppManager() {
-	cout << "Executing AppManager Destructor" << endl;
 	shutdown();
 	
 	delete applications;

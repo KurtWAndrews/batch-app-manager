@@ -17,5 +17,4 @@ Account::Account(const string& _accountId,
 }
 
 Account::~Account() {
-  cout << "Calling Account destructor" << endl;
 }

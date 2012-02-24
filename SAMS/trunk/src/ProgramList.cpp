@@ -12,7 +12,6 @@ ProgramList::ProgramList() {
 }
 
 ProgramList::~ProgramList() {
-  cout << "Executing ProgramList Destructor" << endl;
   map<string, Program*>::iterator iter;
 
   for(iter = programs.begin(); iter != programs.end(); ++ iter) {

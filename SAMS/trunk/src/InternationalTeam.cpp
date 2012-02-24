@@ -20,8 +20,6 @@ InternationalTeam::InternationalTeam(const string& _country,
 }
 
 InternationalTeam::~InternationalTeam() {
-	cout << "Executing InternationalTeam Destructor" << endl;
-
 	map<string, Date*>::iterator iter;
 
 	for(iter = empJoinDates.begin(); iter != empJoinDates.end(); ++ iter) {
@@ -32,10 +30,42 @@ InternationalTeam::~InternationalTeam() {
 }
 
 void InternationalTeam::addMember(EmployeeList* employees) {
-	Team::addMember(employees);
+	std::vector<Employee*>* members = getMembersToChange();
+	bool isValidTeam = false;
+	do {
+		system("cls");
+		cout << "Adding Member" << endl;
+		
+		Employee* ePtr = employees->selectEmployee();
+		
+		if (ePtr != NULL) {
+			if(ePtr->isFullTime()) {
+				if (ePtr->getTeam() == NULL) {
+					ePtr->setTeam((Team*) this);
+					members->push_back(ePtr);
+				} else {
+					cout << "This employee is already on a team" << endl;
+		      cin.ignore();
+				}
+			}
+			else {
+				cout << "\nOnly full time employees are allowed to join an international team." << endl;
+		    cin.ignore();
+			}
+		}
+		else {
+			cout << "No employee was selected" << endl;
+		  cin.ignore();
+		}
+		
+		isValidTeam = (members->size() > 0);
+		if (!isValidTeam) {
+			cout << "A team must have at least one full time employee." << endl;
+			cin.ignore();
+		}
+	} while (! isValidTeam);
 	
 	map<string, Date*>::const_iterator iter;
-	std::vector<Employee*>* members = getMembersToChange();
 
 	for(int i = (members->size() - 1); i > -1; i--)
 	{

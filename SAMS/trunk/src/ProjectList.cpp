@@ -13,8 +13,6 @@ ProjectList::ProjectList() {
 }
 
 ProjectList::~ProjectList() {
-  cout << "Executing ProjectList Destructor" << endl;
-
   map<string, Project*>::iterator iter;
 
   for(iter = projects.begin(); iter != projects.end(); ++ iter) {

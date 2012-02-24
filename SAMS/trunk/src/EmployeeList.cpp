@@ -13,8 +13,6 @@ EmployeeList::EmployeeList() {
 }
 
 EmployeeList::~EmployeeList() {
-  cout << "Executing EmployeeList Destructor" << endl;
-
   map<string, Employee*>::iterator iter;
 
   for(iter = employees.begin(); iter != employees.end(); ++ iter) {

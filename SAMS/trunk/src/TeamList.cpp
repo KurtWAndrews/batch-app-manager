@@ -15,8 +15,6 @@ TeamList::TeamList() {
 }
 
 TeamList::~TeamList() {
-  cout << "Executing TeamList Destructor" << endl;
-
   map<string, Team*>::iterator iter;
 
   for(iter = teams.begin(); iter != teams.end(); ++ iter) {
