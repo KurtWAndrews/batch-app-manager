@@ -110,12 +110,12 @@ public:
 	 * Remove applications from the team
 	 */
 	void removeApplication();
-
+	
 	/**
-	 * Erases the application from the team support list
-	 * @param - i - the index location to remove
+	 * Remove application from the team support list
+	 * Called from application's destructor
 	 */
-	void eraseApplication(int i);
+	void removeDeletedApplication(Application* app);
 	
 	/**
 	 * Update the team id with the specified value

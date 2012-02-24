@@ -12,6 +12,8 @@
 #include <vector>
 #include <algorithm>
 
+class Application;
+
 // using class declarations here to avoid recursive includes caused by the 
 // bi-directional relationship between Project and Program
 class Program;
@@ -25,7 +27,8 @@ public:
 	 * @param _desc - description of the new project
 	 */
 	Project(const std::string& _projectId = "",
-			 const std::string& _desc = "");
+			 const std::string& _desc = "",
+			 Application* app = NULL);
 	
 	/**
 	 * Project destructor
@@ -72,12 +75,12 @@ public:
 	 * Remove programs from the team
 	 */
 	void removeProgram();
-  
+	
 	/**
-	 * Remove program from the team
-   * Called from program's destructor
+	 * Remove program from the project
+	 * Called from program's destructor
 	 */
-  void removeDeletedProgram(Program* program);
+	void removeDeletedProgram(Program* program);
 	
 	/**
 	 * Update the project id with the specified value
@@ -90,6 +93,16 @@ public:
 	 * @param -_desc - the new project description
 	 */
 	void setDesc(const std::string& _desc);
+
+	/**
+ * Inline set method for application id the project belongs to
+ */
+	void setApplication(Application* _app);
+
+	/**
+ * Inline get method for application id the project belongs to
+ */
+	Application* getApplication() const;
 	
 	/**
 	 * Start up method to call all necessary methods to load project data
@@ -104,6 +117,7 @@ public:
 private:
 	std::string projectId;
 	std::string desc;
+	Application* app;
 	std::vector <Program*> supportingPrograms;
 	
 	/**
@@ -116,5 +130,7 @@ inline std::string Project::getProjectId() const {return projectId;}
 inline void Project::setProjectId(const std::string& _projectId) {projectId = _projectId;}
 inline std::string Project::getDesc() const {return desc;}
 inline void Project::setDesc(const std::string& _desc) {desc = _desc;}
+inline void Project::setApplication(Application* _app) {app = _app;}
+inline Application* Project::getApplication() const {return app;}
 
 #endif /* PROJECT_H_ */

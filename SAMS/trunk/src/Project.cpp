@@ -5,19 +5,26 @@
  */
 
 #include "Project.h"
-#include "ProjectList.h"
+#include "Application.h"
+#include "ProgramList.h"
 
 using namespace std;
 
 Project::Project(const string& _projectId,
-					 const string& _desc) {
+					 const string& _desc,
+					 Application* _app) {
 	setProjectId(_projectId);
 	setDesc(_desc);
+	setApplication(_app);
 	
 	clearAllPrograms();
 }
 
 Project::~Project() {
+	if(app != NULL)
+	{
+		app->removeDeletedProject(this);
+	}
 	clearAllPrograms();
 }
 
@@ -59,7 +66,8 @@ void Project::clearAllPrograms() {
 
 void Project::_display() const {
 	cout << "Project ID:\t" << getProjectId() << endl;
-	cout << "Description:\t" << getDesc() << endl << endl;
+	cout << "Description:\t" << getDesc() << endl;
+	cout << "Associated Applicaition:\t" << getApplication()->getAppId() << " - " << getApplication()->getDesc() << endl << endl;
 }
 
 void Project::display() const {

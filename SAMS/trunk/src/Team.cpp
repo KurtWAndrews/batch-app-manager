@@ -223,6 +223,10 @@ void Team::addApplication(ApplicationList* applications) {
 }
 
 void Team::clearAllApplications() {
+	for(int i = 0; i < supportingApplications.size(); i++)
+	{
+		supportingApplications[i]->setTeam(NULL);
+	}
 	supportingApplications.clear();
 }
 
@@ -252,7 +256,7 @@ void Team::removeApplication() {
 		
 			switch(toupper(option)) {
 				case 'R':
-					eraseApplication(i); // remove the application from the team support list
+					supportingApplications.erase(supportingApplications.begin() + i); // remove the application from the team support list
 					option = 'Q';
 					break;
 				case 'F': i = 0;
@@ -284,9 +288,9 @@ void Team::removeApplication() {
 	}
 }
 
-void Team::eraseApplication(int i)
-{
-	supportingApplications.erase(supportingApplications.begin() + i);
+void Team::removeDeletedApplication(Application* app)
+{	
+	supportingApplications.erase(std::remove(supportingApplications.begin(), supportingApplications.end(), app), supportingApplications.end());
 }
 
 void Team::startup(ifstream& inFile, EmployeeList* employees, ApplicationList* applications) {
@@ -314,6 +318,7 @@ void Team::startup(ifstream& inFile, EmployeeList* employees, ApplicationList* a
 		app = applications->find(_appId);
 		
 		if (app != NULL) {
+			app->setTeam((Team*) this);
 			supportingApplications.push_back(app);
 		}
 	}
