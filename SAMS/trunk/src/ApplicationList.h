@@ -66,7 +66,7 @@ public:
 	 * @return the pointer to the application object that has appId == _appId
 	 * or null if no match is found
 	 */
-	Application* ApplicationList::find(const std::string& _appId);
+	Application* find(const std::string& _appId);
 
 	/**
 	 * Start up method to call all necessary methods to load data for projects

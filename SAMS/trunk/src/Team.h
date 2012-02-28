@@ -93,7 +93,7 @@ public:
 	 * Remove employee from the team
 	 * Used when employee is removed from system and needs to be removed from team
 	 */
-	void removeEmployee(Employee* emp);
+	void removeDeletedMember(Employee* emp);
 	
 	/**
 	 * Add applications to a team
