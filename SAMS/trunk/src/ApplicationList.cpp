@@ -239,6 +239,112 @@ void ApplicationList::removeApplication() {
   }
 }
 
+Application* ApplicationList::selectLowSecurityApplication() { 
+  system("cls");
+  cout << "Select Application" << endl << endl;
+  
+  if (applications.empty()) {
+    cout << "There are no applications in the system." << endl;
+    return 0;
+  }
+  
+  ApplicationLowSecurity* lowRisk = 0;
+  int direction = 0;
+  map<string, Application*>::iterator iter = applications.begin();
+  char option = 'N';
+  
+  Application* aPtr = NULL;
+  while (option != 'Q') {
+    system("cls");
+    cout << "Select Application" << endl << endl;
+
+    lowRisk = dynamic_cast<ApplicationLowSecurity*>(iter->second);
+
+    if(lowRisk)
+    {
+      lowRisk->display();
+
+      cout << endl
+           << endl
+           << "** (F)irst * (L)ast * (P)revious * (N)ext * (S)elect * (Q)uit ** ";
+
+      cin >> option;
+      cin.ignore();
+
+      switch(toupper(option)) {
+      case 'S':
+        system("cls");
+        cout << "Select Application\n\n"
+        << "You have selected the following application from the application list:"
+        << endl << endl;
+        
+        iter->second->display();
+        
+        cout << "\nIf this is correct please type (Y)es or any other key to continue."
+        << endl << endl;
+        
+        cin >> option;
+        cin.ignore();
+        
+        if (toupper(option) == 'Y') {
+          aPtr = iter->second;
+          option = 'Q';
+        }
+        break;
+      case 'F':
+        iter = applications.begin();
+        direction = 1;
+        break;
+      case 'L':
+        iter = applications.end();
+        direction = 2;
+        -- iter;
+        break;
+      case 'P':
+        if (iter == applications.begin()) {
+          iter = applications.end();
+        }
+        -- iter;
+        direction = 2;
+        break;
+      case 'N':
+        ++ iter;
+        if (iter == applications.end()) {
+          iter = applications.begin();
+        }
+        direction = 1;
+        break;
+      case 'Q': option = 'Q';
+      }
+    }
+    else
+    {
+      if (direction == 1) {
+        ++ iter;
+        if (iter == applications.end()) {
+          iter = applications.begin();
+        }
+      }
+      else if (direction == 2) {
+        if (iter == applications.begin()) {
+          iter = applications.end();
+        }
+        -- iter;
+      }
+      else {
+        ++ iter;
+        if (iter == applications.end()) {
+          cout << "There are no low security applications in the system" << endl << endl;
+          cin.ignore();
+          option = 'Q';
+        }
+      }
+    }
+  }
+
+  return aPtr;
+}
+
 Application* ApplicationList::selectApplication() {
   system("cls");
   cout << "Select Application" << endl << endl;

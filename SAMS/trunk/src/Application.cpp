@@ -39,7 +39,7 @@ void Application::addProject(ProjectList* projects) {
 			supportingProjects.push_back(pPtr);
 		cout << "\n\nProject " << pPtr->getProjectId() << " added to the support list." << endl;
 		} else {
-			cout << "This program is already a part of the project" << endl;
+			cout << "This project is already a part of the application" << endl;
 		}
 		cin.ignore();
 	}

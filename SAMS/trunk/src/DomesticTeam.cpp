@@ -30,6 +30,10 @@ void DomesticTeam::removeMember() {
 	Team::removeMember();
 }
 
+void DomesticTeam::addApplication(ApplicationList* applications) {
+	Team::addApplication(applications);
+}
+
 void DomesticTeam::startup(ifstream& inFile, EmployeeList* employees, ApplicationList* applications) {
 	Team::startup(inFile, employees, applications);
 	

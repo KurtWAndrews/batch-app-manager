@@ -206,7 +206,7 @@ void Team::addApplication(ApplicationList* applications) {
 	Application* aPtr = applications->selectApplication();
 		
 	if (aPtr != NULL) {
-		supportingApplications.push_back(aPtr);
+		pushApplication(aPtr);
 		cout << "\n\nApplication " << aPtr->getAppId() << " added to the support list." << endl;
 		cin.ignore();
 	}
@@ -214,6 +214,12 @@ void Team::addApplication(ApplicationList* applications) {
 		cout << "\n\nNo applications were selected" << endl;
 		cin.ignore();
 	}
+}
+
+void Team::pushApplication(Application* aPtr)
+{
+	supportingApplications.push_back(aPtr);
+	aPtr->setTeam(this);
 }
 
 void Team::clearAllApplications() {

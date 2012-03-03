@@ -234,7 +234,7 @@ inline void AppManager::changeEmployees() {employees->changeEmployee();}
 inline void AppManager::removeEmployees() {employees->removeEmployee();}
 inline void AppManager::displayEmployees() {employees->display();}
 
-inline void AppManager::addTeams() {teams->addTeam(getEmployees());}
+inline void AppManager::addTeams() {teams->addTeam(getEmployees(), getApplications());}
 inline void AppManager::changeTeams() {teams->changeTeam(getEmployees(), getApplications());}
 inline void AppManager::removeTeams() {teams->removeTeam();}
 inline void AppManager::displayTeams() {teams->display();}

@@ -57,7 +57,10 @@ public:
 	 */
 	virtual void display() const = 0;
 
-	void displaySupportList() const;
+	/**
+	 * Display the applications support list
+	 */
+	virtual void displaySupportList() const;
 	
 	/**
 	 * @return the teams team id
@@ -99,7 +102,13 @@ public:
 	 * Add applications to a team
 	 * @param applications - pointer to the application list
 	 */
-	void addApplication(ApplicationList* applicaitons);
+	virtual void addApplication(ApplicationList* applications);
+
+	/**
+	 * Pushes the application onto the support list
+	 * @param aPtr - pointer to the application
+	 */
+	void pushApplication(Application* aPtr);
 	
 	/**
 	 * Set the application pointer for each program to NULL before clearing the applications vector

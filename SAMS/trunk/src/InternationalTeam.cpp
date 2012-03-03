@@ -45,17 +45,17 @@ void InternationalTeam::addMember(EmployeeList* employees) {
 					members->push_back(ePtr);
 				} else {
 					cout << "This employee is already on a team" << endl;
-		      cin.ignore();
+					cin.ignore();
 				}
 			}
 			else {
 				cout << "\nOnly full time employees are allowed to join an international team." << endl;
-		    cin.ignore();
+				cin.ignore();
 			}
 		}
 		else {
 			cout << "No employee was selected" << endl;
-		  cin.ignore();
+			cin.ignore();
 		}
 		
 		isValidTeam = (members->size() > 0);
@@ -134,6 +134,23 @@ void InternationalTeam::removeEmployee(Employee* emp)
 
 	delete iter->second;
 	empJoinDates.erase(id);
+}
+
+void InternationalTeam::addApplication(ApplicationList* applications) {
+	system("cls");
+	cout << "Adding Application" << endl;
+		
+	Application* aPtr = applications->selectLowSecurityApplication();
+		
+	if (aPtr != NULL) {
+		pushApplication(aPtr);
+		cout << "\n\nApplication " << aPtr->getAppId() << " added to the support list." << endl;
+		cin.ignore();
+	}
+	else {
+		cout << "\n\nNo applications were selected" << endl;
+		cin.ignore();
+	}
 }
 
 void InternationalTeam::startup(ifstream& inFile, EmployeeList* employees, ApplicationList* applications) {

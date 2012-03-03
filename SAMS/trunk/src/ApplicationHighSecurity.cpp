@@ -52,7 +52,8 @@ using namespace std;
 	 */
 	void ApplicationHighSecurity::display() const
 	{
-		cout << "RISK LEVEL:\t" << getRiskLevel() << endl;
+		cout << "HIGH SECURITY APPLICATION" << endl << endl;
+		cout << "Risk Level:\t" << getRiskLevel() << endl;
 		Application::display();
 	}
 	

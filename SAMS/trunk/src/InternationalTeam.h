@@ -13,6 +13,7 @@
 #include "Team.h"
 #include "Date.h"
 #include "EmployeeList.h"
+#include "ApplicationLowSecurity.h"
 
 class InternationalTeam : public Team
 {
@@ -58,6 +59,12 @@ public:
 	 * Used to delete the join date and remove from map
 	 */
 	void removeEmployee(Employee* emp);
+
+	/**
+	 * Add applications to a team
+	 * @param applications - pointer to the application list
+	 */
+	void addApplication(ApplicationList* applications);
 
 	/**
 	 * Start up method to call all necessary methods to load international team data

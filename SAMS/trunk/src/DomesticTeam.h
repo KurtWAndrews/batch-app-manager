@@ -9,6 +9,7 @@
 
 #include "Team.h"
 #include "EmployeeList.h"
+#include "Application.h"
 
 class DomesticTeam : public Team
 {
@@ -44,6 +45,12 @@ public:
 	 * Remove employees from the domestic team
 	 */
 	void removeMember();
+
+	/**
+	 * Add applications to a team
+	 * @param applications - pointer to the application list
+	 */
+	void addApplication(ApplicationList* applications);
 
 	/**
 	 * Start up method to call all necessary methods to load domestic team data

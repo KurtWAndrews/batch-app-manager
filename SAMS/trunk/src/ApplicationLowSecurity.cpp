@@ -50,6 +50,7 @@ using namespace std;
 	 */
 	void ApplicationLowSecurity::display() const
 	{
+		cout << "LOW SECURITY APPLICATION" << endl << endl;
 		Application::display();
 	}
 	

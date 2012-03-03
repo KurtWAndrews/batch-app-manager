@@ -34,7 +34,7 @@ public:
 	/**
 	 * add a team to a collection for the team
 	 */
-	void addTeam(EmployeeList* employees);
+	void addTeam(EmployeeList* employees, ApplicationList* applications);
 
 	/**
 	 * change a team in the collection

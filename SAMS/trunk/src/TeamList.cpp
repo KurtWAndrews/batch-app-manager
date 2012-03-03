@@ -24,7 +24,7 @@ TeamList::~TeamList() {
   teams.clear();
 }
 
-void TeamList::addTeam(EmployeeList* employees) {
+void TeamList::addTeam(EmployeeList* employees, ApplicationList* applications) {
   system("cls");
   cout << "Adding Team" << endl;
   
@@ -65,6 +65,7 @@ void TeamList::addTeam(EmployeeList* employees) {
   } while (iter != teams.end());
 
   team->addMember(employees);
+  team->addApplication(applications);
     
   teams.insert(pair<string, Team*>(team->getTeamId(), team));
     

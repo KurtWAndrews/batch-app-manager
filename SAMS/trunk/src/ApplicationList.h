@@ -56,6 +56,12 @@ public:
 	 * @return a pointer to the selected application
 	 */
 	Application* selectApplication();
+
+	/**
+	 * Select a low risk application from the project list
+	 * @return a pointer to the selected application
+	 */
+	Application* selectLowSecurityApplication();
 	
 	/**
 	 * @return true if the projet list is empty; false otherwise
