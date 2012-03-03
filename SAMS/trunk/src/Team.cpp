@@ -94,14 +94,6 @@ void Team::displaySupportList() const {
 	cout << endl << endl << "*** A P P L I C A T I O N  S U P P O R T  L I S T***" << endl << endl;
 	
 	for (int i = 0; i < supportingApplications.size(); i++) {
-		/*if(supportingApplications[i])
-		{
-			eraseApplication(i);
-			if(supportingApplications.size() < 1)
-			{
-				return;
-			}
-		}*/
 		cout << supportingApplications[i]->getAppId()  << " - " << supportingApplications[i]->getDesc() << endl;
 	}
 }
@@ -202,7 +194,7 @@ void Team::removeMember() {
 	}
 }
 
-void Team::removeEmployee(Employee* emp)
+void Team::removeDeletedMember(Employee* emp)
 {	
 	members.erase(std::remove(members.begin(), members.end(), emp), members.end());
 }
@@ -236,14 +228,6 @@ void Team::removeApplication() {
 	if(supportingApplications.size() > 0)
 	{
 		unsigned long i = 0;
-		/*if(!supportingApplications[i])
-		{
-			eraseApplication(i);
-			if(supportingApplications.size() < 1)
-			{
-				return;
-			}
-		}*/
 		
 		char option = 'N';
 		while (option != 'Q') {

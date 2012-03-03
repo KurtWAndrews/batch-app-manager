@@ -67,7 +67,7 @@ void Application::clearAllProjects() {
 void Application::_display() const {
 	cout << "Application ID:\t" << getAppId() << endl;
 	cout << "Description:\t" << getDesc() << endl;
-	cout << "Associated Team:\t" << getTeam()->getTeamId() << " - " << getTeam()->getDesc() << endl << endl;
+	cout << "Associated Team:\t" << (team == NULL ? "Not assigned to a team" : team->getTeamId() + " - " + team->getDesc()) << endl << endl;
 }
 
 void Application::display() const {
@@ -91,7 +91,7 @@ void Application::populate() {
 		setAppId(_appId);
 	}
 	
-	cout << "Enter the project description: ";
+	cout << "Enter the application description: ";
 	getline(cin, _desc);
 	
 	setDesc(_desc);

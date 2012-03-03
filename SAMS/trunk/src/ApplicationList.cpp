@@ -5,6 +5,8 @@
  */
 
 #include "ApplicationList.h"
+#include "ApplicationHighSecurity.h"
+#include "ApplicationLowSecurity.h"
 
 using namespace std;
 
@@ -26,7 +28,21 @@ void ApplicationList::addApplication(ProjectList* projects) {
   system("cls");
   cout << "Adding Application" << endl;
     
-  Application* app = new Application;
+  Application* app;
+  char _type;
+  cout << "Is this a high or low security risk applicaton? (h/l): ";
+  cin >> _type;
+  cin.ignore();
+  
+  if(toupper(_type) == 'H')
+  {
+    app = new ApplicationHighSecurity;
+  }
+  else
+  {
+    app = new ApplicationLowSecurity;
+  }
+  
   map<string, Application*>::const_iterator iter;
 
   do {
@@ -71,7 +87,7 @@ void ApplicationList::changeApplication(ProjectList* projects) {
 
     cout << endl
          << endl
-         << "** (F)irst * (L)ast * (P)revious * (N)ext * (C)hange * (A)dd member * (R)emove member * (Q)uit ** ";
+         << "** (F)irst * (L)ast * (P)revious * (N)ext * (C)hange * (A)dd project * (R)emove project * (Q)uit ** ";
 
     cin >> option;
     cin.ignore();
@@ -320,7 +336,17 @@ void ApplicationList::startup(ProjectList* projects)
     isApplications.ignore();
     
     for (int rec = 0; rec < recs; ++rec) {
-      _app = new Application;
+      string _type;
+      getline(isApplications, _type, '|');
+      if(_type == "1")
+      {
+        _app = new ApplicationHighSecurity;
+      }
+      else
+      {
+        _app = new ApplicationLowSecurity;
+      }
+
       _app->startup(isApplications, projects);
       
       applications.insert(pair<string, Application*>(_app->getAppId(), _app));

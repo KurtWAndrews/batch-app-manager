@@ -25,10 +25,10 @@ public:
 	 * The Application constructor
 	 * @param _appId - new application id
 	 * @param _desc - description of the new application
+	 * @param _team - pointer to associated team
 	 */
 	Application(const std::string& _appId = "",
-			 const std::string& _desc = "",
-			 Team* _team = NULL);
+			 const std::string& _desc = "", Team* _team = NULL);
 	
 	/**
 	 * Application destructor
@@ -39,12 +39,12 @@ public:
 	 * Add projects to an application
 	 * @param projects - pointer to the project list
 	 */
-	void addProject(ProjectList* projects);
+	virtual void addProject(ProjectList* projects);
 	
 	/**
 	 * Set all application attributes to empty strings, and null pointers etc
 	 */
-	void clearAttributes();
+	virtual void clearAttributes();
 	
 	/**
 	 * Set the application pointer for each program to NULL before clearing the projects vector
@@ -54,22 +54,12 @@ public:
 	/**
 	 * Display the application
 	 */
-	void display() const;
-	
-	/**
-	 * @return the applications id
-	 */
-	std::string getAppId() const;
-
-	/**
-	 * @return the application description
-	 */
-	std::string getDesc() const;
+	virtual void display() const = 0;
 	
 	/**
 	 * Populate the application's attributes
 	 */
-	void populate();
+	virtual void populate();
 	
 	/**
 	 * Remove projects from the team
@@ -81,6 +71,16 @@ public:
 	 * Called from project's destructor
 	 */
 	void removeDeletedProject(Project* project);
+	
+	/**
+	 * @return the applications id
+	 */
+	std::string getAppId() const;
+
+	/**
+	 * @return the application description
+	 */
+	std::string getDesc() const;
 	
 	/**
 	 * Update the application id with the specified value
@@ -107,12 +107,12 @@ public:
 	/**
 	 * Start up method to call all necessary methods to load application data
 	 */
-	void startup(std::ifstream& inFile, ProjectList* projects);
+	virtual void startup(std::ifstream& inFile, ProjectList* projects);
 	
 	/**
 	 * Shut down method to call all necessary methods to persist application data 
 	 */
-	void shutdown(std::ofstream& outFile);
+	virtual void shutdown(std::ofstream& outFile);
 		
 private:
 	std::string appId;

@@ -126,7 +126,7 @@ void InternationalTeam::populate() {
 
 void InternationalTeam::removeEmployee(Employee* emp)
 {	
-	Team::removeEmployee(emp);
+	Team::removeDeletedMember(emp);
 
 	string id = emp->getEmployeeId();
 	map<string, Date*>::const_iterator iter;

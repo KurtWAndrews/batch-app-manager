@@ -106,5 +106,5 @@ void Program::display() const
 	cout << "Program ID:\t" << getId() << endl;
 	cout << "Program Name:\t" << getName() << endl;
 	cout << "Program Description:\t" << getDescription() << endl;
-	cout << "Associated Project:\t" << (project == NULL ? "Not Assigned to a project" : project->getProjectId() + " - " + project->getDesc()) << endl;
+	cout << "Associated Project:\t" << (project == NULL ? "Not assigned to a project" : project->getProjectId() + " - " + project->getDesc()) << endl;
 }

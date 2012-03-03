@@ -67,7 +67,7 @@ void Project::clearAllPrograms() {
 void Project::_display() const {
 	cout << "Project ID:\t" << getProjectId() << endl;
 	cout << "Description:\t" << getDesc() << endl;
-	cout << "Associated Applicaition:\t" << getApplication()->getAppId() << " - " << getApplication()->getDesc() << endl << endl;
+	cout << "Associated Applicaition:\t" << (app == NULL ? "Not assigned to an application" : getApplication()->getAppId() + " - " + getApplication()->getDesc()) << endl << endl;
 }
 
 void Project::display() const {

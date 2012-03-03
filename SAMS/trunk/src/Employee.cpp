@@ -36,7 +36,7 @@ Employee::~Employee()
 {
 	if(team != NULL)
 	{
-		team->removeEmployee(this);
+		team->removeDeletedMember(this);
 	}
 }
 
