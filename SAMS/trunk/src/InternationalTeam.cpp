@@ -67,7 +67,7 @@ void InternationalTeam::addMember(EmployeeList* employees) {
 	
 	map<string, Date*>::const_iterator iter;
 
-	for(int i = (members->size() - 1); i > -1; i--)
+	for(int i = ((int) members->size() - 1); i > -1; i--)
 	{
 		iter = empJoinDates.find(members->at(i)->getEmployeeId());
 		if(iter == empJoinDates.end())
