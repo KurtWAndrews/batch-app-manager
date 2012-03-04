@@ -66,7 +66,7 @@ public:
 	 * @return the pointer to the project object that has projectId == _projectId
 	 * or null if no match is found
 	 */
-	Project* ProjectList::find(const std::string& _projectId);
+	Project* find(const std::string& _projectId);
 
 	/**
 	 * Start up method to call all necessary methods to load data for projects

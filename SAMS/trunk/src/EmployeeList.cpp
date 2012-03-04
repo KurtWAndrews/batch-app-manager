@@ -46,8 +46,8 @@ void EmployeeList::addEmployee() {
     cin.ignore();
     if(tolower(_fullTime) == 'f')
     {
-      employee = new FullTime();
-      FullTime* fullTime = dynamic_cast<FullTime*>(employee);
+      employee = new FullTimeEmployee();
+      FullTimeEmployee* fullTime = dynamic_cast<FullTimeEmployee*>(employee);
       if(fullTime)
       {
         fullTime->populate();
@@ -55,8 +55,8 @@ void EmployeeList::addEmployee() {
     }
     else
     {
-      employee = new PartTime();
-      PartTime* partTime = dynamic_cast<PartTime*>(employee);
+      employee = new PartTimeEmployee();
+      PartTimeEmployee* partTime = dynamic_cast<PartTimeEmployee*>(employee);
       if(partTime)
       {
         partTime->populate();
@@ -77,7 +77,7 @@ void EmployeeList::manageBenefits()
 {
   system("cls");
   map<string, Employee*>::iterator iter = employees.begin();
-  FullTime* fullTime = 0;
+  FullTimeEmployee* fullTime = 0;
   bool hasFullTime = false;
   cout << "Manage Benefits" << endl << endl;
 
@@ -109,7 +109,7 @@ void EmployeeList::manageBenefits()
       ++iter;
     }
 
-    fullTime = dynamic_cast<FullTime*>(iter->second);
+    fullTime = dynamic_cast<FullTimeEmployee*>(iter->second);
 
     if(fullTime)
     {
@@ -124,10 +124,10 @@ void EmployeeList::manageBenefits()
 
       switch(toupper(option)) {
         case 'D':
-            fullTime->deposit();
+            fullTime->makeDeposit();
           break;
         case 'W':
-            fullTime->withdraw();
+            fullTime->makeWithdrawal();
           break;
         case 'F':
           iter = employees.begin();
@@ -232,7 +232,7 @@ void EmployeeList::changeEmployee() {
 
 void EmployeeList::display() const {
   system("cls");
-  FullTime* fullTime = 0;
+  FullTimeEmployee* fullTime = 0;
   cout << "Display Employees" << endl << endl;
   
   if (employees.empty()) {
@@ -247,7 +247,7 @@ void EmployeeList::display() const {
     system("cls");
     cout << "Display Employees" << endl << endl;
     
-    fullTime = dynamic_cast<FullTime*>(iter->second);
+    fullTime = dynamic_cast<FullTimeEmployee*>(iter->second);
     if(fullTime)
     {
       fullTime->display();
@@ -458,8 +458,8 @@ void EmployeeList::startup()
       getline(isEmployees, _fullTime, '|');
       if(_fullTime == "1")
       {
-        emp = new FullTime;
-        FullTime* fullTime = dynamic_cast<FullTime*>(emp);
+        emp = new FullTimeEmployee;
+        FullTimeEmployee* fullTime = dynamic_cast<FullTimeEmployee*>(emp);
         if(fullTime)
         {
           fullTime->startup(isEmployees);
@@ -467,8 +467,8 @@ void EmployeeList::startup()
       }
       else
       {
-        emp = new PartTime;
-        PartTime* partTime = dynamic_cast<PartTime*>(emp);
+        emp = new PartTimeEmployee;
+        PartTimeEmployee* partTime = dynamic_cast<PartTimeEmployee*>(emp);
         if(partTime)
         {
           partTime->startup(isEmployees);
@@ -484,8 +484,8 @@ void EmployeeList::startup()
 
 void EmployeeList::shutdown()
 {
-  FullTime* fullTime = 0;
-  PartTime* partTime = 0;
+  FullTimeEmployee* fullTime = 0;
+  PartTimeEmployee* partTime = 0;
 
   ofstream osEmployees("employees.txt");
   
@@ -493,14 +493,14 @@ void EmployeeList::shutdown()
   
   map<string, Employee*>::const_iterator iter;
   for(iter = employees.begin(); iter != employees.end(); ++ iter) {
-    fullTime = dynamic_cast<FullTime*>(iter->second);
+    fullTime = dynamic_cast<FullTimeEmployee*>(iter->second);
     if(fullTime)
     {
       fullTime->shutdown(osEmployees);
     }
     else
     {
-      partTime = dynamic_cast<PartTime*>(iter->second);
+      partTime = dynamic_cast<PartTimeEmployee*>(iter->second);
       if(partTime)
       {
         partTime->shutdown(osEmployees);

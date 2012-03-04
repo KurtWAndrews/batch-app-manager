@@ -34,13 +34,15 @@ public:
 
 	/**
 	 * Deposit money into the benefits account
+   * @param - amount to deposit into account
 	 */
-	void deposit(double amount);
+	void makeDeposit(double amount);
 
 	/**
 	 * Withdraw money from the benefits account
+   * @param - amount to withdraw from the account
 	 */
-	void withdraw(double amount);
+	void makeWithdrawal(double amount);
 	
 	/**
 	 * @return the accounts account id
@@ -76,11 +78,13 @@ public:
 	void setBalance(const double _balance);
 	/**
 	 * Start up method to call all necessary methods to load account data
+   * @param - inFile - the input file stream that has the account data
 	 */
 	void startup(std::ifstream& inFile);
 	
 	/**
 	 * Shut down method to call all necessary methods to persist account data 
+   * @param - outFile - the output file stream used to save the account data
 	 */
 	void shutdown(std::ofstream& outFile);
 	
@@ -102,7 +106,6 @@ inline std::string Account::getDesc() const {return desc;}
 inline void Account::setDesc(const std::string& _desc) {desc = _desc;}
 inline double Account::getBalance() const {return balance;}
 inline void Account::setBalance(const double _balance) {balance = _balance;}
-inline void Account::deposit(const double amount) {balance = balance + amount;}
-inline void Account::withdraw(const double amount) {balance = balance - amount;}
+inline void Account::makeDeposit(const double amount) {balance = balance + amount;}
 
 #endif /* ACCOUNT_H_ */

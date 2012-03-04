@@ -17,15 +17,14 @@ Employee::Employee(const std::string& _id,
 									 const std::string& _lastName,
 									 const std::string& _preferredName,
 									 const std::string& _email,
-									 const bool _isFullTime,
 									 Team* _team)
 {
+  cout << "Executing Employee() constructor" << endl;
 	setEmployeeId(_id);
 	setFirstName(_firstName);
 	setLastName(_lastName);
 	setPrefName(_preferredName);
 	setEmailAddress(_email);
-	setFullTime(_isFullTime);
 	setTeam(_team);
 }
 
@@ -34,6 +33,8 @@ Employee::Employee(const std::string& _id,
  */
 Employee::~Employee()
 {
+  cout << "Executing Employee's destructor" << endl;
+  
 	if(team != NULL)
 	{
 		team->removeDeletedMember(this);
@@ -47,13 +48,11 @@ void Employee::clearAttributes()
 	setLastName("");
 	setPrefName("");
 	setEmailAddress("");
-	setFullTime(false);
 	setTeam(NULL);
 }
 
 /**
- * Retrieves employee information from user to populate an employee object
- * Returns a pointer to the new employee object
+ * Retrieve employee information from user to populate an employee object
  */
 void Employee::populate()
 {
