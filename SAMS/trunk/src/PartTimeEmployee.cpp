@@ -22,12 +22,13 @@ PartTimeEmployee::PartTimeEmployee(Employee& e) : Employee(e.getEmployeeId(),
 {
   cout << "Executing PartTimeEmployee(const Employee& e) copy constructor" << endl;
 
-  if (! getTeam()->isDomestic()) {
-    getTeam()->removeDeletedMember(this);
-    setTeam(NULL);
+  if (getTeam() != NULL) {
+    if (! getTeam()->isDomestic()) {
+      getTeam()->removeDeletedMember(this);
+      setTeam(NULL);
+    }
   }
 }
-
 PartTimeEmployee::~PartTimeEmployee()
 {
   cout << "Executing Part Time Employee's Destructor" << endl;
