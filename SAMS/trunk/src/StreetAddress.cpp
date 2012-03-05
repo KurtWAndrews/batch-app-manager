@@ -19,7 +19,6 @@ StreetAddress::StreetAddress(const string& addressLine1,
 
 StreetAddress::~StreetAddress()
 {
-  cout << "Executing StreetAddress Destructor" << endl;
 }
 
 void StreetAddress::clearAttributes()

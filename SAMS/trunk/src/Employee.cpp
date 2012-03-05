@@ -19,7 +19,6 @@ Employee::Employee(const std::string& _id,
                    const std::string& _email,
                    Team* _team)
 {
-  cout << "Executing Employee() constructor" << endl;
   setEmployeeId(_id);
   setFirstName(_firstName);
   setLastName(_lastName);
@@ -33,8 +32,6 @@ Employee::Employee(const std::string& _id,
  */
 Employee::~Employee()
 {
-  cout << "Executing Employee's destructor" << endl;
-
   if (team != NULL) {
     team->removeDeletedMember(this);
   }

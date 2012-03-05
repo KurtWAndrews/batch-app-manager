@@ -17,7 +17,6 @@ FullTimeEmployee::FullTimeEmployee() : Employee(),
   address(new StreetAddress())
 
 {
-  cout << "Executing FullTimeEmployee() default constructor" << endl;
 }
 
 FullTimeEmployee::FullTimeEmployee(const Employee& e) : Employee(e.getEmployeeId(),
@@ -29,7 +28,6 @@ FullTimeEmployee::FullTimeEmployee(const Employee& e) : Employee(e.getEmployeeId
   account(new Account()),
   address(new StreetAddress())
 {
-  cout << "Executing FullTimeEmployee(const Employee& e) copy constructor" << endl;
 }
 
 /**
@@ -37,8 +35,6 @@ FullTimeEmployee::FullTimeEmployee(const Employee& e) : Employee(e.getEmployeeId
  */
 FullTimeEmployee::~FullTimeEmployee()
 {
-  cout << "Executing Full Time Employee's Destructor" << endl;
-
   if (account != NULL) {
     delete account;
   }

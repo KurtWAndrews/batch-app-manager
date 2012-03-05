@@ -20,8 +20,6 @@ PartTimeEmployee::PartTimeEmployee(Employee& e) : Employee(e.getEmployeeId(),
       e.getEmailAddress(),
       e.getTeam())
 {
-  cout << "Executing PartTimeEmployee(const Employee& e) copy constructor" << endl;
-
   if (getTeam() != NULL) {
     if (! getTeam()->isDomestic()) {
       getTeam()->removeDeletedMember(this);
@@ -31,7 +29,6 @@ PartTimeEmployee::PartTimeEmployee(Employee& e) : Employee(e.getEmployeeId(),
 }
 PartTimeEmployee::~PartTimeEmployee()
 {
-  cout << "Executing Part Time Employee's Destructor" << endl;
 }
 
 void PartTimeEmployee::display() const
