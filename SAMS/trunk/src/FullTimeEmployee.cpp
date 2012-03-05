@@ -111,9 +111,6 @@ void FullTimeEmployee::populate()
 
 void FullTimeEmployee::startup(ifstream& inFile)
 {
-  cout << "executing FullTimeEmployee.startup()" << endl;
-  cin.ignore();
-
   Employee::startup(inFile);
   getAddress()->startUp(inFile);
 

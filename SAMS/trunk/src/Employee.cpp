@@ -102,9 +102,6 @@ void Employee::display() const
 
 void Employee::startup(ifstream& inFile)
 {
-  cout << "executing Employee.startup()" << endl;
-  cin.ignore();
-
   string _id;
   getline(inFile, _id, '|');
   setEmployeeId(_id);

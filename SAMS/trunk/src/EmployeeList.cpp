@@ -514,12 +514,8 @@ void EmployeeList::startup()
       getline(isEmployees, _fullTime, '|');
 
       if (_fullTime == "F") {
-        cout << "FullTimeEmployee()" << _fullTime << endl;
-        cin.ignore();
         emp = new FullTimeEmployee();
       } else {
-        cout << "ParTimeEmployee()" << _fullTime << endl;
-        cin.ignore();
         emp = new PartTimeEmployee;
       }
 
