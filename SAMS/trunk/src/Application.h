@@ -14,116 +14,117 @@
 
 class Team;
 
-// using class declarations here to avoid recursive includes caused by the 
+// using class declarations here to avoid recursive includes caused by the
 // bi-directional relationship between Application and Project
 class Project;
 class ProjectList; // ProjectList.h includes Project.h
 
-class Application {
-public:
-	/**
-	 * The Application constructor
-	 * @param _appId - new application id
-	 * @param _desc - description of the new application
-	 * @param _team - pointer to associated team
-	 */
-	Application(const std::string& _appId = "",
-			 const std::string& _desc = "", Team* _team = NULL);
-	
-	/**
-	 * Application destructor
-	 */
-	virtual ~Application();
-	
-	/**
-	 * Add projects to an application
-	 * @param projects - pointer to the project list
-	 */
-	virtual void addProject(ProjectList* projects);
-	
-	/**
-	 * Set all application attributes to empty strings, and null pointers etc
-	 */
-	virtual void clearAttributes();
-	
-	/**
-	 * Set the application pointer for each program to NULL before clearing the projects vector
-	 */
-	void clearAllProjects();
-	
-	/**
-	 * Display the application
-	 */
-	virtual void display() const = 0;
-	
-	/**
-	 * Populate the application's attributes
-	 */
-	virtual void populate();
-	
-	/**
-	 * Remove projects from the team
-	 */
-	void removeProject();
-	
-	/**
-	 * Remove project from the application
-	 * Called from project's destructor
-	 */
-	void removeDeletedProject(Project* project);
-	
-	/**
-	 * @return the applications id
-	 */
-	std::string getAppId() const;
+class Application
+{
+  public:
+    /**
+     * The Application constructor
+     * @param _appId - new application id
+     * @param _desc - description of the new application
+     * @param _team - pointer to associated team
+     */
+    Application(const std::string& _appId = "",
+                const std::string& _desc = "", Team* _team = NULL);
 
-	/**
-	 * @return the application description
-	 */
-	std::string getDesc() const;
-	
-	/**
-	 * Update the application id with the specified value
-	 * @param _appId - the new application id
-	 */
-	void setAppId(const std::string& _appId);
-	
-	/**
-	 * Update the application description with the specified value
-	 * @param -_desc - the new application description
-	 */
-	void setDesc(const std::string& _desc);
+    /**
+     * Application destructor
+     */
+    virtual ~Application();
 
-	/**
- * Inline set method for team id the application belongs to
- */
-	void setTeam(Team* _team);
+    /**
+     * Add projects to an application
+     * @param projects - pointer to the project list
+     */
+    virtual void addProject(ProjectList* projects);
 
-	/**
- * Inline get method for team id the application belongs to
- */
-	Team* getTeam() const;
-	
-	/**
-	 * Start up method to call all necessary methods to load application data
-	 */
-	virtual void startup(std::ifstream& inFile, ProjectList* projects);
-	
-	/**
-	 * Shut down method to call all necessary methods to persist application data 
-	 */
-	virtual void shutdown(std::ofstream& outFile);
-		
-private:
-	std::string appId;
-	std::string desc;
-	Team* team;
-	std::vector <Project*> supportingProjects;
-	
-	/**
-	 * Display Non member attributes
-	 */
-	void _display() const;  
+    /**
+     * Set all application attributes to empty strings, and null pointers etc
+     */
+    virtual void clearAttributes();
+
+    /**
+     * Set the application pointer for each program to NULL before clearing the projects vector
+     */
+    void clearAllProjects();
+
+    /**
+     * Display the application
+     */
+    virtual void display() const = 0;
+
+    /**
+     * Populate the application's attributes
+     */
+    virtual void populate();
+
+    /**
+     * Remove projects from the team
+     */
+    void removeProject();
+
+    /**
+     * Remove project from the application
+     * Called from project's destructor
+     */
+    void removeDeletedProject(Project* project);
+
+    /**
+     * @return the applications id
+     */
+    std::string getAppId() const;
+
+    /**
+     * @return the application description
+     */
+    std::string getDesc() const;
+
+    /**
+     * Update the application id with the specified value
+     * @param _appId - the new application id
+     */
+    void setAppId(const std::string& _appId);
+
+    /**
+     * Update the application description with the specified value
+     * @param -_desc - the new application description
+     */
+    void setDesc(const std::string& _desc);
+
+    /**
+    * Inline set method for team id the application belongs to
+    */
+    void setTeam(Team* _team);
+
+    /**
+    * Inline get method for team id the application belongs to
+    */
+    Team* getTeam() const;
+
+    /**
+     * Start up method to call all necessary methods to load application data
+     */
+    virtual void startup(std::ifstream& inFile, ProjectList* projects);
+
+    /**
+     * Shut down method to call all necessary methods to persist application data
+     */
+    virtual void shutdown(std::ofstream& outFile);
+
+  private:
+    std::string appId;
+    std::string desc;
+    Team* team;
+    std::vector <Project*> supportingProjects;
+
+    /**
+     * Display Non member attributes
+     */
+    void _display() const;
 };
 
 inline std::string Application::getAppId() const {return appId;}

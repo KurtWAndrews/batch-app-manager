@@ -9,11 +9,12 @@
 using namespace std;
 
 Account::Account(const string& _accountId,
-           const string& _desc,
-           const double _balance) {
-  
+                 const string& _desc,
+                 const double _balance)
+{
+
   cout << "Calling Account() constructor" << endl;
-  
+
   setAccountId(_accountId);
   setDesc(_desc);
   setBalance(_balance);

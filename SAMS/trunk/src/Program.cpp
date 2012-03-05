@@ -13,15 +13,15 @@ using namespace std;
 /**
  * Default Program constructor
  */
-Program::Program(const std::string & _id,
-									 const std::string & _name,
-									 const std::string & _description,
-									 Project* _project)
+Program::Program(const std::string& _id,
+                 const std::string& _name,
+                 const std::string& _description,
+                 Project* _project)
 {
-	setId(_id);
-	setName(_name);
-	setDescription(_description);
-	setProject(_project);
+  setId(_id);
+  setName(_name);
+  setDescription(_description);
+  setProject(_project);
 }
 
 /**
@@ -29,39 +29,38 @@ Program::Program(const std::string & _id,
  */
 Program::~Program()
 {
-	if(project != NULL)
-	{
-		project->removeDeletedProgram(this);
-	}
+  if (project != NULL) {
+    project->removeDeletedProgram(this);
+  }
 }
 
 /**
-	* Start up method to call all necessary methods to read in data
-	*/
+  * Start up method to call all necessary methods to read in data
+  */
 void Program::startup(ifstream& inFile)
 {
-	string _id;
-	getline(inFile, _id, '|');
-	setId(_id);
+  string _id;
+  getline(inFile, _id, '|');
+  setId(_id);
 
-	string _name;
-	getline(inFile, _name, '|');
-	setName(_name);
+  string _name;
+  getline(inFile, _name, '|');
+  setName(_name);
 
-	string _description;
-	getline(inFile, _description);
-	setDescription(_description);
+  string _description;
+  getline(inFile, _description);
+  setDescription(_description);
 }
-	
+
 /**
- * Shut down method to call all necessary methods to persist data and delete all 
+ * Shut down method to call all necessary methods to persist data and delete all
  * variables from memory
  */
 void Program::shutdown(ofstream& outFile)
 {
-	outFile << getId() << '|'
-					<< getName() << '|'
-					<< getDescription() << endl;
+  outFile << getId() << '|'
+          << getName() << '|'
+          << getDescription() << endl;
 }
 
 /**
@@ -69,10 +68,10 @@ void Program::shutdown(ofstream& outFile)
  */
 void Program::clearAttributes()
 {
-	setId("");
-	setName("");
-	setDescription("");
-	setProject(NULL);
+  setId("");
+  setName("");
+  setDescription("");
+  setProject(NULL);
 }
 
 /**
@@ -81,21 +80,21 @@ void Program::clearAttributes()
  */
 void Program::populate()
 {
-	std::string _id,
-							_name,
-							_description,
-							_projectId;
+  std::string _id,
+      _name,
+      _description,
+      _projectId;
 
-	cout << "What is the program's id? ";
-	getline(cin, _id);
-	cout << "What is the program's name? ";
-	getline(cin, _name);
-	cout << "Write a very brief description of the program: ";
-	getline(cin, _description);
-	
-	setId(_id);
-	setName(_name);
-	setDescription(_description);
+  cout << "What is the program's id? ";
+  getline(cin, _id);
+  cout << "What is the program's name? ";
+  getline(cin, _name);
+  cout << "Write a very brief description of the program: ";
+  getline(cin, _description);
+
+  setId(_id);
+  setName(_name);
+  setDescription(_description);
 }
 
 /**
@@ -103,8 +102,8 @@ void Program::populate()
  */
 void Program::display() const
 {
-	cout << "Program ID:\t" << getId() << endl;
-	cout << "Program Name:\t" << getName() << endl;
-	cout << "Program Description:\t" << getDescription() << endl;
-	cout << "Associated Project:\t" << (project == NULL ? "Not assigned to a project" : project->getProjectId() + " - " + project->getDesc()) << endl;
+  cout << "Program ID:\t" << getId() << endl;
+  cout << "Program Name:\t" << getName() << endl;
+  cout << "Program Description:\t" << getDescription() << endl;
+  cout << "Associated Project:\t" << (project == NULL ? "Not assigned to a project" : project->getProjectId() + " - " + project->getDesc()) << endl;
 }

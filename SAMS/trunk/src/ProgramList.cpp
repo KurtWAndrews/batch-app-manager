@@ -7,14 +7,16 @@
 
 using namespace std;
 
-ProgramList::ProgramList() {
+ProgramList::ProgramList()
+{
   programs.clear();
 }
 
-ProgramList::~ProgramList() {
+ProgramList::~ProgramList()
+{
   map<string, Program*>::iterator iter;
 
-  for(iter = programs.begin(); iter != programs.end(); ++ iter) {
+  for (iter = programs.begin(); iter != programs.end(); ++ iter) {
     delete iter->second;
   }
 
@@ -27,8 +29,8 @@ ProgramList::~ProgramList() {
 void ProgramList::startup()
 {
   ifstream isPrograms("programs.txt");
-  if(isPrograms)
-  {
+
+  if (isPrograms) {
     Program* _program;
     int programRecs;
 
@@ -37,15 +39,15 @@ void ProgramList::startup()
 
     for (int rec = 0; rec < programRecs; ++rec) {
       _program = new Program;
-     _program->startup(isPrograms);
+      _program->startup(isPrograms);
 
       programs.insert(pair<string, Program*>(_program->getId(), _program));
     }
-    
+
     isPrograms.close();
   }
 }
-  
+
 void ProgramList::shutdown()
 {
   ofstream osPrograms("programs.txt");
@@ -53,14 +55,16 @@ void ProgramList::shutdown()
   osPrograms << programs.size() << endl;
 
   map<string, Program*>::const_iterator iter;
-  for(iter = programs.begin(); iter != programs.end(); ++ iter) {
+
+  for (iter = programs.begin(); iter != programs.end(); ++ iter) {
     iter->second->shutdown(osPrograms);
   }
 
   osPrograms.close();
 }
 
-void ProgramList::addProgram() {
+void ProgramList::addProgram()
+{
   Program* program = new Program;
   map<string, Program*>::const_iterator iter;
 
@@ -87,7 +91,8 @@ void ProgramList::addProgram() {
   programs.insert(pair<string, Program*>(program->getId(), program));
 }
 
-void ProgramList::changeProgram() {
+void ProgramList::changeProgram()
+{
   system("cls");
   cout << "Change Program" << endl << endl;
 
@@ -112,7 +117,7 @@ void ProgramList::changeProgram() {
     cin >> option;
     cin.ignore();
 
-    switch(toupper(option)) {
+    switch (toupper(option)) {
       case 'C':
         system("cls");
         cout << "Change  Employee" << endl << endl;
@@ -121,12 +126,16 @@ void ProgramList::changeProgram() {
         iter->second->populate();
         iter->second->display();
         break;
-      case 'F': iter = programs.begin();
+
+      case 'F':
+        iter = programs.begin();
         break;
+
       case 'L':
         iter = programs.end();
         -- iter;
         break;
+
       case 'P':
         if (iter == programs.begin()) {
           iter = programs.end();
@@ -134,19 +143,25 @@ void ProgramList::changeProgram() {
 
         -- iter;
         break;
+
       case 'N':
         ++ iter;
 
         if (iter == programs.end()) {
           iter = programs.begin();
         }
+
         break;
-      case 'Q': option = 'Q'; break;
+
+      case 'Q':
+        option = 'Q';
+        break;
     }
   }
 }
 
-void ProgramList::removeProgram() {
+void ProgramList::removeProgram()
+{
   system("cls");
   cout << "Remove Employee" << endl << endl;
 
@@ -157,6 +172,7 @@ void ProgramList::removeProgram() {
   while (option != 'Q') {
     system("cls");
     cout << "Remove Program" << endl << endl;
+
     if (programs.empty()) {
       cout << "There are no programs in the system." << endl << endl;
 
@@ -171,18 +187,23 @@ void ProgramList::removeProgram() {
       cin >> option;
       cin.ignore();
     }
-    switch(toupper(option)) {
+
+    switch (toupper(option)) {
       case 'R':
         delete iter->second;
         programs.erase(id);
         iter = programs.begin();
         break;
-      case 'F': iter = programs.begin();
+
+      case 'F':
+        iter = programs.begin();
         break;
+
       case 'L':
         iter = programs.end();
         -- iter;
         break;
+
       case 'P':
         if (iter == programs.begin()) {
           iter = programs.end();
@@ -190,92 +211,109 @@ void ProgramList::removeProgram() {
 
         -- iter;
         break;
+
       case 'N':
         ++ iter;
 
         if (iter == programs.end()) {
           iter = programs.begin();
         }
+
         break;
-      case 'Q': option = 'Q'; break;
+
+      case 'Q':
+        option = 'Q';
+        break;
     }
   }
 }
 
-Program* ProgramList::selectProgram() {
+Program* ProgramList::selectProgram()
+{
   system("cls");
   cout << "Select Program" << endl << endl;
-  
+
   if (programs.empty()) {
     cout << "There are no programs in the system." << endl;
     return 0;
   }
-  
+
   map<string, Program*>::iterator iter = programs.begin();
   char option = 'N';
-  
+
   Program* pPtr = NULL;
+
   while (option != 'Q') {
     system("cls");
     cout << "Select Program" << endl << endl;
-    
+
     iter->second->display();
-    
+
     cout << endl
-    << endl
-    << "** (F)irst * (L)ast * (P)revious * (N)ext * (S)elect * (Q)uit ** ";
-    
+         << endl
+         << "** (F)irst * (L)ast * (P)revious * (N)ext * (S)elect * (Q)uit ** ";
+
     cin >> option;
     cin.ignore();
-    
-    switch(toupper(option)) {
+
+    switch (toupper(option)) {
       case 'S':
         system("cls");
         cout << "Select Program\n\n"
-        << "You have selected the following program from the program list:"
-        << endl << endl;
-        
+             << "You have selected the following program from the program list:"
+             << endl << endl;
+
         iter->second->display();
-        
+
         cout << "If this is correct please type (Y)es or any other key to continue."
-        << endl << endl;
-        
+             << endl << endl;
+
         cin >> option;
         cin.ignore();
-        
+
         if (toupper(option) == 'Y') {
           pPtr = iter->second;
           option = 'Q';
         }
+
         break;
-      case 'F': iter = programs.begin();
+
+      case 'F':
+        iter = programs.begin();
         break;
+
       case 'L':
         iter = programs.end();
         -- iter;
         break;
+
       case 'P':
         if (iter == programs.begin()) {
           iter = programs.end();
         }
-        
+
         -- iter;
         break;
+
       case 'N':
         ++ iter;
-        
+
         if (iter == programs.end()) {
           iter = programs.begin();
         }
+
         break;
-      case 'Q': option = 'Q';
+
+      case 'Q':
+        option = 'Q';
     }
   }
-  
+
   return pPtr;
 }
 
-void ProgramList::display() const {
+void ProgramList::display() const
+{
   system("cls");
   cout << "Display Programs" << endl << endl;
 
@@ -300,13 +338,16 @@ void ProgramList::display() const {
     cin >> option;
     cin.ignore();
 
-    switch(toupper(option)) {
-      case 'F': iter = programs.begin();
+    switch (toupper(option)) {
+      case 'F':
+        iter = programs.begin();
         break;
+
       case 'L':
         iter = programs.end();
         -- iter;
         break;
+
       case 'P':
         if (iter == programs.begin()) {
           iter = programs.end();
@@ -314,27 +355,33 @@ void ProgramList::display() const {
 
         -- iter;
         break;
+
       case 'N':
         ++ iter;
 
         if (iter == programs.end()) {
           iter = programs.begin();
         }
+
         break;
-      case 'Q': option = 'Q'; break;
+
+      case 'Q':
+        option = 'Q';
+        break;
     }
   }
 }
 
-Program* ProgramList::find(const std::string& _programId) {
+Program* ProgramList::find(const std::string& _programId)
+{
   Program* _program = NULL;
-    
+
   map<string, Program*>::iterator iter;
   iter = programs.find(_programId);
-    
+
   if (iter != programs.end()) {
     _program = iter->second;
   }
-    
+
   return(_program);
 }

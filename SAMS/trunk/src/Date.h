@@ -11,81 +11,81 @@
 
 class Date
 {
-private:
-	int month;
-	int day;
-	int year;
-	Employee* emp;
-public:/**
-	 * The Date constructor
-	 * @param _month - month of the year
-	 * @param _day - day of the month
-	 * @param _year - the year
-	 */
-	Date(int _month = 1,
-			 int _day = 1,
-			 int _year = 1900,
-			 Employee* _emp = NULL);
-	
-	/**
-	 * Date destructor
-	 */
-	virtual ~Date();
-	
-	/**
-	 * Display the international team
-	 */
-	void display() const;
-	
-	/**
-	 * @return the date's month
-	 */
-	int getMonth() const;
-	
-	/**
-	 * @return the date's day
-	 */
-	int getDay() const;
-	
-	/**
-	 * @return the date's year
-	 */
-	int getYear() const;
-	
-	/**
-	 * @return the date's associated employee
-	 */
-	Employee* getEmployee() const;
-	
-	/**
-	 * Update the date's month
-	 * @param _month - the new month
-	 */
-	void setMonth(int _month);
-	
-	/**
-	 * Update the date's day
-	 * @param _day - the new day
-	 */
-	void setDay(int _day);
-	
-	/**
-	 * Update the date's year
-	 * @param _year - the new year
-	 */
-	void setYear(int _year);
-	
-	/**
-	 * Update the date's associated employee
-	 * @param _emp - the employee object
-	 */
-	void setEmployee(Employee* _emp);
+  private:
+    int month;
+    int day;
+    int year;
+    Employee* emp;
+  public:/**
+   * The Date constructor
+   * @param _month - month of the year
+   * @param _day - day of the month
+   * @param _year - the year
+   */
+    Date(int _month = 1,
+         int _day = 1,
+         int _year = 1900,
+         Employee* _emp = NULL);
+
+    /**
+     * Date destructor
+     */
+    virtual ~Date();
+
+    /**
+     * Display the international team
+     */
+    void display() const;
+
+    /**
+     * @return the date's month
+     */
+    int getMonth() const;
+
+    /**
+     * @return the date's day
+     */
+    int getDay() const;
+
+    /**
+     * @return the date's year
+     */
+    int getYear() const;
+
+    /**
+     * @return the date's associated employee
+     */
+    Employee* getEmployee() const;
+
+    /**
+     * Update the date's month
+     * @param _month - the new month
+     */
+    void setMonth(int _month);
+
+    /**
+     * Update the date's day
+     * @param _day - the new day
+     */
+    void setDay(int _day);
+
+    /**
+     * Update the date's year
+     * @param _year - the new year
+     */
+    void setYear(int _year);
+
+    /**
+     * Update the date's associated employee
+     * @param _emp - the employee object
+     */
+    void setEmployee(Employee* _emp);
 };
 
 /**
  * Overload output operation for date object
  */
-std::ostream & operator << (std::ostream& os, const Date& d);
+std::ostream& operator << (std::ostream& os, const Date& d);
 
 inline int Date::getMonth() const {return month;}
 inline void Date::setMonth(int _month) {month = _month;}

@@ -12,16 +12,27 @@ StreetAddress::StreetAddress(const string& addressLine1,
                              const string& city,
                              const string& state,
                              const string& zip) : addressLine1(""),
-                                                  addressLine2(""),
-                                                  city(""),
-                                                  state(""),
-                                                  zip("") {}
+  addressLine2(""),
+  city(""),
+  state(""),
+  zip("") {}
 
-StreetAddress::~StreetAddress() {
+StreetAddress::~StreetAddress()
+{
   cout << "Executing StreetAddress Destructor" << endl;
 }
 
-void StreetAddress::display() const {
+void StreetAddress::clearAttributes()
+{
+  setAddressLine1("");
+  setAddressLine2("");
+  setCity("");
+  setState("");
+  setZip("");
+}
+
+void StreetAddress::display() const
+{
   cout << "Address Line 1 [" << getAddressLine1() << "]" << endl;
   cout << "Address Line 2 [" << getAddressLine2() << "]" << endl;
   cout << "City           [" << getCity() << "]" << endl;
@@ -29,7 +40,8 @@ void StreetAddress::display() const {
   cout << "Zip Code       [" << getZip() << "]" << endl;
 }
 
-void StreetAddress::populate() {
+void StreetAddress::populate()
+{
   cout << "Enter Address Line 1: ";
   string line1Str;
   getline(cin, line1Str);
@@ -56,37 +68,40 @@ void StreetAddress::populate() {
   setZip(zipStr);
 }
 
-void StreetAddress::startUp(ifstream& inFile) {
+void StreetAddress::startUp(ifstream& inFile)
+{
   string line1Str;
-  getline(inFile, line1Str, '\t');
+  getline(inFile, line1Str, '|');
   setAddressLine1(line1Str);
 
   string line2Str;
-  getline(inFile, line2Str, '\t');
+  getline(inFile, line2Str, '|');
   setAddressLine2(line2Str);
 
   string cityStr;
-  getline(inFile, cityStr, '\t');
+  getline(inFile, cityStr, '|');
   setCity(cityStr);
 
   string stateStr;
-  getline(inFile, stateStr, '\t');
+  getline(inFile, stateStr, '|');
   setState(stateStr);
 
   string zipStr;
-  getline(inFile, zipStr);
+  getline(inFile, zipStr, '|');
   setZip(zipStr);
 }
 
-void StreetAddress::shutDown(ofstream& outFile) {
-  outFile << getAddressLine1() << "\t"
-          << getAddressLine2() << "\t"
-          << getCity() << "\t"
-          << getState() << "\t"
-          << getZip() << endl;
+void StreetAddress::shutDown(ofstream& outFile)
+{
+  outFile << getAddressLine1() << "|"
+          << getAddressLine2() << "|"
+          << getCity() << "|"
+          << getState() << "|"
+          << getZip() << "|";
 }
 
-std::ostream& operator<<(std::ostream& os, StreetAddress& addr) {
+std::ostream& operator<<(std::ostream& os, StreetAddress& addr)
+{
   addr.display();
   return os;
 }

@@ -23,201 +23,202 @@
  * The main entry point for all of the system functionality and delegates system
  * operations to the appropriate objects in the system
  */
-class AppManager {
-public:
-	/**
-	 * Default AppManager constructor
-	 */
+class AppManager
+{
+  public:
+    /**
+     * Default AppManager constructor
+     */
 
-	AppManager();
+    AppManager();
 
-	/**
-	 * AppManager Destructor
-	 */
-	virtual ~AppManager();
+    /**
+     * AppManager Destructor
+     */
+    virtual ~AppManager();
 
-	// accessor methods
+    // accessor methods
 
-	/**
-	 * @return the system employee list
-	 */
-	EmployeeList* getEmployees() const;
+    /**
+     * @return the system employee list
+     */
+    EmployeeList* getEmployees() const;
 
-	/**
-	 * @return the system team list
-	 */
-	TeamList* getTeams() const;
+    /**
+     * @return the system team list
+     */
+    TeamList* getTeams() const;
 
-	/**
-	 * @return the system application list
-	 */
-	ApplicationList* getApplications() const;
+    /**
+     * @return the system application list
+     */
+    ApplicationList* getApplications() const;
 
-	/**
-	 * @return the system project list
-	 */
-	ProjectList* getProjects() const;
-	
-	/**
-	 * @return the system program list
-	 */
-	ProgramList* getPrograms() const;
-	
-	// modifier methods
+    /**
+     * @return the system project list
+     */
+    ProjectList* getProjects() const;
 
-	/**
-	 * replace the employee list with the specified value
-	 * @param ePtr - the pointer to the new system employee list
-	 */
-	void setEmployees(EmployeeList* ePtr);
+    /**
+     * @return the system program list
+     */
+    ProgramList* getPrograms() const;
 
-	/**
-	 * Update the team list pointer with the specified value
-	 * @param tPtr - the pointer to the new team list
-	 */
-	void setTeams(TeamList* tPtr);
+    // modifier methods
 
-	/**
-	 * Update the applicaiton list pointer with the specified value
-	 * @param tPtr - the pointer to the new application list
-	 */
-	void setApplications(ApplicationList* aPtr);
+    /**
+     * replace the employee list with the specified value
+     * @param ePtr - the pointer to the new system employee list
+     */
+    void setEmployees(EmployeeList* ePtr);
 
-	/**
-	 * Update the team list pointer with the specified value
-	 * @param tPtr - the pointer to the new project list
-	 */
-	void setProjects(ProjectList* pPtr);
-	
-	/**
-	 * Update the program list pointer with the specified value
-	 * @param pPtr - the pointer to the new program list
-	 */
-	void setPrograms(ProgramList* pPtr);
-	
-	// system functions
+    /**
+     * Update the team list pointer with the specified value
+     * @param tPtr - the pointer to the new team list
+     */
+    void setTeams(TeamList* tPtr);
 
-	/**
-	 * add employees to the system
-	 */
-	void addEmployees();
+    /**
+     * Update the applicaiton list pointer with the specified value
+     * @param tPtr - the pointer to the new application list
+     */
+    void setApplications(ApplicationList* aPtr);
 
-	/**
-	 * manage an Employee's benefits account
-	 */
-	void manageEmployeeBenefits();
+    /**
+     * Update the team list pointer with the specified value
+     * @param tPtr - the pointer to the new project list
+     */
+    void setProjects(ProjectList* pPtr);
 
-	/**
-	 * change employee information
-	 */
-	void changeEmployees();
+    /**
+     * Update the program list pointer with the specified value
+     * @param pPtr - the pointer to the new program list
+     */
+    void setPrograms(ProgramList* pPtr);
 
-	/**
-	 * remove employees from the system
-	 */
-	void removeEmployees();
+    // system functions
 
-	/**
-	 * display all employees in the employee list
-	 */
-	void displayEmployees();
+    /**
+     * add employees to the system
+     */
+    void addEmployees();
 
-	/**
-	 * add teams to the system
-	 */
-	void addTeams();
-	
-	/**
-	 * change team information
-	 */
-	void changeTeams();
-	
-	/**
-	 * remove teams from the system
-	 */
-	void removeTeams();
-	
-	/**
-	 * display all teams in the Team list
-	 */
-	void displayTeams();
+    /**
+     * manage an Employee's benefits account
+     */
+    void manageEmployeeBenefits();
 
-	/**
-	 * add applications to the system
-	 */
-	void addApplications();
-	
-	/**
-	 * change application information
-	 */
-	void changeApplications();
-	
-	/**
-	 * remove applications from the system
-	 */
-	void removeApplications();
-	
-	/**
-	 * display all applications in the Application list
-	 */
-	void displayApplications();
+    /**
+     * change employee information
+     */
+    void changeEmployees();
 
-	/**
-	 * add projects to the system
-	 */
-	void addProjects();
-	
-	/**
-	 * change projects information
-	 */
-	void changeProjects();
-	
-	/**
-	 * remove projects from the system
-	 */
-	void removeProjects();
-	
-	/**
-	 * display all projects in the Team list
-	 */
-	void displayProjects();
-	
-	/**
-	 * add teams to the system
-	 */
-	void addPrograms();
-	
-	/**
-	 * change team information
-	 */
-	void changePrograms();
-	
-	/**
-	 * remove teams from the system
-	 */
-	void removePrograms();
-	
-	/**
-	 * display all teams in the Team list
-	 */
-	void displayPrograms();
-	
-	/**
-	 * Start up method to call all necessary methods to read in data
-	 */
-	void startup();
-	
-	/**
-	 * Shut down method to call all necessary methods to persist data 
-	 */
-	void shutdown();
-		
-private:
-	EmployeeList* employees;
-	TeamList* teams;
-	ApplicationList* applications;
-	ProjectList* projects;
-	ProgramList* programs;
+    /**
+     * remove employees from the system
+     */
+    void removeEmployees();
+
+    /**
+     * display all employees in the employee list
+     */
+    void displayEmployees();
+
+    /**
+     * add teams to the system
+     */
+    void addTeams();
+
+    /**
+     * change team information
+     */
+    void changeTeams();
+
+    /**
+     * remove teams from the system
+     */
+    void removeTeams();
+
+    /**
+     * display all teams in the Team list
+     */
+    void displayTeams();
+
+    /**
+     * add applications to the system
+     */
+    void addApplications();
+
+    /**
+     * change application information
+     */
+    void changeApplications();
+
+    /**
+     * remove applications from the system
+     */
+    void removeApplications();
+
+    /**
+     * display all applications in the Application list
+     */
+    void displayApplications();
+
+    /**
+     * add projects to the system
+     */
+    void addProjects();
+
+    /**
+     * change projects information
+     */
+    void changeProjects();
+
+    /**
+     * remove projects from the system
+     */
+    void removeProjects();
+
+    /**
+     * display all projects in the Team list
+     */
+    void displayProjects();
+
+    /**
+     * add teams to the system
+     */
+    void addPrograms();
+
+    /**
+     * change team information
+     */
+    void changePrograms();
+
+    /**
+     * remove teams from the system
+     */
+    void removePrograms();
+
+    /**
+     * display all teams in the Team list
+     */
+    void displayPrograms();
+
+    /**
+     * Start up method to call all necessary methods to read in data
+     */
+    void startup();
+
+    /**
+     * Shut down method to call all necessary methods to persist data
+     */
+    void shutdown();
+
+  private:
+    EmployeeList* employees;
+    TeamList* teams;
+    ApplicationList* applications;
+    ProjectList* projects;
+    ProgramList* programs;
 };
 
 // accessor method definitions

@@ -5,6 +5,7 @@
  */
 
 #include "PartTimeEmployee.h"
+#include "Team.h"
 
 using namespace std;
 
@@ -13,13 +14,18 @@ PartTimeEmployee::PartTimeEmployee() : Employee()
 }
 
 PartTimeEmployee::PartTimeEmployee(Employee& e) : Employee(e.getEmployeeId(),
-                                                           e.getFirstName(),
-                                                           e.getLastName(),
-                                                           e.getPrefName(),
-                                                           e.getEmailAddress(),
-                                                           e.getTeam())
+      e.getFirstName(),
+      e.getLastName(),
+      e.getPrefName(),
+      e.getEmailAddress(),
+      e.getTeam())
 {
-  cout << "Executing PartTimeEmployee(const Employee& e) copy constructor" << endl;  
+  cout << "Executing PartTimeEmployee(const Employee& e) copy constructor" << endl;
+
+  if (! getTeam()->isDomestic()) {
+    getTeam()->removeDeletedMember(this);
+    setTeam(NULL);
+  }
 }
 
 PartTimeEmployee::~PartTimeEmployee()
@@ -30,7 +36,7 @@ PartTimeEmployee::~PartTimeEmployee()
 void PartTimeEmployee::display() const
 {
   Employee::display();
-  cout << "Employee Status:\tPart-Time" << endl;
+  cout << "Employee Type:\tPart-Time" << endl;
 }
 
 bool PartTimeEmployee::isFullTime() const
@@ -38,7 +44,14 @@ bool PartTimeEmployee::isFullTime() const
   return(false);
 }
 
-void PartTimeEmployee::shutdown(ofstream& outFile) 
+void PartTimeEmployee::startup(ifstream& inFile)
+{
+  string _eol;
+  Employee::startup(inFile);
+  getline(inFile, _eol);
+}
+
+void PartTimeEmployee::shutdown(ofstream& outFile)
 {
   outFile << "P|";
   Employee::shutdown(outFile);

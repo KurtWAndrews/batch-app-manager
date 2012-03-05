@@ -10,24 +10,27 @@
 
 using namespace std;
 
-TeamList::TeamList() {
+TeamList::TeamList()
+{
   teams.clear();
 }
 
-TeamList::~TeamList() {
+TeamList::~TeamList()
+{
   map<string, Team*>::iterator iter;
 
-  for(iter = teams.begin(); iter != teams.end(); ++ iter) {
+  for (iter = teams.begin(); iter != teams.end(); ++ iter) {
     delete iter->second;
   }
 
   teams.clear();
 }
 
-void TeamList::addTeam(EmployeeList* employees, ApplicationList* applications) {
+void TeamList::addTeam(EmployeeList* employees, ApplicationList* applications)
+{
   system("cls");
   cout << "Adding Team" << endl;
-  
+
   if (employees->empty()) {
     cout << "There are no employees in the system.  Please add employees before adding a team." << endl;
     return;
@@ -41,13 +44,10 @@ void TeamList::addTeam(EmployeeList* employees, ApplicationList* applications) {
   cout << "Is this a domestic or international team? (d/i): ";
   cin >> _type;
   cin.ignore();
-  
-  if(toupper(_type) == 'I')
-  {
+
+  if (toupper(_type) == 'I') {
     team = new InternationalTeam;
-  }
-  else
-  {
+  } else {
     team = new DomesticTeam;
   }
 
@@ -66,15 +66,16 @@ void TeamList::addTeam(EmployeeList* employees, ApplicationList* applications) {
 
   team->addMember(employees);
   team->addApplication(applications);
-    
+
   teams.insert(pair<string, Team*>(team->getTeamId(), team));
-    
+
   system("cls");
   cout << "Team Added" << endl << endl;
   team->display();
 }
 
-void TeamList::changeTeam(EmployeeList* employees, ApplicationList* applications) {
+void TeamList::changeTeam(EmployeeList* employees, ApplicationList* applications)
+{
   system("cls");
   cout << "Change Team" << endl << endl;
 
@@ -99,19 +100,23 @@ void TeamList::changeTeam(EmployeeList* employees, ApplicationList* applications
     cin >> option;
     cin.ignore();
 
-    switch(toupper(option)) {
+    switch (toupper(option)) {
       case 'A':
         iter->second->addMember(employees);
         break;
+
       case 'R':
         iter->second->removeMember();
         break;
+
       case '+':
         iter->second->addApplication(applications);
         break;
+
       case '-':
         iter->second->removeApplication();
         break;
+
       case 'C':
         system("cls");
         cout << "Change  Team" << endl << endl;
@@ -120,12 +125,16 @@ void TeamList::changeTeam(EmployeeList* employees, ApplicationList* applications
         iter->second->populate();
         iter->second->display();
         break;
-      case 'F': iter = teams.begin();
+
+      case 'F':
+        iter = teams.begin();
         break;
+
       case 'L':
         iter = teams.end();
         -- iter;
         break;
+
       case 'P':
         if (iter == teams.begin()) {
           iter = teams.end();
@@ -133,19 +142,25 @@ void TeamList::changeTeam(EmployeeList* employees, ApplicationList* applications
 
         -- iter;
         break;
+
       case 'N':
         ++ iter;
 
         if (iter == teams.end()) {
           iter = teams.begin();
         }
+
         break;
-      case 'Q': option = 'Q'; break;
+
+      case 'Q':
+        option = 'Q';
+        break;
     }
   }
 }
 
-void TeamList::display() const {
+void TeamList::display() const
+{
   system("cls");
   cout << "Display Teams" << endl << endl;
 
@@ -170,13 +185,16 @@ void TeamList::display() const {
     cin >> option;
     cin.ignore();
 
-    switch(toupper(option)) {
-      case 'F': iter = teams.begin();
+    switch (toupper(option)) {
+      case 'F':
+        iter = teams.begin();
         break;
+
       case 'L':
         iter = teams.end();
         -- iter;
         break;
+
       case 'P':
         if (iter == teams.begin()) {
           iter = teams.end();
@@ -184,71 +202,88 @@ void TeamList::display() const {
 
         -- iter;
         break;
+
       case 'N':
         ++ iter;
 
         if (iter == teams.end()) {
           iter = teams.begin();
         }
+
         break;
-      case 'Q': option = 'Q'; break;
+
+      case 'Q':
+        option = 'Q';
+        break;
     }
   }
 }
 
-void TeamList::removeTeam() {
+void TeamList::removeTeam()
+{
   system("cls");
   cout << "Remove Team" << endl << endl;
-  
+
   map<string, Team*>::iterator iter = teams.begin();
   string name = "";
   char option = 'N';
-  
+
   while (option != 'Q') {
     system("cls");
     cout << "Remove Team" << endl << endl;
+
     if (teams.empty()) {
       cout << "There are no teams in the system." << endl;
-      
+
       option = 'Q';
     } else {
       iter->second->display();
       name = iter->second->getTeamId();
       cout << endl
-      << endl
-      << "** (F)irst * (L)ast * (P)revious * (N)ext * (R)emove * (Q)uit ** ";
-      
+           << endl
+           << "** (F)irst * (L)ast * (P)revious * (N)ext * (R)emove * (Q)uit ** ";
+
       cin >> option;
       cin.ignore();
     }
-    switch(toupper(option)) {
+
+    switch (toupper(option)) {
       case 'R':
         iter->second->clearAllMembers();
         delete iter->second;
         teams.erase(name);
         iter = teams.begin();
         break;
-      case 'F': iter = teams.begin();
+
+      case 'F':
+        iter = teams.begin();
         break;
+
       case 'L':
         iter = teams.end();
         -- iter;
         break;
+
       case 'P':
         if (iter == teams.begin()) {
           iter = teams.end();
         }
-        
+
         -- iter;
         break;
+
       case 'N':
         ++ iter;
-        
+
         if (iter == teams.end()) {
           iter = teams.begin();
         }
+
         break;
-      case 'Q': option = 'Q'; break;
+
+      case 'Q':
+        option = 'Q';
+        break;
     }
   }
 }
@@ -256,45 +291,44 @@ void TeamList::removeTeam() {
 void TeamList::startup(EmployeeList* employees, ApplicationList* applications)
 {
   ifstream isTeams("teams.txt");
-  if(isTeams)
-  {
+
+  if (isTeams) {
     Team* _team;
     int recs;
-    
+
     isTeams >> recs;
     isTeams.ignore();
-    
+
     for (int rec = 0; rec < recs; ++rec) {
       string _type;
       getline(isTeams, _type, '|');
-      if(_type == "1")
-      {
+
+      if (_type == "1") {
         _team = new InternationalTeam;
-      }
-      else
-      {
+      } else {
         _team = new DomesticTeam;
       }
-      
+
       _team->startup(isTeams, employees, applications);
 
       teams.insert(pair<string, Team*>(_team->getTeamId(), _team));
     }
   }
-  
+
   isTeams.close();
 }
 
 void TeamList::shutdown()
 {
   ofstream osTeams("teams.txt");
-  
+
   osTeams << teams.size() << endl;
-  
+
   map<string, Team*>::const_iterator iter;
-  for(iter = teams.begin(); iter != teams.end(); ++ iter) {
+
+  for (iter = teams.begin(); iter != teams.end(); ++ iter) {
     iter->second->shutdown(osTeams);
   }
-  
+
   osTeams.close();
 }

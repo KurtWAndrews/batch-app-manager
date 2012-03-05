@@ -17,67 +17,68 @@
 /**
  * @brief A collection of the employees in the system
  */
-class ProgramList {
-public:
-	/**
-	 * Default constructor for ProgramList
-	 */
-	ProgramList();
+class ProgramList
+{
+  public:
+    /**
+     * Default constructor for ProgramList
+     */
+    ProgramList();
 
-	/**
-	 * ProgramList destructor
-	 */
-	virtual ~ProgramList();
+    /**
+     * ProgramList destructor
+     */
+    virtual ~ProgramList();
 
-	/**
-	 * Start up method to call all necessary methods to read in data
-	 */
-	void startup();
-	
-	/**
-	 * Shut down method to call all necessary methods to persist data and delete all variables from memory
-	 */
-	void shutdown();
+    /**
+     * Start up method to call all necessary methods to read in data
+     */
+    void startup();
 
-	/**
-	 * add a program to the collection
-	 */
-	void addProgram();
+    /**
+     * Shut down method to call all necessary methods to persist data and delete all variables from memory
+     */
+    void shutdown();
 
-	/**
-	 * change a program in the collection
-	 */
-	void changeProgram();
+    /**
+     * add a program to the collection
+     */
+    void addProgram();
 
-	/**
-	 * remove a program from the collection
-	 */
-	void removeProgram();
+    /**
+     * change a program in the collection
+     */
+    void changeProgram();
 
-	/**
-	 * Select an program from the program list
-	 * @return a pointer to the selected program
-	 */
-	Program* selectProgram();
+    /**
+     * remove a program from the collection
+     */
+    void removeProgram();
 
-	/**
-	 * display the collection of system program
-	 */
-	void display() const;
-	
-	/**
-	 * @return true if the program list is empty; false otherwise
-	 */
-	bool empty() const;
-	
-	/**
-	 * @return the pointer to the program object that has programId == _programId
-	 * or null if no match is found
-	 */
-	Program* find(const std::string& _programId);
+    /**
+     * Select an program from the program list
+     * @return a pointer to the selected program
+     */
+    Program* selectProgram();
 
-private:
-	std::map<std::string, Program*> programs;
+    /**
+     * display the collection of system program
+     */
+    void display() const;
+
+    /**
+     * @return true if the program list is empty; false otherwise
+     */
+    bool empty() const;
+
+    /**
+     * @return the pointer to the program object that has programId == _programId
+     * or null if no match is found
+     */
+    Program* find(const std::string& _programId);
+
+  private:
+    std::map<std::string, Program*> programs;
 };
 
 inline bool ProgramList::empty() const {return(programs.empty());}

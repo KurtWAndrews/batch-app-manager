@@ -19,51 +19,52 @@
  * @brief A list of the of teams in the system
  * Manages all of the teams in the system
  */
-class TeamList {
-public:
-	/**
-	 * default constructor for TeamList
-	 */
-	TeamList();
+class TeamList
+{
+  public:
+    /**
+     * default constructor for TeamList
+     */
+    TeamList();
 
-	/**
-	 * TeamList destructor
-	 */
-	virtual ~TeamList();
+    /**
+     * TeamList destructor
+     */
+    virtual ~TeamList();
 
-	/**
-	 * add a team to a collection for the team
-	 */
-	void addTeam(EmployeeList* employees, ApplicationList* applications);
+    /**
+     * add a team to a collection for the team
+     */
+    void addTeam(EmployeeList* employees, ApplicationList* applications);
 
-	/**
-	 * change a team in the collection
-	 */
-	void changeTeam(EmployeeList* employees, ApplicationList* applications);
+    /**
+     * change a team in the collection
+     */
+    void changeTeam(EmployeeList* employees, ApplicationList* applications);
 
-	/**
-	 * displays the teams from the collection
-	 */
-	void display() const;
-	
-	/**
-	 * remove a team from the collection
-	 */
-	void removeTeam();
+    /**
+     * displays the teams from the collection
+     */
+    void display() const;
 
-	/**
-	 * Start up method to call all necessary methods to load data for teams
-	 */
-	void startup(EmployeeList* employees, ApplicationList* applications);
-	
-	/**
-	 * Shut down method to call all necessary methods to persist data and delete 
-	 * all teams from memory
-	 */
-	void shutdown();
+    /**
+     * remove a team from the collection
+     */
+    void removeTeam();
 
-private:
-	std::map<std::string, Team*> teams;
+    /**
+     * Start up method to call all necessary methods to load data for teams
+     */
+    void startup(EmployeeList* employees, ApplicationList* applications);
+
+    /**
+     * Shut down method to call all necessary methods to persist data and delete
+     * all teams from memory
+     */
+    void shutdown();
+
+  private:
+    std::map<std::string, Team*> teams;
 };
 
 #endif /* TEAMLIST_H_ */

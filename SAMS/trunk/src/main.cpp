@@ -48,7 +48,8 @@ int selectProjectOption(AppManager& am, char option);
  */
 int selectProgramOption(AppManager& am, char option);
 
-int main() {
+int main()
+{
   vector<string> menus;
   menus.push_back("\n\n M A I N  M E N U\n\n");
   menus[MAIN_MENU] += "A) Manage Employees\n";
@@ -86,14 +87,14 @@ int main() {
   menus[PROJECT_MENU] += "R) Remove Project\n";
   menus[PROJECT_MENU] += "D) Display Project\n";
   menus[PROJECT_MENU] += "\nQ) Quit\n\n";
-  
+
   menus.push_back("\n\n P R O G R A M  M E N U\n\n");
   menus[PROGRAM_MENU] += "A) Add Program\n";
   menus[PROGRAM_MENU] += "C) Change Program\n";
   menus[PROGRAM_MENU] += "R) Remove Program\n";
   menus[PROGRAM_MENU] += "D) Display Program\n";
   menus[PROGRAM_MENU] += "\nQ) Quit\n\n";
-  
+
   AppManager am;
   char option = 0;
 
@@ -102,22 +103,27 @@ int main() {
   do {
     option = displayMenu(menus[menu]);
 
-    switch(menu) {
+    switch (menu) {
       case MAIN_MENU:
         menu = selectMainOption(option);
         break;
+
       case EMPLOYEE_MENU:
         menu = selectEmployeeOption(am, option);
         break;
+
       case TEAM_MENU:
         menu = selectTeamOption(am, option);
         break;
+
       case APPLICATION_MENU:
         menu = selectApplicationOption(am, option);
         break;
+
       case PROJECT_MENU:
         menu = selectProjectOption(am, option);
         break;
+
       case PROGRAM_MENU:
         menu = selectProgramOption(am, option);
         break;
@@ -143,54 +149,84 @@ int displayMenu(const string& options)
   return (toupper(option));
 }
 
-void waitForKeyPress() {
+void waitForKeyPress()
+{
   cout << endl << "---Press <enter> to continue";
   cin.get();
 }
 
-int selectMainOption(char option) {
+int selectMainOption(char option)
+{
 
   int menu = MAIN_MENU;
 
   switch (option) {
-    case 'A': menu = EMPLOYEE_MENU;
+    case 'A':
+      menu = EMPLOYEE_MENU;
       break;
-    case 'B': menu = TEAM_MENU;
+
+    case 'B':
+      menu = TEAM_MENU;
       break;
-    case 'C': menu = APPLICATION_MENU;
+
+    case 'C':
+      menu = APPLICATION_MENU;
       break;
-    case 'D': menu = PROJECT_MENU;
+
+    case 'D':
+      menu = PROJECT_MENU;
       break;
-    case 'E': menu = PROGRAM_MENU;
+
+    case 'E':
+      menu = PROGRAM_MENU;
       break;
-    case 'Q': menu = QUIT_MENU;
+
+    case 'Q':
+      menu = QUIT_MENU;
       cout << "Quitting Application" << endl;
       waitForKeyPress();
       break;
-    default: menu = MAIN_MENU;
+
+    default:
+      menu = MAIN_MENU;
       cout << "Unknown option" << endl;
-      waitForKeyPress(); break;
+      waitForKeyPress();
+      break;
   }
+
   return(menu);
 }
 
-int selectEmployeeOption(AppManager& am, char option) {
+int selectEmployeeOption(AppManager& am, char option)
+{
   int menu = EMPLOYEE_MENU;
+
   switch (option) {
-    case 'A': am.addEmployees();
+    case 'A':
+      am.addEmployees();
       break;
-    case 'B': am.manageEmployeeBenefits();
+
+    case 'B':
+      am.manageEmployeeBenefits();
       break;
-    case 'C': am.changeEmployees();
+
+    case 'C':
+      am.changeEmployees();
       break;
-    case 'R': am.removeEmployees();
+
+    case 'R':
+      am.removeEmployees();
       break;
-    case 'D': am.displayEmployees();
+
+    case 'D':
+      am.displayEmployees();
       break;
+
     case 'Q':
       menu = MAIN_MENU;
       cout << "Quitting Employee Menu" << endl;
       break;
+
     default:
       cout << "Unknown option" << endl;
       break;
@@ -201,102 +237,146 @@ int selectEmployeeOption(AppManager& am, char option) {
   return(menu);
 }
 
-int selectTeamOption(AppManager& am, char option) {
+int selectTeamOption(AppManager& am, char option)
+{
   int menu = TEAM_MENU;
+
   switch (option) {
-    case 'A': am.addTeams();
+    case 'A':
+      am.addTeams();
       break;
-    case 'C': am.changeTeams();
+
+    case 'C':
+      am.changeTeams();
       break;
-    case 'R': am.removeTeams();
+
+    case 'R':
+      am.removeTeams();
       break;
-    case 'D': am.displayTeams();
+
+    case 'D':
+      am.displayTeams();
       break;
+
     case 'Q':
       menu = MAIN_MENU;
       cout << "Quitting Team Menu" << endl;
       break;
+
     default:
       cout << "Unknown option" << endl;
       break;
   }
-  
+
   waitForKeyPress();
-  
+
   return (menu);
 }
 
-int selectApplicationOption(AppManager& am, char option) {
+int selectApplicationOption(AppManager& am, char option)
+{
   int menu = APPLICATION_MENU;
+
   switch (option) {
-    case 'A': am.addApplications();
+    case 'A':
+      am.addApplications();
       break;
-    case 'C': am.changeApplications();
+
+    case 'C':
+      am.changeApplications();
       break;
-    case 'R': am.removeApplications();
+
+    case 'R':
+      am.removeApplications();
       break;
-    case 'D': am.displayApplications();
+
+    case 'D':
+      am.displayApplications();
       break;
+
     case 'Q':
       menu = MAIN_MENU;
       cout << "Quitting Applicaiton Menu" << endl;
       break;
+
     default:
       cout << "Unknown option" << endl;
       break;
   }
-  
+
   waitForKeyPress();
-  
+
   return (menu);
 }
 
-int selectProjectOption(AppManager& am, char option) {
+int selectProjectOption(AppManager& am, char option)
+{
   int menu = PROJECT_MENU;
+
   switch (option) {
-    case 'A': am.addProjects();
+    case 'A':
+      am.addProjects();
       break;
-    case 'C': am.changeProjects();
+
+    case 'C':
+      am.changeProjects();
       break;
-    case 'R': am.removeProjects();
+
+    case 'R':
+      am.removeProjects();
       break;
-    case 'D': am.displayProjects();
+
+    case 'D':
+      am.displayProjects();
       break;
+
     case 'Q':
       menu = MAIN_MENU;
       cout << "Quitting Project Menu" << endl;
       break;
+
     default:
       cout << "Unknown option" << endl;
       break;
   }
-  
+
   waitForKeyPress();
-  
+
   return (menu);
 }
-  
-int selectProgramOption(AppManager& am, char option) {
+
+int selectProgramOption(AppManager& am, char option)
+{
   int menu = PROGRAM_MENU;
+
   switch (option) {
-    case 'A': am.addPrograms();
+    case 'A':
+      am.addPrograms();
       break;
-    case 'C': am.changePrograms();
+
+    case 'C':
+      am.changePrograms();
       break;
-    case 'R': am.removePrograms();
+
+    case 'R':
+      am.removePrograms();
       break;
-    case 'D': am.displayPrograms();
+
+    case 'D':
+      am.displayPrograms();
       break;
+
     case 'Q':
       menu = MAIN_MENU;
       cout << "Quitting Program Menu" << endl;
       break;
+
     default:
       cout << "Unknown option" << endl;
       break;
   }
-    
+
   waitForKeyPress();
-  
+
   return (menu);
 }

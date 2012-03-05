@@ -8,27 +8,30 @@
 
 using namespace std;
 
-EmployeeList::EmployeeList() {
+EmployeeList::EmployeeList()
+{
   employees.clear();
 }
 
-EmployeeList::~EmployeeList() {
+EmployeeList::~EmployeeList()
+{
   map<string, Employee*>::iterator iter;
 
-  for(iter = employees.begin(); iter != employees.end(); ++ iter) {
+  for (iter = employees.begin(); iter != employees.end(); ++ iter) {
     delete iter->second;
   }
 
   employees.clear();
 }
 
-void EmployeeList::addEmployee() {
-  Employee* employee = 0;
+void EmployeeList::addEmployee()
+{
+  Employee* employee = NULL;
   map<string, Employee*>::const_iterator iter;
   char _fullTime;
-  
+
   do {
-    if(employee) {
+    if (employee) {
       if (employee->getEmployeeId() != "") {
         cout << "\nThe " << employee->getEmployeeId()
              << " is already in the Employee List" << endl << endl;
@@ -41,138 +44,118 @@ void EmployeeList::addEmployee() {
     system("cls");
     cout << "Adding Employee" << endl;
 
-    cout << "Is the employee have full-time employment or part-time? (f/p): ";
+    cout << "Employee Status (F)ull time or (P)art time: ";
     cin.get(_fullTime);
     cin.ignore();
-    if(tolower(_fullTime) == 'f')
-    {
+
+    if (tolower(_fullTime) == 'f') {
       employee = new FullTimeEmployee();
-      FullTimeEmployee* fullTime = dynamic_cast<FullTimeEmployee*>(employee);
-      if(fullTime)
-      {
-        fullTime->populate();
-      }
-    }
-    else
-    {
+    } else {
       employee = new PartTimeEmployee();
-      PartTimeEmployee* partTime = dynamic_cast<PartTimeEmployee*>(employee);
-      if(partTime)
-      {
-        partTime->populate();
-      }
     }
+
+    employee->populate();
 
     iter = employees.find(employee->getEmployeeId());
   } while (iter != employees.end());
 
   system("cls");
   cout << "Adding Employee" << endl;
+
   employee->display();
 
   employees.insert(pair<string, Employee*>(employee->getEmployeeId(), employee));
 }
 
+void EmployeeList::addEmployee(Employee* employee)
+{
+  map<string, Employee*>::const_iterator iter;
+
+  if (employee != NULL) {
+    if (employee->getEmployeeId() != "") {
+      iter = employees.find(employee->getEmployeeId());
+
+      if (iter == employees.end()) {
+        employees.insert(pair<string, Employee*>(employee->getEmployeeId(), employee));
+      }
+    }
+  }
+}
+
 void EmployeeList::manageBenefits()
 {
   system("cls");
-  map<string, Employee*>::iterator iter = employees.begin();
-  FullTimeEmployee* fullTime = 0;
-  bool hasFullTime = false;
+  map<string, FullTimeEmployee*> ftes = filterFullTimeEmployees();
+  map<string, FullTimeEmployee*>::iterator iter = ftes.begin();
   cout << "Manage Benefits" << endl << endl;
 
-  if (employees.empty()) {
-    cout << "There are no employees in the system." << endl;
+  if (ftes.empty()) {
+    cout << "There are no full-time employees in the system." << endl;
     return;
   }
 
-  while(!hasFullTime && iter != employees.end())
-  {
-    hasFullTime = iter->second->isFullTime();
-    ++iter;
-  }
-
-  if (!hasFullTime) {
-    cout << "There are no full time employees in the system." << endl;
-    return;
-  }
-  
-  iter = employees.begin();
+  iter = ftes.begin();
   char option = 'N';
 
   while (option != 'Q') {
     system("cls");
     cout << "Manage Benefits" << endl << endl;
 
-    while(!iter->second->isFullTime())
-    {
-      ++iter;
-    }
+    iter->second->display();
 
-    fullTime = dynamic_cast<FullTimeEmployee*>(iter->second);
+    cout << endl
+         << endl
+         << "** (F)irst * (L)ast * (P)revious * (N)ext * (D)eposit * (W)ithdraw * (Q)uit ** ";
 
-    if(fullTime)
-    {
-      fullTime->display();
+    cin >> option;
+    cin.ignore();
 
-      cout << endl
-           << endl
-           << "** (F)irst * (L)ast * (P)revious * (N)ext * (D)eposit * (W)ithdraw * (Q)uit ** ";
+    switch (toupper(option)) {
+      case 'D':
+        iter->second->makeDeposit();
+        break;
 
-      cin >> option;
-      cin.ignore();
+      case 'W':
+        iter->second->makeWithdrawal();
+        break;
 
-      switch(toupper(option)) {
-        case 'D':
-            fullTime->makeDeposit();
-          break;
-        case 'W':
-            fullTime->makeWithdrawal();
-          break;
-        case 'F':
-          iter = employees.begin();
-          while(!iter->second->isFullTime())
-          {
-            ++iter;
-          }
-          break;
-        case 'L':
-          iter = employees.end();
-          do
-          {
-            --iter;
-          } while(!iter->second->isFullTime());
-          break;
-        case 'P':
-          do
-          {
-            if (iter == employees.begin()) {
-              iter = employees.end();
-            }
-            -- iter;
-          } while(!iter->second->isFullTime());
-          break;
-        case 'N':
-          do
-          {
-            ++iter;
-            if (iter == employees.end()) {
-              iter = employees.begin();
-            }
-          } while(!iter->second->isFullTime());
-          break;
-        case 'Q': option = 'Q'; break;
-      }
-    }
-    else
-    {
-      cout << "The employee cannot be classified as a full-time employee." << endl;
-      cin.ignore();
+      case 'F':
+        iter = ftes.begin();
+
+        break;
+
+      case 'L':
+        iter = ftes.end();
+        --iter;
+        break;
+
+      case 'P':
+        if (iter == ftes.begin()) {
+          iter = ftes.end();
+        }
+
+        -- iter;
+        break;
+
+      case 'N':
+        ++iter;
+
+        if (iter == ftes.end()) {
+          iter = ftes.begin();
+        }
+
+        break;
+
+      case 'Q':
+        option = 'Q';
+        break;
     }
   }
 }
 
-void EmployeeList::changeEmployee() {
+void EmployeeList::changeEmployee()
+{
+
   system("cls");
   cout << "Change Employee" << endl << endl;
 
@@ -181,6 +164,7 @@ void EmployeeList::changeEmployee() {
     return;
   }
 
+  Employee* tmp = NULL;
   map<string, Employee*>::iterator iter = employees.begin();
   char option = 'N';
 
@@ -197,20 +181,38 @@ void EmployeeList::changeEmployee() {
     cin >> option;
     cin.ignore();
 
-    switch(toupper(option)) {
+    switch (toupper(option)) {
       case 'C':
         system("cls");
         cout << "Change  Employee" << endl << endl;
+        cout << "Employee Status (f)ull or (p)art time: ";
+        char _fullTime;
+        cin.get(_fullTime);
+        cin.ignore();
+
+        tmp = iter->second;
+
+        if ((tolower(_fullTime) == 'f')  && (! iter->second->isFullTime())) {
+          iter->second = new FullTimeEmployee(*tmp);
+          delete tmp;
+        } else if ((tolower(_fullTime) == 'p') && (iter->second->isFullTime())) {
+          iter->second = new PartTimeEmployee(*tmp);
+          delete tmp;
+        }
 
         iter->second->display();
         iter->second->populate();
         break;
-      case 'F': iter = employees.begin();
+
+      case 'F':
+        iter = employees.begin();
         break;
+
       case 'L':
         iter = employees.end();
         -- iter;
         break;
+
       case 'P':
         if (iter == employees.begin()) {
           iter = employees.end();
@@ -218,102 +220,134 @@ void EmployeeList::changeEmployee() {
 
         -- iter;
         break;
+
       case 'N':
         ++ iter;
 
         if (iter == employees.end()) {
           iter = employees.begin();
         }
+
         break;
-      case 'Q': option = 'Q'; break;
+
+      case 'Q':
+        option = 'Q';
+        break;
     }
   }
 }
 
-void EmployeeList::display() const {
+void EmployeeList::display() const
+{
   system("cls");
-  FullTimeEmployee* fullTime = 0;
   cout << "Display Employees" << endl << endl;
-  
+
   if (employees.empty()) {
     cout << "There are no employees in the list." << endl;
     return;
   }
-  
+
   map<string, Employee*>::const_iterator iter = employees.begin();
   char option = 'N';
-  
+
   while (option != 'Q') {
     system("cls");
     cout << "Display Employees" << endl << endl;
-    
-    fullTime = dynamic_cast<FullTimeEmployee*>(iter->second);
-    if(fullTime)
-    {
-      fullTime->display();
-    }
-    else
-    {
-      iter->second->display();
-    }
-    
+
+    iter->second->display();
+
     cout << endl
-    << endl
-    << "** (F)irst * (L)ast * (P)revious * (N)ext * (Q)uit ** ";
-    
+         << endl
+         << "** (F)irst * (L)ast * (P)revious * (N)ext * (Q)uit ** ";
+
     cin >> option;
     cin.ignore();
-    
-    switch(toupper(option)) {
-      case 'F': iter = employees.begin();
+
+    switch (toupper(option)) {
+      case 'F':
+        iter = employees.begin();
         break;
+
       case 'L':
         iter = employees.end();
         -- iter;
         break;
+
       case 'P':
         if (iter == employees.begin()) {
           iter = employees.end();
         }
-        
+
         -- iter;
         break;
+
       case 'N':
         ++ iter;
-        
+
         if (iter == employees.end()) {
           iter = employees.begin();
         }
+
         break;
-      case 'Q': option = 'Q'; break;
+
+      case 'Q':
+        option = 'Q';
+        break;
     }
   }
 }
 
-Employee* EmployeeList::find(const std::string& _employeeId) {
+map<string, FullTimeEmployee*> EmployeeList::filterFullTimeEmployees() const
+{
+  map<string, FullTimeEmployee*> ftes;
+
+  map<string, Employee*>::const_iterator iter = employees.begin();
+
+  while (iter != employees.end()) {
+    if (iter->second->isFullTime()) {
+      FullTimeEmployee* fte = dynamic_cast<FullTimeEmployee*>(iter->second);
+
+      if (fte) {
+        ftes.insert(pair<string, FullTimeEmployee*>(iter->second->getEmployeeId(), fte));
+      }
+    }
+
+    iter++;
+  }
+
+  return ftes;
+}
+
+Employee* EmployeeList::find(const std::string& _employeeId)
+{
   Employee* _employee = NULL;
-    
+
   map<string, Employee*>::iterator iter;
   iter = employees.find(_employeeId);
-    
+
   if (iter != employees.end()) {
     _employee = iter->second;
   }
-    
+
   return(_employee);
 }
 
-bool EmployeeList::hasFullTimeEmployee() const {
+bool EmployeeList::hasFullTimeEmployee() const
+{
   bool hasFullTimeEmployee = false;
 
-  for(map<string, Employee*>::const_iterator iter = employees.begin(); iter != employees.end(); iter++) {
-    hasFullTimeEmployee = (hasFullTimeEmployee || iter->second->isFullTime());
+  map<string, Employee*>::const_iterator iter = employees.begin();
+
+  while (! hasFullTimeEmployee && iter != employees.end()) {
+    hasFullTimeEmployee = (iter->second->isFullTime());
+    iter++;
   }
-  
+
   return hasFullTimeEmployee;
 }
 
-void EmployeeList::removeEmployee() {
+void EmployeeList::removeEmployee()
+{
   system("cls");
   cout << "Remove Employee" << endl << endl;
 
@@ -324,6 +358,7 @@ void EmployeeList::removeEmployee() {
   while (option != 'Q') {
     system("cls");
     cout << "Remove Employee" << endl << endl;
+
     if (employees.empty()) {
       cout << "There are no employees in the system." << endl << endl;
 
@@ -338,18 +373,23 @@ void EmployeeList::removeEmployee() {
       cin >> option;
       cin.ignore();
     }
-    switch(toupper(option)) {
+
+    switch (toupper(option)) {
       case 'R':
         delete iter->second;
         employees.erase(id);
         iter = employees.begin();
         break;
-      case 'F': iter = employees.begin();
+
+      case 'F':
+        iter = employees.begin();
         break;
+
       case 'L':
         iter = employees.end();
         -- iter;
         break;
+
       case 'P':
         if (iter == employees.begin()) {
           iter = employees.end();
@@ -357,156 +397,151 @@ void EmployeeList::removeEmployee() {
 
         -- iter;
         break;
+
       case 'N':
         ++ iter;
 
         if (iter == employees.end()) {
           iter = employees.begin();
         }
+
         break;
-      case 'Q': option = 'Q'; break;
+
+      case 'Q':
+        option = 'Q';
+        break;
     }
   }
 }
 
-Employee* EmployeeList::selectEmployee() {
+Employee* EmployeeList::selectEmployee()
+{
   system("cls");
   cout << "Select Employee" << endl << endl;
-  
+
   if (employees.empty()) {
     cout << "There are no employees in the system." << endl;
     return 0;
   }
-  
+
   map<string, Employee*>::iterator iter = employees.begin();
   char option = 'N';
-  
+
   Employee* ePtr = NULL;
+
   while (option != 'Q') {
     system("cls");
     cout << "Select Employee" << endl << endl;
-    
+
     iter->second->display();
-    
+
     cout << endl
-    << endl
-    << "** (F)irst * (L)ast * (P)revious * (N)ext * (S)elect * (Q)uit ** ";
-    
+         << endl
+         << "** (F)irst * (L)ast * (P)revious * (N)ext * (S)elect * (Q)uit ** ";
+
     cin >> option;
     cin.ignore();
-    
-    switch(toupper(option)) {
+
+    switch (toupper(option)) {
       case 'S':
         system("cls");
         cout << "Select Employee\n\n"
-        << "You have selected the following employee from the employee list:"
-        << endl << endl;
-        
+             << "You have selected the following employee from the employee list:"
+             << endl << endl;
+
         iter->second->display();
-        
+
         cout << "If this is correct please type (Y)es or any other key to continue."
-        << endl << endl;
-        
+             << endl << endl;
+
         cin >> option;
         cin.ignore();
-        
+
         if (toupper(option) == 'Y') {
           ePtr = iter->second;
           option = 'Q';
         }
+
         break;
-      case 'F': iter = employees.begin();
+
+      case 'F':
+        iter = employees.begin();
         break;
+
       case 'L':
         iter = employees.end();
         -- iter;
         break;
+
       case 'P':
         if (iter == employees.begin()) {
           iter = employees.end();
         }
-        
+
         -- iter;
         break;
+
       case 'N':
         ++ iter;
-        
+
         if (iter == employees.end()) {
           iter = employees.begin();
         }
+
         break;
-      case 'Q': option = 'Q';
+
+      case 'Q':
+        option = 'Q';
     }
   }
-  
+
   return ePtr;
 }
 
 void EmployeeList::startup()
 {
   ifstream isEmployees("employees.txt");
-  if(isEmployees)
-  {
+
+  if (isEmployees) {
     Employee* emp;
     int employeeRecs;
     std::string _fullTime;
-    
+
     isEmployees >> employeeRecs;
     isEmployees.ignore();
-    
+
     for (int rec = 0; rec < employeeRecs; ++rec) {
       getline(isEmployees, _fullTime, '|');
-      if(_fullTime == "1")
-      {
-        emp = new FullTimeEmployee;
-        FullTimeEmployee* fullTime = dynamic_cast<FullTimeEmployee*>(emp);
-        if(fullTime)
-        {
-          fullTime->startup(isEmployees);
-        }
-      }
-      else
-      {
+
+      if (_fullTime == "F") {
+        cout << "FullTimeEmployee()" << _fullTime << endl;
+        cin.ignore();
+        emp = new FullTimeEmployee();
+      } else {
+        cout << "ParTimeEmployee()" << _fullTime << endl;
+        cin.ignore();
         emp = new PartTimeEmployee;
-        PartTimeEmployee* partTime = dynamic_cast<PartTimeEmployee*>(emp);
-        if(partTime)
-        {
-          partTime->startup(isEmployees);
-        }
       }
-      
+
+      emp->startup(isEmployees);
       employees.insert(pair<string, Employee*>(emp->getEmployeeId(), emp));
     }
-    
+
     isEmployees.close();
   }
 }
 
 void EmployeeList::shutdown()
 {
-  FullTimeEmployee* fullTime = 0;
-  PartTimeEmployee* partTime = 0;
-
   ofstream osEmployees("employees.txt");
-  
+
   osEmployees << employees.size() << endl;
-  
+
   map<string, Employee*>::const_iterator iter;
-  for(iter = employees.begin(); iter != employees.end(); ++ iter) {
-    fullTime = dynamic_cast<FullTimeEmployee*>(iter->second);
-    if(fullTime)
-    {
-      fullTime->shutdown(osEmployees);
-    }
-    else
-    {
-      partTime = dynamic_cast<PartTimeEmployee*>(iter->second);
-      if(partTime)
-      {
-        partTime->shutdown(osEmployees);
-      }
-    }
+
+  for (iter = employees.begin(); iter != employees.end(); ++ iter) {
+    iter->second->shutdown(osEmployees);
   }
-  
+
   osEmployees.close();
 }
