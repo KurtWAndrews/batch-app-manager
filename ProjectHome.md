@@ -1,0 +1,1 @@
+This application is being developed for educational purposes, as a term project for a graduate class in Agile Software Development at Webster University.  The application is designed to manage data about developers, teams applications and their components to provide event notification and environment defaults for batch applications

@@ -1,0 +1,11 @@
+
+
+# Introduction #
+
+This page documents the SAMS Model each of the diagrams in the model can be viewed by clicking the links below.
+
+# Diagrams #
+
+|Model Diagram|Notes|
+|:------------|:----|
+|ClassDiagram|The design for the current itteration (ITERATION 2) is not complete and should not be considered final or even correct at this time. The current diagram serves as a reference for discussion.|

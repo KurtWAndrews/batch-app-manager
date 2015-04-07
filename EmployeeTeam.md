@@ -1,0 +1,3 @@
+# Employee and Team Classes #
+
+![http://batch-app-manager.googlecode.com/svn/SAMS/trunk/project_documents/SAMSModel.jpeg](http://batch-app-manager.googlecode.com/svn/SAMS/trunk/project_documents/SAMSModel.jpeg)
