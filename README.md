@@ -1,5 +1,5 @@
 # batch-app-manager
-Automatically exported from code.google.com/p/batch-app-manager
+Automatically exported from code.google.com/p/batch-app-manager.
 
 The SAS Application Management System will allow developers and managers maintain data about developers, projects, teams, 
 programs that will be used to configure paging, notification, and environment defaults for applications running in A SAS 
